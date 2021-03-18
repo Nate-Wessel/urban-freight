@@ -3,10 +3,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-	entry: './src/index.jsx',
+	entry: {
+		avoid: './src/avoid.jsx',
+		shift: './src/shift.jsx'
+	},
 	output: {
 		path: path.resolve(__dirname, 'build'),
-		filename: 'main.[contenthash].js',
+		filename: '[name].[contenthash].js',
 		chunkFilename: 'chunk.[contenthash].js'
 	},
 	module: {
@@ -44,7 +47,15 @@ module.exports = {
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			template:'./src/index.html',
-			publicPath:'/urban-freight/build'
+			publicPath:'/urban-freight/build',
+			chunks:['avoid'],
+			filename:'avoid/index.html'
+		}),
+		new HtmlWebpackPlugin({
+			template:'./src/index.html',
+			publicPath:'/urban-freight/build',
+			chunks:['shift'],
+			filename:'shift/index.html'
 		})
 	],
 	resolve: {
