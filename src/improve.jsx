@@ -7,7 +7,7 @@ render( <App/>, document.querySelector('#root') )
 function App(props){
 	return (
 		<div>
-			<h1>This is the AVOID map</h1>
+			<h1>This is the IMPROVE map</h1>
 			<Map/>
 		</div>
 	)

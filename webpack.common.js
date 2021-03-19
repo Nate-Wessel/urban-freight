@@ -5,7 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
 	entry: {
 		avoid: './src/avoid.jsx',
-		shift: './src/shift.jsx'
+		shift: './src/shift.jsx',
+		improve: './src/improve.jsx'
 	},
 	output: {
 		path: path.resolve(__dirname, 'build'),
@@ -56,6 +57,12 @@ module.exports = {
 			publicPath:'/urban-freight/build',
 			chunks:['shift'],
 			filename:'shift/index.html'
+		}),
+		new HtmlWebpackPlugin({
+			template:'./src/index.html',
+			publicPath:'/urban-freight/build',
+			chunks:['improve'],
+			filename:'improve/index.html'
 		})
 	],
 	resolve: {
