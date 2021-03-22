@@ -4,9 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
 	entry: {
-		avoid: './src/index.jsx',
-		shift: './src/index.jsx',
-		improve: './src/index.jsx'
+		avoid: './src/avoid.jsx',
+		shift: './src/shift.jsx',
+		improve: './src/improve.jsx'
 	},
 	output: {
 		path: path.resolve(__dirname, 'build'),
@@ -47,20 +47,20 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
-			template:'./src/entrypoints/avoid.html',
-			publicPath:'../',
+			template:'./src/index.html',
+			publicPath:'/urban-freight/build',
 			chunks:['avoid'],
 			filename:'avoid/index.html'
 		}),
 		new HtmlWebpackPlugin({
-			template:'./src/entrypoints/shift.html',
-			publicPath:'../',
+			template:'./src/index.html',
+			publicPath:'/urban-freight/build',
 			chunks:['shift'],
 			filename:'shift/index.html'
 		}),
 		new HtmlWebpackPlugin({
-			template:'./src/entrypoints/improve.html',
-			publicPath:'../',
+			template:'./src/index.html',
+			publicPath:'/urban-freight/build',
 			chunks:['improve'],
 			filename:'improve/index.html'
 		})
