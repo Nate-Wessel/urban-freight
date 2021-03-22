@@ -1,10 +1,7 @@
 import React from 'react'
-import { render } from 'react-dom'
 import Map from './Map'
 
-render( <App/>, document.querySelector('#root') )
-
-function App(props){
+export const Improve = () => {  	
 	return (
 		<div>
 			<h1>This is the IMPROVE map</h1>
