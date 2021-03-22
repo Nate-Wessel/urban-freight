@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { render } from 'react-dom';
 import "@babel/polyfill";
-import { Avoid } from './avoid'
-import { Shift } from './shift'
-import { Improve } from './improve'
+import { Avoid } from './Avoid'
+import { Shift } from './Shift'
+import { Improve } from './Improve'
 
 var reactElem;
 if (reactElem = document.querySelector('#avoid-container'))
-  render(<Avoid/>, reactElem);
+	render(<Avoid/>, reactElem);
 else if (reactElem = document.querySelector('#shift-container'))
-  render(<Shift/>, reactElem);  
+	render(<Shift/>, reactElem);  
 else if (reactElem = document.querySelector('#improve-container'))
-  render(<Improve/>, reactElem);   
+	render(<Improve/>, reactElem);  
