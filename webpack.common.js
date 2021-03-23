@@ -3,7 +3,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-	entry: './src/index.jsx',
+	entry: {
+		avoid: './src/avoid.jsx',
+		shift: './src/shift.jsx',
+		improve: './src/improve.jsx'
+	},
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: '[name].[contenthash].js',
@@ -43,15 +47,21 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
-			template:'src/entrypoints/avoid.html',
+			template:'./src/index.html',
+			publicPath:'/urban-freight/build',
+			chunks:['avoid'],
 			filename:'avoid/index.html'
 		}),
 		new HtmlWebpackPlugin({
-			template:'src/entrypoints/shift.html',
+			template:'./src/index.html',
+			publicPath:'/urban-freight/build',
+			chunks:['shift'],
 			filename:'shift/index.html'
 		}),
 		new HtmlWebpackPlugin({
-			template:'src/entrypoints/improve.html',
+			template:'./src/index.html',
+			publicPath:'/urban-freight/build',
+			chunks:['improve'],
 			filename:'improve/index.html'
 		})
 	],

@@ -5,9 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "build": "npm i && npx webpack --config webpack.prod.js",
-    "build-dev": "npm i && npx webpack --config webpack.dev.js",
-    "drupal-watch": "webpack --watch --progress --config webpack.drupal-config.js",
-    "drupal-build": "npm i && NODE_ENV=production webpack --config webpack.drupal-config.js"
+    "build-dev": "npm i && npx webpack --config webpack.dev.js"
   },
   "repository": {
     "type": "git",
@@ -32,7 +30,6 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",
     "d3-fetch": "^2.0.0",
     "leaflet": "^1.7.1",
     "react": "^17.0.1",
