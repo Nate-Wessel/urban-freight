@@ -3,5 +3,6 @@ const common = require('./webpack.common.js')
 
 module.exports = merge(common, {
 	mode: 'production',
-	watch: false
+	watch: false,
+	devtool: false
 } )

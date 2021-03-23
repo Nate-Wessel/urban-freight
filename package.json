@@ -4,10 +4,10 @@
   "description": "Maps for Pembina urban freight dashboard",
   "main": "src/index.js",
   "scripts": {
-    "build": "npm i && npx webpack --config webpack.prod.js",
-    "build-dev": "npm i && npx webpack --config webpack.dev.js",
-    "drupal-watch": "webpack --watch --progress --config webpack.drupal-config.js",
-    "drupal-build": "npm i && NODE_ENV=production webpack --config webpack.drupal-config.js"
+    "build": "npm i && webpack --config webpack.prod.js",
+    "build-dev": "npm i && webpack --config webpack.dev.js",
+    "drupal-watch": "npm i && webpack --config webpack.drupal.dev.js",
+    "drupal-build": "npm i && webpack --config webpack.drupal.prod.js"
   },
   "repository": {
     "type": "git",
