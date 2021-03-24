@@ -22,7 +22,7 @@ export default function(props){
 	return (
 		<div id="app">
 			<CityNav city={city} setCity={setCity}/>
-			<Map city={city} pradigm={props.paradigm}/>
+			<Map city={city} paradigm={props.paradigm}/>
 		</div>
 	)
 }
