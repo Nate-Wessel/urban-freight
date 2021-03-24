@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { MapContainer, useMapEvent, TileLayer, useMap } from 'react-leaflet'
+import ContextLayer from './ContextLayer'
 import './leaflet.css'
 import './map.css'
 
@@ -10,6 +11,7 @@ export default function(props){
 		<MapContainer center={props.city.center}
 			zoom={zoom} minZoom={3} maxZoom={18} zoomControl={false}>
 			<MapStateProbe setZoom={setZoom} center={props.city.center}/>
+			<ContextLayer city={props.city}/>
 			<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
 		</MapContainer>
 	)
