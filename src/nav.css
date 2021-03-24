@@ -1,0 +1,16 @@
+nav {
+	display: flex;
+}
+
+nav .city-link {
+	display: block;
+	margin: 5px;
+	padding: 10px;
+	border-radius: 5px;
+	background: rgba(0,0,0,0.1);
+}
+
+nav .city-link.active {
+	font-weight: bold;
+	background: rgba(0,0,0,0.2);
+}
