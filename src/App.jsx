@@ -17,12 +17,26 @@ const cities = [
 	}
 ]
 
+const layers = [
+	{
+		name: 'Employment'
+	},
+	{
+		name: 'Population'
+	},
+	{
+		name: 'Landuse'
+	}
+]
+
 export default function(props){
 	const [ city, setCity ] = useState(cities[0])
+	const [ baseLayer, setBaseLayer ] = useState(layers[0])
 	return (
 		<div id="app">
 			<CityNav city={city} setCity={setCity}/>
-			<Map city={city} paradigm={props.paradigm}/>
+			<LayerNav layer={baseLayer} setLayer={setBaseLayer}/>
+			<Map city={city} baseLayer={baseLayer} paradigm={props.paradigm}/>
 		</div>
 	)
 }
@@ -36,6 +50,22 @@ function CityNav(props){
 				return (
 					<div key={i} className={cls} onClick={click}>
 						{c.name}
+					</div>
+				)
+			} ) }
+		</nav>
+	)
+}
+
+function LayerNav(props){
+	return (
+		<nav>
+			{ layers.map( (l,i) => {
+				let cls = 'layer-link' + (props.layer == l ? ' active' : '')
+				function click(e){ props.setLayer(layers[i]) }
+				return (
+					<div key={i} className={cls} onClick={click}>
+						{l.name}
 					</div>
 				)
 			} ) }
