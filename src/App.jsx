@@ -31,12 +31,12 @@ const layers = [
 
 export default function(props){
 	const [ city, setCity ] = useState(cities[0])
-	const [ baseLayer, setBaseLayer ] = useState(layers[0])
+	const [ layer, setLayer ] = useState(layers[0])
 	return (
 		<div id="app">
 			<CityNav city={city} setCity={setCity}/>
-			<LayerNav layer={baseLayer} setLayer={setBaseLayer}/>
-			<Map city={city} baseLayer={baseLayer} paradigm={props.paradigm}/>
+			<LayerNav layer={layer} setLayer={setLayer}/>
+			<Map city={city} layer={layer} paradigm={props.paradigm}/>
 		</div>
 	)
 }

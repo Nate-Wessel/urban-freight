@@ -11,7 +11,7 @@ export default function(props){
 		<MapContainer center={props.city.center}
 			zoom={zoom} minZoom={3} maxZoom={18} zoomControl={false}>
 			<MapStateProbe setZoom={setZoom} center={props.city.center}/>
-			<ContextLayer city={props.city}/>
+			<ContextLayer city={props.city} layer={props.layer}/>
 			<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
 		</MapContainer>
 	)
