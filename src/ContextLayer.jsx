@@ -16,41 +16,56 @@ const popDensity = scalePow()
 
 const sources = {
 	Toronto: {
-		DAs: require('./data/Toronto/da_polygons.topojson' )
+		DAs: require('./data/Toronto/da_polygons.topojson' ),
+		boundary: require('./data/Toronto/csd_boundary.topojson')
 	},
 	Vancouver: {
-		DAs: require('./data/Vancouver/da_polygons.topojson')
+		DAs: require('./data/Vancouver/da_polygons.topojson'),
+		boundary: require('./data/Vancouver/csd_boundary.topojson')
 	},
 	Edmonton: {
-		DAs: require('./data/Edmonton/da_polygons.topojson')
+		DAs: require('./data/Edmonton/da_polygons.topojson'),
+		boundary: require('./data/Edmonton/csd_boundary.topojson')
 	}
 }
 
 export default function(props){
 	if(props.layer.name == 'Landuse'){ return null }
-	
+	const [ boundary, setBoundary ] = useState(null)
 	const [ DAs, setDAs ] = useState({features:[]})
 	useEffect(()=>{
-		let src = sources[props.city.name].DAs
-		json(src).then( data => {
+		const cityData = sources[props.city.name]
+		json(cityData.DAs).then( data => {
 			setDAs( topo2geo(data,'da_polygons') )
+		} )
+		json(cityData.boundary).then( data => {
+			setBoundary( topo2geo(data,'csd_boundary').features[0] )
 		} )
 	},[props.city])
 	return (
-		<LayerGroup>{
-			DAs.features.map( da => {
-				let fill
-				if(props.layer.name == 'Employment'){
-					fill = empDensity(da.properties.density_employment)
-				}else{
-					fill = popDensity(da.properties.density_population)
-				}			
-				return (
-					<GeoJSON key={da.properties.dauid} 
-						data={da}
-						pathOptions={ {stroke:false, fillColor: fill} }/> 
-				)
-			} )
-		}</LayerGroup>
+		<LayerGroup>
+			{ boundary && 
+				<GeoJSON id="city-boundary"
+					data={boundary}
+					pathOptions={ {color:'red',fill:false} }/> 
+			}
+			<LayerGroup>
+				{
+					DAs.features.map( da => {
+						let fill
+						if(props.layer.name == 'Employment'){
+							fill = empDensity(da.properties.density_employment)
+						}else{
+							fill = popDensity(da.properties.density_population)
+						}			
+						return (
+							<GeoJSON key={da.properties.dauid} 
+								data={da}
+								pathOptions={ {stroke:false, fillColor: fill} }/> 
+						)
+					} )
+				}
+			</LayerGroup>
+		</LayerGroup>
 	)
 }
