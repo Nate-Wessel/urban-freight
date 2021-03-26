@@ -1,26 +1,27 @@
-import React, { useState } from 'react'
-import { MapContainer, useMapEvent, TileLayer } from 'react-leaflet'
+import React, { useState, useEffect } from 'react'
+import { MapContainer, useMapEvent, TileLayer, useMap } from 'react-leaflet'
+import ContextLayer from './ContextLayer'
 import './leaflet.css'
 import './map.css'
 
-const defaultCenter = [39.11065,-84.50524]
-
-export default function(){
+export default function(props){
 	// keep track of zoom-level here and pass as a prop
 	const [ zoom, setZoom ] = useState(12)
 	return (
-		<MapContainer center={defaultCenter}
-			zoom={zoom} minZoom={8} maxZoom={18} zoomControl={false}>
-			<MapStateProbe setZoom={setZoom}/>
-			<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+		<MapContainer center={props.city.center}
+			zoom={zoom} minZoom={3} maxZoom={18} zoomControl={false}>
+			<MapStateProbe setZoom={setZoom} center={props.city.center}/>
+			<ContextLayer city={props.city} layer={props.layer}/>
+			<TileLayer url="http://d.tile.stamen.com/toner-lite/{z}/{x}/{y}.png"/>
 		</MapContainer>
 	)
 }
 
 // this exists because map state can only be got within the MapContainer
 function MapStateProbe(props){
-	let map = useMapEvent('zoom', () => {
-		props.setZoom(map.getZoom())
-	})
-	return null	
+	const map = useMapEvent('zoom', () => props.setZoom( map.getZoom()) )
+	useEffect(()=>{
+		map.panTo(props.center)
+	},[props.center])
+	return null
 }

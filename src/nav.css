@@ -1,0 +1,21 @@
+#nav-tabs {
+	display: flex; 
+	justify-content: space-around;
+}
+
+#nav-tabs .tab-container {
+	display: flex;
+}
+
+#nav-tabs .tab-container .tab {
+	display: block;
+	margin:  0px 5px;
+	padding: 10px;
+	border-radius: 5px 5px 0 0;
+	background: rgba(0,0,0,0.05);
+}
+
+#nav-tabs .tab.active {
+	font-weight: bold;
+	background: rgba(0,0,0,0.15);
+}
