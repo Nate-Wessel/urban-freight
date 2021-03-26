@@ -18,15 +18,9 @@ const cities = [
 ]
 
 const layers = [
-	{
-		name: 'Employment'
-	},
-	{
-		name: 'Population'
-	},
-	{
-		name: 'Landuse'
-	}
+	{name: 'Employment'},
+	{name: 'Population'},
+	{name: 'Landuse'}
 ]
 
 export default function(props){
@@ -34,8 +28,10 @@ export default function(props){
 	const [ layer, setLayer ] = useState(layers[0])
 	return (
 		<div id="app">
-			<CityNav city={city} setCity={setCity}/>
-			<LayerNav layer={layer} setLayer={setLayer}/>
+			<div id="nav-tabs">
+				<CityNav city={city} setCity={setCity}/>
+				<LayerNav layer={layer} setLayer={setLayer}/>
+			</div>
 			<Map city={city} layer={layer} paradigm={props.paradigm}/>
 		</div>
 	)
@@ -43,9 +39,9 @@ export default function(props){
 
 function CityNav(props){
 	return (
-		<nav>
+		<div className="tab-container">
 			{ cities.map( (c,i) => {
-				let cls = 'city-link' + (props.city == c ? ' active' : '')
+				let cls = 'tab' + (props.city == c ? ' active' : '')
 				function click(e){ props.setCity(cities[i]) }
 				return (
 					<div key={i} className={cls} onClick={click}>
@@ -53,15 +49,15 @@ function CityNav(props){
 					</div>
 				)
 			} ) }
-		</nav>
+		</div>
 	)
 }
 
 function LayerNav(props){
 	return (
-		<nav>
+		<div className="tab-container">
 			{ layers.map( (l,i) => {
-				let cls = 'layer-link' + (props.layer == l ? ' active' : '')
+				let cls = 'tab' + (props.layer == l ? ' active' : '')
 				function click(e){ props.setLayer(layers[i]) }
 				return (
 					<div key={i} className={cls} onClick={click}>
@@ -69,6 +65,6 @@ function LayerNav(props){
 					</div>
 				)
 			} ) }
-		</nav>
+		</div>
 	)
 }
