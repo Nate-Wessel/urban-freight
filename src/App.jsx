@@ -3,9 +3,9 @@ import Map from './Map'
 import './nav.css'
 
 const cities = [
-	{ 
+	{
 		name: 'Toronto',
-		center: [43.65,-79.37]
+		center: [43.7,-79.37]
 	},
 	{
 		name: 'Vancouver',

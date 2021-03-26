@@ -5,14 +5,14 @@ import { json } from 'd3-fetch'
 import { scalePow } from 'd3-scale'
 
 const empDensity = scalePow()
-	.exponent(0.6)
-	.domain([0,10000])
-	.range(['rgba(0,0,0,0)','red'])
-	
+	.exponent(0.5)
+	.domain([0,50000])
+	.range(['white','#df9a31'])
+
 const popDensity = scalePow()
-	.exponent(0.6)
-	.domain([0,10000])
-	.range(['rgba(0,0,0,0)','red'])
+	.exponent(0.5)
+	.domain([0,20000])
+	.range(['white','#df9a31'])
 
 const sources = {
 	Toronto: {
@@ -44,12 +44,11 @@ export default function(props){
 	},[props.city])
 	return (
 		<LayerGroup>
-			{ boundary && 
+			{ boundary &&
 				<GeoJSON id="city-boundary"
 					data={boundary}
-					pathOptions={ {color:'red',fill:false} }/> 
+					pathOptions={ {color:'black',fill:false, weight: 1} }/>
 			}
-			<LayerGroup>
 				{
 					DAs.features.map( da => {
 						let fill
@@ -57,15 +56,14 @@ export default function(props){
 							fill = empDensity(da.properties.density_employment)
 						}else{
 							fill = popDensity(da.properties.density_population)
-						}			
+						}
 						return (
-							<GeoJSON key={da.properties.dauid} 
+							<GeoJSON key={da.properties.dauid}
 								data={da}
-								pathOptions={ {stroke:false, fillColor: fill} }/> 
+								pathOptions={ {stroke:true, fillColor: fill, color: "white", weight:0.5, fillOpacity:0.666, opacity:0.666} }/>
 						)
 					} )
 				}
-			</LayerGroup>
 		</LayerGroup>
 	)
 }
