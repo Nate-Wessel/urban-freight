@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { MapContainer, useMapEvent, TileLayer, useMap } from 'react-leaflet'
+import { MapContainer, useMapEvent, TileLayer, useMap, Pane } from 'react-leaflet'
 import ContextLayer from './ContextLayer'
 import './leaflet.css'
 import './map.css'
@@ -10,16 +10,12 @@ export default function(props){
 	return (
 		<MapContainer center={props.city.center}
 			zoom={zoom} minZoom={8} maxZoom={17} zoomControl={false}>
-
 			<MapStateProbe setZoom={setZoom} center={props.city.center}/>
-
+			<Pane name="tile-labels" style={{zIndex:450}}>
+				<TileLayer url="https://basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png"/>
+			</Pane>
 			<ContextLayer city={props.city} layer={props.layer}/>
-
-			<TileLayer url="https://basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"/>
-
-			<TileLayer url="https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png"
-			/>
-
+			<TileLayer url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"/>
 		</MapContainer>
 	)
 }

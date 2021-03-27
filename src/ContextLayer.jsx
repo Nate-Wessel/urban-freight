@@ -49,21 +49,21 @@ export default function(props){
 					data={boundary}
 					pathOptions={ {color:'black',fill:false, weight: 1} }/>
 			}
-				{
-					DAs.features.map( da => {
-						let fill
-						if(props.layer.name == 'Employment'){
-							fill = empDensity(da.properties.density_employment)
-						}else{
-							fill = popDensity(da.properties.density_population)
-						}
-						return (
-							<GeoJSON key={da.properties.dauid}
-								data={da}
-								pathOptions={ {stroke:true, fillColor: fill, color: "white", weight:0.5, fillOpacity:0.666, opacity:0.666} }/>
-						)
-					} )
-				}
+			{
+				DAs.features.map( da => {
+					let fill
+					if(props.layer.name == 'Employment'){
+						fill = empDensity(da.properties.density_employment)
+					}else{
+						fill = popDensity(da.properties.density_population)
+					}
+					return (
+						<GeoJSON key={da.properties.dauid}
+							data={da}
+							pathOptions={ {stroke:true, fillColor: fill, color: "white", weight:0.5, fillOpacity:0.666, opacity:0.666} }/>
+					)
+				} )
+			}
 		</LayerGroup>
 	)
 }
