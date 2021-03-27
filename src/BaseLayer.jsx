@@ -2,14 +2,19 @@ import React from 'react'
 import { LayerGroup } from 'react-leaflet'
 import DisseminationAreas from './DisseminationAreas'
 import CityBoundary from './CityBoundary'
+import Landuse from './Landuse'
 
 export default function(props){
-	// not yet supported
-	if(props.layer.name == 'Landuse'){ return null }
+	const { layer, city } = props
 	return (
 		<LayerGroup>
-			<CityBoundary city={props.city} layer={props.layer}/>
-			<DisseminationAreas city={props.city} layer={props.layer}/>
+			<CityBoundary city={city} layer={layer}/>
+			{ layer.name == 'Landuse' &&
+				<Landuse/>
+			}
+			{ layer.name != 'Landuse' &&
+				<DisseminationAreas city={city} layer={layer}/>
+			}
 		</LayerGroup>
 	)
 }
