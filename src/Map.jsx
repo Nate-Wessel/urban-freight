@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { MapContainer, useMapEvent, TileLayer, useMap, Pane } from 'react-leaflet'
-import ContextLayer from './ContextLayer'
+import BaseLayer from './BaseLayer'
 import './leaflet.css'
 import './map.css'
 
@@ -14,7 +14,7 @@ export default function(props){
 			<Pane name="tile-labels" style={{zIndex:450}}>
 				<TileLayer url="https://basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png"/>
 			</Pane>
-			<ContextLayer city={props.city} layer={props.layer}/>
+			<BaseLayer city={props.city} layer={props.layer}/>
 			<TileLayer url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"/>
 		</MapContainer>
 	)
