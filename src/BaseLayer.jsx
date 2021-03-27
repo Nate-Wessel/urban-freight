@@ -8,7 +8,7 @@ export default function(props){
 	if(props.layer.name == 'Landuse'){ return null }
 	return (
 		<LayerGroup>
-			<CityBoundary city={props.city}/>
+			<CityBoundary city={props.city} layer={props.layer}/>
 			<DisseminationAreas city={props.city} layer={props.layer}/>
 		</LayerGroup>
 	)

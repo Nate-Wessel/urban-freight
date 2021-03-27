@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { feature as topo2geo } from 'topojson-client'
-import { GeoJSON } from 'react-leaflet'
+import { Polygon } from 'react-leaflet'
+import { GeoJSON } from 'leaflet'
 import { json } from 'd3-fetch'
 
 const sources = {
@@ -17,9 +18,10 @@ export default function(props){
 		} )
 	},[props.city])
 	if( ! boundaryFeature ) return null;
+	let latLngs = GeoJSON.coordsToLatLngs(boundaryFeature.geometry.coordinates,1)
 	return (
-		<GeoJSON id="city-boundary"
-			data={boundaryFeature}
+		<Polygon id="city-boundary"
+			positions={latLngs}
 			pathOptions={ {color:'black', fill:false, weight: 1} }/>
 	)
 }
