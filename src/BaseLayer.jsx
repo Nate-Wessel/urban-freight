@@ -10,7 +10,7 @@ export default function(props){
 		<LayerGroup>
 			<CityBoundary city={city} layer={layer}/>
 			{ layer.name == 'Landuse' &&
-				<Landuse/>
+				<Landuse city={city}/>
 			}
 			{ layer.name != 'Landuse' &&
 				<DisseminationAreas city={city} layer={layer}/>
