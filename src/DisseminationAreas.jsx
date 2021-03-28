@@ -28,14 +28,14 @@ export default function(props){
 		} )
 	},[props.city])
 	if ( !DAs ) return null;
-	const [ fillFunc, fillProp ] = props.layer.name == 'Employment' ? 
-		[ empDensity, 'density_employment' ] : 
-		[ popDensity, 'density_population' ];
-	const staticOptions = { 
-		stroke:true, 
-		color: "white", 
-		weight:0.5, 
-		fillOpacity:0.666, 
+	const [ fillFunc, fillProp ] = props.layer.name == 'Employment' ?
+		[ empDensity, 'de' ] :
+		[ popDensity, 'dp' ];
+	const staticOptions = {
+		stroke:true,
+		color: "white",
+		weight:0.5,
+		fillOpacity:0.666,
 		opacity:0.666
 	}
 	return (

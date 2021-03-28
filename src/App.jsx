@@ -18,8 +18,8 @@ const cities = [
 ]
 
 const layers = [
-	{name: 'Employment'},
 	{name: 'Population'},
+	{name: 'Employment'},
 	{name: 'Landuse'}
 ]
 
