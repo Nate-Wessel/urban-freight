@@ -5,15 +5,15 @@ import './nav.css'
 const cities = [
 	{
 		name: 'Toronto',
-		center: [43.7,-79.37]
+		bounds: [[43.8588,-79.6495],[43.5774,-79.1098]]
 	},
 	{
 		name: 'Vancouver',
-		center: [49.26,-123.07]
+		bounds: [[49.3260,-123.2247],[49.1799,-122.9782]]
 	},
 	{
 		name: 'Edmonton',
-		center: [53.53,-113.5]
+		bounds: [[53.6914,-113.7373],[53.3948,-113.2787]]
 	}
 ]
 
