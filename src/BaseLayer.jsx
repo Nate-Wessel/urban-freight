@@ -1,5 +1,5 @@
 import React from 'react'
-import { LayerGroup } from 'react-leaflet'
+import { LayerGroup, Pane } from 'react-leaflet'
 import DisseminationAreas from './DisseminationAreas'
 import CityBoundary from './CityBoundary'
 import Landuse from './Landuse'
@@ -8,7 +8,9 @@ export default function(props){
 	const { layer, city } = props
 	return (
 		<LayerGroup>
-			<CityBoundary city={city} layer={layer}/>
+			<Pane name="city-border" style={{zIndex:440}}>
+				<CityBoundary city={city} layer={layer}/>
+			</Pane>
 			{ layer.name == 'Landuse' &&
 				<Landuse city={city}/>
 			}
