@@ -10,8 +10,8 @@ export default function(props){
 	const { city, layer } = props
 	return (
 		<MapContainer zoom={zoom} minZoom={10} maxZoom={16} zoomControl={false}>
-			<MapStateProbe 
-				setZoom={setZoom} 
+			<MapStateProbe
+				setZoom={setZoom}
 				bounds={city.bounds}/>
 			<Pane name="tile-labels" style={{zIndex:450}}>
 				<TileLayer url="https://basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png"/>
