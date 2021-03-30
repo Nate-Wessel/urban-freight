@@ -2,7 +2,7 @@ import React from 'react'
 import { empDensity, popDensity } from './DisseminationAreas'
 import './legend.css'
 
-const baseLayer = { 
+const baseLayer = {
 	Population: {
 		title: 'Population Density',
 		unit: 'people per square kilometer',
@@ -39,13 +39,13 @@ const baseLayer = {
 function landuseScale(value){
 	switch(value){
 		case 'green':
-			return 'green'
+			return '#daf8e8'
 		case 'industrial':
-			return 'orange'
+			return '#fecf92'
 		case 'retail':
-			return 'purple'
+			return '#c7c4fe'
 		case 'residential':
-			return 'pink'
+			return '#fbeef5'
 	}
 }
 
@@ -58,10 +58,10 @@ export default function(props){
 			{opts.unit && <p>{opts.unit}</p>}
 			{
 				opts.items.map( item => {
-					return ( 
+					return (
 						<div key={item.v} className="item">
-							<div className="swatch" 
-								style={ { backgroundColor: opts.scale(item.v) } }>						
+							<div className="swatch"
+								style={ { backgroundColor: opts.scale(item.v) } }>
 							</div>
 							<div className="label">{item.label}</div>
 						</div>
