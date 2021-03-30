@@ -12,13 +12,13 @@ const sources = {
 
 const empDensity = scalePow()
 	.exponent(0.5)
-	.domain([0,50000])
-	.range(['white','#df9a31'])
+	.domain([0,10000])
+	.range(['white','#f39b21'])
 
 const popDensity = scalePow()
 	.exponent(0.5)
-	.domain([0,20000])
-	.range(['white','#df9a31'])
+	.domain([0,10000])
+	.range(['white','#f39b21'])
 
 export default function(props){
 	const [ DAs, setDAs ] = useState(null)
@@ -35,8 +35,8 @@ export default function(props){
 		stroke:true,
 		color: "white",
 		weight:0.5,
-		fillOpacity:0.666,
-		opacity:0.666
+		fillOpacity:0.5,
+		opacity:0.8
 	}
 	return (
 		<LayerGroup>{
