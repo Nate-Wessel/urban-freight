@@ -10,17 +10,17 @@ const sources = {
 	Edmonton: require('./data/Edmonton/da_polygons.topojson')
 }
 
-const empDensity = scalePow()
+export const empDensity = scalePow()
 	.exponent(0.5)
 	.domain([0,50000])
 	.range(['white','#df9a31'])
 
-const popDensity = scalePow()
+export const popDensity = scalePow()
 	.exponent(0.5)
 	.domain([0,20000])
 	.range(['white','#df9a31'])
 
-export default function(props){
+export function DisseminationAreas(props){
 	const [ DAs, setDAs ] = useState(null)
 	useEffect(()=>{
 		json(sources[props.city.name]).then( data => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { LayerGroup, Pane } from 'react-leaflet'
-import DisseminationAreas from './DisseminationAreas'
+import { DisseminationAreas } from './DisseminationAreas'
 import CityBoundary from './CityBoundary'
 import Landuse from './Landuse'
 

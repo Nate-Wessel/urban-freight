@@ -1,0 +1,12 @@
+/*legend styling goes here*/
+
+.legend {}
+
+.legend .item {}
+
+.legend .item .swatch {
+	width: 20px;
+	height: 20px;
+}
+
+.legend .item .label {}
