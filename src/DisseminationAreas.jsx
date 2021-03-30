@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { feature as topo2geo } from 'topojson-client'
 import { LayerGroup, GeoJSON } from 'react-leaflet'
 import { json } from 'd3-fetch'
-import { scalePow } from 'd3-scale'
+import { scalePow, scaleThreshold } from 'd3-scale'
 
 const sources = {
 	Toronto: require('./data/Toronto/da_polygons.topojson' ),
@@ -10,15 +10,19 @@ const sources = {
 	Edmonton: require('./data/Edmonton/da_polygons.topojson')
 }
 
-export const empDensity = scalePow()
-	.exponent(0.5)
-	.domain([0,10000])
-	.range(['white','#f39b21'])
+// export const empDensity = scalePow()
+// 	.exponent(0.5)
+// 	.domain([0,10000])
+// 	.range(['white','#f39b21'])
 
-export const popDensity = scalePow()
-	.exponent(0.5)
-	.domain([0,10000])
-	.range(['white','#f39b21'])
+export const empDensity = scaleThreshold()
+    .domain([1000, 5000, 10000, 20000])
+    .range(['#fffcf7','#ffe6ba','#ffd285','#ffbb47','#ffa200'])
+
+export const popDensity = scaleThreshold()
+    .domain([1000, 5000, 10000, 20000])
+    .range(['#fffcf7','#ffe6ba','#ffd285','#ffbb47','#ffa200'])
+
 
 export function DisseminationAreas(props){
 	const [ DAs, setDAs ] = useState(null)

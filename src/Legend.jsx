@@ -5,21 +5,25 @@ import './legend.css'
 const baseLayer = {
 	Population: {
 		title: 'Population Density',
-		unit: 'people per square kilometer',
+		unit: '1000 people per square kilometer',
 		items: [
-			{v:5000,label:'5k'},
-			{v:10000,label:'10k'},
-			{v:15000,label:'15k'}
+			{v:12,label:'<1k'},
+			{v:4000,label:'1k-5k'},
+			{v:6000,label:'5k-10k'},
+			{v:12000,label:'10k-20k'},
+			{v:22000,label:'20k+'}
 		],
 		scale: popDensity
 	},
 	Employment: {
 		title: 'Employment Density',
-		unit: 'jobs per square kilometer',
+		unit: '1000 jobs per square kilometer',
 		items: [
-			{v:5000,label:'5k'},
-			{v:10000,label:'10k'},
-			{v:15000,label:'15k'}
+			{v:12,label:'<1k'},
+			{v:4000,label:'1k-5k'},
+			{v:6000,label:'5k-10k'},
+			{v:12000,label:'10k-20k'},
+			{v:22000,label:'20k+'}
 		],
 		scale: empDensity
 	},
@@ -30,7 +34,8 @@ const baseLayer = {
 			{v:'green',label:'Green Space'},
 			{v:'industrial',label:'Industrial'},
 			{v:'retail',label:'Retail'},
-			{v:'residential',label:'Residential'}
+			{v:'residential',label:'Residential'},
+			{v:'other',label:'Other'}
 		],
 		scale: landuseScale
 	}
@@ -46,6 +51,8 @@ function landuseScale(value){
 			return '#c7c4fe'
 		case 'residential':
 			return '#fbeef5'
+		case 'other':
+			return 'white'
 	}
 }
 
