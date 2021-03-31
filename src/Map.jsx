@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { MapContainer, useMapEvent, TileLayer, useMap, Pane } from 'react-leaflet'
+import { GestureHandling } from 'leaflet-gesture-handling'
+import 'leaflet-gesture-handling/dist/leaflet-gesture-handling.css'
+import * as L from 'leaflet'
 import BaseLayer from './BaseLayer'
 import OverLayer from './OverLayer'
 import Legend from './Legend'
-import './leaflet.css'
+import 'leaflet/dist/leaflet.css'
 import './map.css'
+
+L.Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
 
 const carto = 'https://basemaps.cartocdn.com'
 
@@ -19,9 +24,8 @@ export default function(props){
 		<div className={mapWrapperClass}>
 			<MapContainer 
 				zoom={zoom} minZoom={10} maxZoom={16} 
-				scrollWheelZoom={false}
-				maxBoundsViscosity={0.25}				
-				>
+				maxBoundsViscosity={0.25}
+				gestureHandling={true}>
 				<MapStateProbe
 					setZoom={setZoom}
 					bounds={city.bounds}/>
