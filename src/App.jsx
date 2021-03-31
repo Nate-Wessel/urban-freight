@@ -34,7 +34,7 @@ export default function(props){
 	const appInnerClass = "urban-freight-app-inner" + (fullscreen ? " fullscreen" : "");
 	return (
 		<div id="app" ref={target}>
-			<div class={appInnerClass}>
+			<div className={appInnerClass}>
 				<div id="nav-tabs">
 					<CityNav city={city} setCity={setCity}/>
 					<LayerNav layer={layer} setLayer={setLayer}/>
