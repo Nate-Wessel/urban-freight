@@ -12,12 +12,16 @@ export default function(props){
 	// keep track of zoom-level here and pass as a prop
 	const [ zoom, setZoom ] = useState(11)
 	const { city, layer, paradigm } = props
+	
+	const mapWrapperClass = 'map-wrapper active-city-' + city.name
+	
 	return (
-		<div>
+		<div className={mapWrapperClass}>
 			<MapContainer 
 				zoom={zoom} minZoom={10} maxZoom={16} 
 				scrollWheelZoom={false}
-				maxBoundsViscosity={0.25}>
+				maxBoundsViscosity={0.25}				
+				>
 				<MapStateProbe
 					setZoom={setZoom}
 					bounds={city.bounds}/>

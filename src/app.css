@@ -1,0 +1,32 @@
+/* Styling for global context of the app, inluding fullscreen toggling */
+
+.urban-freight-app-inner {
+  position: relative; 
+}
+.urban-freight-app-inner.fullscreen {
+	z-index: 1000;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: #fff;
+  padding: 5px;
+  overflow-y: scroll;
+}
+
+.fullscreen-toggler {
+  position: absolute;
+  top: 48px;
+  right: 10px;
+  font-family: sans-serif
+}
+.fullscreen-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.urban-freight-app-inner.fullscreen .fullscreen-toggler {
+ top: 53px;
+ right: 15px;
+}

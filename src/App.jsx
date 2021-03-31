@@ -1,6 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import Map from './Map'
 import './nav.css'
+import './app.css'
+import fullscreenIconClose from './images/fullscreen-1.svg'
+import fullscreenIconOpen from './images/fullscreen-2.svg'
 
 const cities = [
 	{
@@ -26,13 +29,19 @@ const layers = [
 export default function(props){
 	const [ city, setCity ] = useState(cities[0])
 	const [ layer, setLayer ] = useState(layers[0])
+	const [ fullscreen, setFullscreen ] = useState(false)
+	const target = useRef(null)
+	const appInnerClass = "urban-freight-app-inner" + (fullscreen ? " fullscreen" : "");
 	return (
-		<div id="app">
-			<div id="nav-tabs">
-				<CityNav city={city} setCity={setCity}/>
-				<LayerNav layer={layer} setLayer={setLayer}/>
-			</div>
-			<Map city={city} layer={layer} paradigm={props.paradigm}/>
+		<div id="app" ref={target}>
+			<div class={appInnerClass}>
+				<div id="nav-tabs">
+					<CityNav city={city} setCity={setCity}/>
+					<LayerNav layer={layer} setLayer={setLayer}/>
+				</div>
+				<Map city={city} layer={layer} paradigm={props.paradigm}/>
+				<FullscreenToggler fullscreen={fullscreen} setFullscreen={setFullscreen} target={target}/>			
+			</div> 
 		</div>
 	)
 }
@@ -41,7 +50,7 @@ function CityNav(props){
 	return (
 		<div className="tab-container">
 			{ cities.map( (c,i) => {
-				let cls = 'tab' + (props.city == c ? ' active' : '')
+				let cls = 'tab' + (props.city == c ? ' active' : '') + ' city-' + c.name
 				function click(e){ props.setCity(cities[i]) }
 				return (
 					<div key={i} className={cls} onClick={click}>
@@ -66,5 +75,23 @@ function LayerNav(props){
 				)
 			} ) }
 		</div>
+	)
+}
+
+function FullscreenToggler({fullscreen, setFullscreen, target}){
+	return (
+		<button 
+			className="fullscreen-toggler" 
+			onClick={() => {				
+				if (fullscreen)
+					target.current.scrollIntoView()
+				setFullscreen(!fullscreen)				
+			}
+		}>		
+			<img 
+				className= "fullscreen-icon" 
+				src ={fullscreen ? fullscreenIconClose : fullscreenIconOpen}
+			/>
+		</button>
 	)
 }

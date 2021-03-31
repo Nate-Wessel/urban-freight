@@ -1,4 +1,8 @@
 .leaflet-container {
 	height: 600px;
-	width: 100%;
+	width: calc(100% -2px);
+}
+
+.leaflet-top, .leaflet-bottom {  
+  z-index: 400; /* prevents zoom control overlaying admin toolbar on drupal site */
 }
