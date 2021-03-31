@@ -14,7 +14,10 @@ export default function(props){
 	const { city, layer, paradigm } = props
 	return (
 		<div>
-			<MapContainer zoom={zoom} minZoom={10} maxZoom={16} zoomControl={false}>
+			<MapContainer 
+				zoom={zoom} minZoom={10} maxZoom={16} 
+				scrollWheelZoom={false}
+				maxBoundsViscosity={0.25}>
 				<MapStateProbe
 					setZoom={setZoom}
 					bounds={city.bounds}/>
