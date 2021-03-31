@@ -10,11 +10,6 @@ const sources = {
 	Edmonton: require('./data/Edmonton/da_polygons.topojson')
 }
 
-// export const empDensity = scalePow()
-// 	.exponent(0.5)
-// 	.domain([0,10000])
-// 	.range(['white','#f39b21'])
-
 export const empDensity = scaleThreshold()
     .domain([1000, 5000, 10000, 20000])
     .range(['#fffcf7','#ffe6ba','#ffd285','#ffbb47','#ffa200'])
