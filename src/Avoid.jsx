@@ -1,43 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
+import { CircleMarker, LayerGroup } from 'react-leaflet'
+import { GeoJSON } from 'leaflet'
+import { scaleOrdinal } from 'd3-scale'
+
+const color = scaleOrdinal()
+	.domain(['Purol','Fedex','UPS','Penguin'])
+	.range(['red','green','blue','black'])
 
 const data = {
-	Toronto: {
-		fedex: require('./data/Toronto/fedex.topojson'),
-		purolator: require('./data/Toronto/puralator.topojson'),
-		penguin: require('./data/Toronto/penguin.topojson'),
-		ups: require('./data/Toronto/ups.topojson')
-	},
-	Edmonton: {
-		fedex: require('./data/Edmonton/fedex.topojson'),
-		purolator: require('./data/Edmonton/puralator.topojson'),
-		penguin: require('./data/Edmonton/penguin.topojson'),
-		ups: require('./data/Edmonton/ups.topojson')
-	},
-	Vancouver: {
-		fedex: require('./data/Vancouver/fedex.topojson'),
-		purolator: require('./data/Vancouver/puralator.topojson'),
-		penguin: require('./data/Vancouver/penguin.topojson'),
-		ups: require('./data/Vancouver/ups.topojson')
-	}
+	Toronto: require('./data/Toronto/pickup_pts.topojson'),
+	Edmonton: require('./data/Edmonton/pickup_pts.topojson'),
+	Vancouver: require('./data/Vancouver/pickup_pts.topojson')
 }
 
 export default function(props){
 	const { city } = props
-	const [ fedex, setFedex ] = useState(null)
-	const [ purolator, setPurolator ] = useState(null)
-	const [ penguin, setPenguin ] = useState(null)
-	const [ ups, setUps ] = useState(null)
+	const [ points, setPoints ] = useState([])
 	useEffect(()=>{
-		json(data[city.name].fedex) 
-			.then( d=> setFedex( topo2geo(d,'fedex') ) )
-		json(data[city.name].purolator) 
-			.then( d=> setPurolator( topo2geo(d,'puralator') ) ) // typo
-		json(data[city.name].penguin) 
-			.then( d=> setPenguin( topo2geo(d,'penguin') ) )
-		json(data[city.name].ups) 
-			.then( d=> setUps( topo2geo(d,'ups') ) )
+		json(data[city.name]).then( resp => {
+			setPoints( topo2geo(resp,'pickup_pts').features )
+		} )
 	},[city])
-	return null
+	let pointFeatures = points.map( (feat,i) => {
+		let ll = GeoJSON.coordsToLatLng(feat.geometry.coordinates)
+		return ( 
+			<CircleMarker key={`${feat.properties.type}/${city.name}/${i}`} 
+				center={ll} radius={5}
+				pathOptions={{'color':color(feat.properties.type)}}/>
+		)
+	} )
+	return <LayerGroup>{pointFeatures}</LayerGroup>
 }
