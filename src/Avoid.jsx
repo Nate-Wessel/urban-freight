@@ -26,7 +26,7 @@ export default function(props){
 	let pointFeatures = points.map( (feat,i) => {
 		let ll = GeoJSON.coordsToLatLng(feat.geometry.coordinates)
 		return ( 
-			<CircleMarker key={`fedex/${city.name}/${i}`} 
+			<CircleMarker key={`${feat.properties.type}/${city.name}/${i}`} 
 				center={ll} radius={5}
 				pathOptions={{'color':color(feat.properties.type)}}/>
 		)
