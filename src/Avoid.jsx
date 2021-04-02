@@ -4,6 +4,7 @@ import { feature as topo2geo } from 'topojson-client'
 import { CircleMarker, LayerGroup } from 'react-leaflet'
 import { GeoJSON } from 'leaflet'
 import { scaleOrdinal } from 'd3-scale'
+import Transit from './Transit'
 
 const color = scaleOrdinal()
 	.domain(['Purol','Fedex','UPS','Penguin'])
@@ -23,7 +24,7 @@ export default function(props){
 			setPoints( topo2geo(resp,'pickup_pts').features )
 		} )
 	},[city])
-	let pointFeatures = points.map( (feat,i) => {
+	let pickupFeatures = points.map( (feat,i) => {
 		let ll = GeoJSON.coordsToLatLng(feat.geometry.coordinates)
 		return ( 
 			<CircleMarker key={`${feat.properties.type}/${city.name}/${i}`} 
@@ -31,5 +32,10 @@ export default function(props){
 				pathOptions={{'color':color(feat.properties.type)}}/>
 		)
 	} )
-	return <LayerGroup>{pointFeatures}</LayerGroup>
+	return ( 
+		<LayerGroup>
+			{pickupFeatures}
+			<Transit city={city}/>
+		</LayerGroup>
+	)
 }
