@@ -61,6 +61,5 @@ module.exports = {
 	],
 	resolve: {
 		extensions: ['.js', '.jsx']
-	},
-	devtool: false
+	}
 }
