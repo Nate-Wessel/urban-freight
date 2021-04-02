@@ -5,6 +5,7 @@ import { CircleMarker, LayerGroup } from 'react-leaflet'
 import { geojson2leaflet } from './geojson2leaflet'
 import { scaleOrdinal } from 'd3-scale'
 import Transit from './Transit'
+import ParkingTime from './ParkingTime'
 
 const color = scaleOrdinal()
 	.domain(['Purol','Fedex','UPS','Penguin'])
@@ -36,6 +37,7 @@ export default function(props){
 		<LayerGroup>
 			{pickupFeatures}
 			<Transit city={city}/>
+			<ParkingTime city={city}/>
 		</LayerGroup>
 	)
 }
