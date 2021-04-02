@@ -8,7 +8,9 @@ export function geojson2leaflet(geometry){
 			return GeoJSON.coordsToLatLngs(geometry.coordinates,1)
 		case 'Point':
 			return GeoJSON.coordsToLatLng(geometry.coordinates)
+		case 'Polygon':
+			return GeoJSON.coordsToLatLngs(geometry.coordinates,1)
 		default:
-			console.warn('found',geometry)
+			console.warn('geometry type not yet handled:',geometry)
 	}
 }

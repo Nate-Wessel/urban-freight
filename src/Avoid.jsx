@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
 import { CircleMarker, LayerGroup } from 'react-leaflet'
-import { GeoJSON } from 'leaflet'
+import { geojson2leaflet } from './geojson2leaflet'
 import { scaleOrdinal } from 'd3-scale'
 import Transit from './Transit'
 
@@ -25,7 +25,7 @@ export default function(props){
 		} )
 	},[city])
 	let pickupFeatures = points.map( (feat,i) => {
-		let ll = GeoJSON.coordsToLatLng(feat.geometry.coordinates)
+		let ll = geojson2leaflet(feat.geometry)
 		return ( 
 			<CircleMarker key={`${feat.properties.type}/${city.name}/${i}`} 
 				center={ll} radius={5}
