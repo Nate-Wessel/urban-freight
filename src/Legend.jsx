@@ -58,6 +58,7 @@ function landuseScale(value){
 
 export default function(props){
 	const { layer } = props
+	if(layer.name == 'None') return null;
 	const opts = baseLayer[layer.name]
 	return (
 		<div className="legend baselayer">

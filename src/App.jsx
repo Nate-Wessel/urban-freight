@@ -21,6 +21,7 @@ const cities = [
 ]
 
 const layers = [
+	{name: 'None'},
 	{name: 'Population'},
 	{name: 'Employment'},
 	{name: 'Landuse'}

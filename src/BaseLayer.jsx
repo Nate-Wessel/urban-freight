@@ -4,6 +4,8 @@ import { DisseminationAreas } from './DisseminationAreas'
 import CityBoundary from './CityBoundary'
 import Landuse from './Landuse'
 
+const DaLayers = new Set(['Employment','Population'])
+
 export default function(props){
 	const { layer, city } = props
 	return (
@@ -14,7 +16,7 @@ export default function(props){
 			{ layer.name == 'Landuse' &&
 				<Landuse city={city}/>
 			}
-			{ layer.name != 'Landuse' &&
+			{ DaLayers.has(layer.name) &&
 				<DisseminationAreas city={city} layer={layer}/>
 			}
 		</LayerGroup>
