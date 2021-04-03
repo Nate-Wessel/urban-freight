@@ -7,8 +7,10 @@ import { geojson2leaflet } from '../geojson2leaflet'
 import Transit from './Transit'
 import ParkingTime from './ParkingTime'
 
+const operators = ['Purol','Fedex','UPS','Penguin']
+
 const color = scaleOrdinal()
-	.domain(['Purol','Fedex','UPS','Penguin'])
+	.domain(operators)
 	.range(['red','green','blue','black'])
 
 const data = {
@@ -25,19 +27,27 @@ export default function(props){
 			setPoints( topo2geo(resp,'pickup_pts').features )
 		} )
 	},[city])
-	let pickupFeatures = points.map( (feat,i) => {
-		let ll = geojson2leaflet(feat.geometry)
-		return ( 
-			<CircleMarker key={`${feat.properties.type}/${city.name}/${i}`} 
-				center={ll} radius={5}
-				pathOptions={{'color':color(feat.properties.type)}}/>
-		)
-	} )
 	return ( 
 		<LayerGroup>
-			{pickupFeatures}
+			{operators.map( operatorName => (
+				<PickUpPoints key={operatorName}
+					features={points.filter(f=>f.properties.type==operatorName)} 
+					color={color(operatorName)}/>
+			) )}
 			<Transit city={city}/>
 			<ParkingTime city={city}/>
 		</LayerGroup>
 	)
+}
+
+function PickUpPoints(props){
+	const { features, color } = props
+	return features.map( (feat,i) => {
+		let ll = geojson2leaflet(feat.geometry)
+		return ( 
+			<CircleMarker key={`${feat.properties.type}/${i}`} 
+				center={ll} radius={5}
+				pathOptions={{'color':color}}/>
+		)
+	} )
 }
