@@ -1,6 +1,11 @@
 import React from 'react'
+import { scaleOrdinal } from 'd3-scale'
 import { empDensity, popDensity } from './DisseminationAreas'
 import './legend.css'
+
+const landuseScale = scaleOrdinal()
+	.domain(['green','industrial','retail','residential','other'])
+	.range(['#daf8e8','#fecf92','#c7c4fe','#fbeef5','white'])
 
 const baseLayer = {
 	Population: {
@@ -38,21 +43,6 @@ const baseLayer = {
 			{v:'other',label:'Other'}
 		],
 		scale: landuseScale
-	}
-}
-
-function landuseScale(value){
-	switch(value){
-		case 'green':
-			return '#daf8e8'
-		case 'industrial':
-			return '#fecf92'
-		case 'retail':
-			return '#c7c4fe'
-		case 'residential':
-			return '#fbeef5'
-		case 'other':
-			return 'white'
 	}
 }
 
