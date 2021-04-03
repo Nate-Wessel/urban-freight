@@ -3,6 +3,7 @@ import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
 import { CircleMarker, LayerGroup, Polyline } from 'react-leaflet'
 import { geojson2leaflet } from '../geojson2leaflet'
+import { scalePow } from 'd3-scale'
 
 const data = {
 	Toronto: {
@@ -19,8 +20,17 @@ const data = {
 	}
 }
 
+// function of zoom
+const stopRadius = scalePow()
+	.exponent(2)
+	.domain([10,16])
+	.range([2,10])
+
+const lineStyle = {color:'darkgrey',weight:2}
+const stopStyle = {color:'darkgrey',weight:2,fillColor:'white',fillOpacity:0.8}
+
 export default function(props){
-	const { city } = props
+	const { city, zoom } = props
 	const [ lines, setLines ] = useState([])
 	const [ stops, setStops ] = useState([])
 	useEffect(()=>{
@@ -33,11 +43,14 @@ export default function(props){
 	},[city])
 	let stopFeatures = stops.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
-		return <CircleMarker key={i} center={ll} radius={5}/>
+		return (
+			<CircleMarker key={i} center={ll} 
+				radius={stopRadius(zoom)} pathOptions={stopStyle}/>
+		)
 	} )
 	let lineFeatures = lines.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
-		return <Polyline key={i} positions={ll} radius={5}/>
+		return <Polyline key={i} positions={ll} pathOptions={lineStyle}/>
 	} )
 	return ( 
 		<LayerGroup>

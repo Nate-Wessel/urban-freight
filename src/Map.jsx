@@ -33,12 +33,12 @@ export default function(props){
 					<TileLayer url={`${carto}/light_only_labels/{z}/{x}/{y}{r}.png`}/>
 				</Pane>
 				<Pane name="overlayer" style={{zIndex:449}}>
-					<OverLayer city={city} paradigm={paradigm}/>
+					<OverLayer city={city} paradigm={paradigm} zoom={zoom}/>
 				</Pane>
 				<BaseLayer city={city} layer={layer}/>
 				<TileLayer url={`${carto}/light_nolabels/{z}/{x}/{y}{r}.png`}/>
 			</MapContainer>
-			<Legend layer={layer}/>
+			<Legend layer={layer} zoom={zoom}/>
 		</div>
 	)
 }

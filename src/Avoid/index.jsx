@@ -20,7 +20,7 @@ const data = {
 }
 
 export default function(props){
-	const { city } = props
+	const { city, zoom } = props
 	const [ points, setPoints ] = useState([])
 	useEffect(()=>{
 		json(data[city.name]).then( resp => {
@@ -34,7 +34,7 @@ export default function(props){
 					features={points.filter(f=>f.properties.type==operatorName)} 
 					color={color(operatorName)}/>
 			) )}
-			<Transit city={city}/>
+			<Transit city={city} zoom={zoom}/>
 			<ParkingTime city={city}/>
 		</LayerGroup>
 	)
@@ -46,8 +46,8 @@ function PickUpPoints(props){
 		let ll = geojson2leaflet(feat.geometry)
 		return ( 
 			<CircleMarker key={`${feat.properties.type}/${i}`} 
-				center={ll} radius={5}
-				pathOptions={{'color':color}}/>
+				center={ll} radius={4}
+				pathOptions={{'color':color,weight:1}}/>
 		)
 	} )
 }

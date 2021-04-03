@@ -4,12 +4,12 @@ const Shift = lazy(()=>import('./Shift'))
 const Improve = lazy(()=>import('./Improve'))
 
 export default function (props){
-	const { city, paradigm } = props
+	const { city, paradigm, zoom } = props
 	switch(paradigm){
 		case 'avoid':
 			return (
 				<Suspense fallback={null}>
-					<Avoid city={city}/>
+					<Avoid city={city} zoom={zoom}/>
 				</Suspense>
 			)
 		case 'shift':
