@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
 import { CircleMarker, LayerGroup } from 'react-leaflet'
-import { geojson2leaflet } from './geojson2leaflet'
 import { scaleOrdinal } from 'd3-scale'
+import { geojson2leaflet } from '../geojson2leaflet'
 import Transit from './Transit'
 import ParkingTime from './ParkingTime'
 
@@ -12,9 +12,9 @@ const color = scaleOrdinal()
 	.range(['red','green','blue','black'])
 
 const data = {
-	Toronto: require('./data/Toronto/pickup_pts.topojson'),
-	Edmonton: require('./data/Edmonton/pickup_pts.topojson'),
-	Vancouver: require('./data/Vancouver/pickup_pts.topojson')
+	Toronto: require('../data/Toronto/pickup_pts.topojson'),
+	Edmonton: require('../data/Edmonton/pickup_pts.topojson'),
+	Vancouver: require('../data/Vancouver/pickup_pts.topojson')
 }
 
 export default function(props){

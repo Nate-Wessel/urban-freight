@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
 import { CircleMarker, LayerGroup, Polyline } from 'react-leaflet'
-import { geojson2leaflet } from './geojson2leaflet'
+import { geojson2leaflet } from '../geojson2leaflet'
 
 const data = {
 	Toronto: {
-		lines: require('./data/Toronto/transit_lines.topojson'),
-		stops: require('./data/Toronto/transit_stops.topojson'),
+		lines: require('../data/Toronto/transit_lines.topojson'),
+		stops: require('../data/Toronto/transit_stops.topojson'),
 	},
 	Edmonton: {
-		lines: require('./data/Edmonton/transit_lines.topojson'),
-		stops: require('./data/Edmonton/transit_stops.topojson'),
+		lines: require('../data/Edmonton/transit_lines.topojson'),
+		stops: require('../data/Edmonton/transit_stops.topojson'),
 	},
 	Vancouver: {
-		lines: require('./data/Vancouver/transit_lines.topojson'),
-		stops: require('./data/Vancouver/transit_stops.topojson'),
+		lines: require('../data/Vancouver/transit_lines.topojson'),
+		stops: require('../data/Vancouver/transit_stops.topojson'),
 	}
 }
 

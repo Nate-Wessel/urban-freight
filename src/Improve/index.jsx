@@ -10,9 +10,9 @@ const color = scaleOrdinal()
 	.range(['red','green','blue'])
 
 const data = {
-	Toronto: require('./data/Toronto/alt_fuel_stations.topojson'),
-	Edmonton: require('./data/Edmonton/alt_fuel_stations.topojson'),
-	Vancouver: require('./data/Vancouver/alt_fuel_stations.topojson')
+	Toronto: require('../data/Toronto/alt_fuel_stations.topojson'),
+	Edmonton: require('../data/Edmonton/alt_fuel_stations.topojson'),
+	Vancouver: require('../data/Vancouver/alt_fuel_stations.topojson')
 }
 
 export default function(props){

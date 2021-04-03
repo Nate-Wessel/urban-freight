@@ -5,9 +5,9 @@ import { json } from 'd3-fetch'
 import { scalePow, scaleThreshold } from 'd3-scale'
 
 const sources = {
-	Toronto: require('./data/Toronto/da_polygons.topojson' ),
-	Vancouver: require('./data/Vancouver/da_polygons.topojson'),
-	Edmonton: require('./data/Edmonton/da_polygons.topojson')
+	Toronto: require('../data/Toronto/da_polygons.topojson' ),
+	Vancouver: require('../data/Vancouver/da_polygons.topojson'),
+	Edmonton: require('../data/Edmonton/da_polygons.topojson')
 }
 
 export const empDensity = scaleThreshold()

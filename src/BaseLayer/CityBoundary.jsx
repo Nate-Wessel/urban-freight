@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { feature as topo2geo } from 'topojson-client'
 import { Polygon } from 'react-leaflet'
-import { geojson2leaflet } from './geojson2leaflet'
+import { geojson2leaflet } from '../geojson2leaflet'
 import { json } from 'd3-fetch'
 
 const sources = {
-	Toronto: require('./data/Toronto/csd_boundary.topojson'),
-	Vancouver: require('./data/Vancouver/csd_boundary.topojson'),
-	Edmonton: require('./data/Edmonton/csd_boundary.topojson')
+	Toronto: require('../data/Toronto/csd_boundary.topojson'),
+	Vancouver: require('../data/Vancouver/csd_boundary.topojson'),
+	Edmonton: require('../data/Edmonton/csd_boundary.topojson')
 }
 
 export default function(props){

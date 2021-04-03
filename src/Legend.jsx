@@ -1,6 +1,6 @@
 import React from 'react'
 import { scaleOrdinal } from 'd3-scale'
-import { empDensity, popDensity } from './DisseminationAreas'
+import { empDensity, popDensity } from './BaseLayer/DisseminationAreas'
 import './legend.css'
 
 const landuseScale = scaleOrdinal()
