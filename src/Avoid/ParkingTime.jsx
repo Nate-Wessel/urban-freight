@@ -17,12 +17,17 @@ export default function(props){
 	useEffect(()=>{
 		json(data[city.name]).then( resp => {
 			let feats = topo2geo(resp,'ignition').features
-			setContours( density(feats,city) )
+			let conts = density(feats,city)
+			conts.map( cont => cont.leafletGeom = geojson2leaflet(cont) )
+			setContours( conts )
 		} )
 	},[city])
 	let contourFeatures = contours.map( cont => {
-		let ll = geojson2leaflet(cont)
-		return <Polygon key={`${city}/${cont.value}`} positions={ll}/>
+		return (
+			<Polygon key={`${city}/${cont.value}`} 
+				positions={cont.leafletGeom}
+				pathOptions={{weight:1,color:'grey'}}/>
+		)
 	} )
 	return ( 
 		<LayerGroup>
