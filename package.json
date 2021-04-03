@@ -33,7 +33,9 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
+    "d3-contour": "^2.0.0",
     "d3-fetch": "^2.0.0",
+    "d3-geo": "^2.0.1",
     "d3-scale": "^3.2.3",
     "leaflet": "^1.7.1",
     "leaflet-gesture-handling": "^1.2.1",

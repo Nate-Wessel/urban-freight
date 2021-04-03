@@ -10,6 +10,8 @@ export function geojson2leaflet(geometry){
 			return GeoJSON.coordsToLatLng(geometry.coordinates)
 		case 'Polygon':
 			return GeoJSON.coordsToLatLngs(geometry.coordinates,1)
+		case 'MultiPolygon':
+			return GeoJSON.coordsToLatLngs(geometry.coordinates,2)
 		default:
 			console.warn('geometry type not yet handled:',geometry)
 	}

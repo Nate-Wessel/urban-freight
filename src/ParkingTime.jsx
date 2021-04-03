@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { Polygon, LayerGroup, useMap } from 'react-leaflet'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
+import { density } from './density.js'
+import { geojson2leaflet } from './geojson2leaflet'
 
 const data = {
 	Toronto: require('./data/Toronto/ignition.topojson'),
@@ -11,13 +14,23 @@ const data = {
 export default function(props){
 	const { city } = props
 	const [ points, setPoints ] = useState([])
+	const [ contours, setContours ] = useState([])
+	const map = useMap()
 	useEffect(()=>{
 		json(data[city.name]).then( resp => {
-			setPoints( topo2geo(resp,'ignition').features )
+			let feats = topo2geo(resp,'ignition').features
+			setPoints( feats )
+			setContours( density(feats,map) )
 		} )
 	},[city])
-	console.log(points)
+	let contourFeatures = contours.map( cont => {
+		let ll = geojson2leaflet(cont)
+		return <Polygon key={`${city}/${cont.value}`} positions={ll}/>
+	} )
 	return ( 
-		null
+		<LayerGroup>
+			{contourFeatures}
+		</LayerGroup>
 	)
 }
+
