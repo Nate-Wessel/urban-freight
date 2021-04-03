@@ -1,25 +1,34 @@
 import { contourDensity } from 'd3-contour'
-import { geoMercator } from 'd3-geo'
+import { geoMercator, geoDistance } from 'd3-geo'
+
+const size = [800,800]	
+const EarthRadius = 6360e3 //6360km
 
 // returns unprojected d3-contours
 // from a dataset [list] with lat/lon properties on entries
-export function density(points,LeafletMap){
-	let center = LeafletMap.getCenter()
-	let size = LeafletMap.getSize()
-	
-	const proj = geoMercator()
-		.rotate( [ -center.lng, -center.lat, 0 ] )
-		.translate( [ size.x/2, size.y/2 ] )
-		.scale(1.5e5)
-
-	const contours =	contourDensity()
-		.x( feat => proj(feat.geometry.coordinates)[0] )
-		.y( feat => proj(feat.geometry.coordinates)[1] )
-		.weight( feat => feat.properties.AvgTimeToPark )
-		.size([size.x,size.y])
-		// log2 scale
-		.thresholds([0.4,0.8,1.6,3.2,6.4,12.8])
-		.bandwidth(6)
+export function density(points,city){
+	let bndFeature = { 
+		type: 'MultiPoint', 
+		coordinates: [ // Leaflet uses [y,x] coordinates because ???
+			[ city.bounds[0][1], city.bounds[0][0] ],
+			[ city.bounds[1][1], city.bounds[1][0] ]
+		] 
+	}
+	// set projection to contain city bounds
+	const proj = geoMercator().fitSize( size, bndFeature )
+	// determine the scale factor to convert between pixels and meters
+	let pxLen = Math.sqrt(size[0]**2+size[1]**2)
+	let [ A, B ] = [ proj.invert([0,0]), proj.invert(size) ]
+	let mLen = geoDistance(A,B)*EarthRadius
+	let m2px = pxLen/mLen
+	points.map( f => [ f.x, f.y ] = proj(f.geometry.coordinates) )
+	const contours = contourDensity()
+		.x(f=>f.x).y(f=>f.y)
+		.weight( f => f.properties.AvgTimeToPark )
+		.size(size)
+		.thresholds(5)
+		.cellSize(1)
+		.bandwidth(400*m2px) // convert meters to pixels
 		( points )
 	contours.map(cont => {
 		cont.coordinates = unproject(cont.coordinates,proj) 
