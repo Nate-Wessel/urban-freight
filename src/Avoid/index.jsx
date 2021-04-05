@@ -11,7 +11,7 @@ const operators = ['Purol','Fedex','UPS','Penguin']
 
 const color = scaleOrdinal()
 	.domain(operators)
-	.range(['#fe5a5a','#b082e6','#613c27','#4096ff'])
+	.range(['#fe35da','#914ce1','#702f05','#0095fc'])
 
 const data = {
 	Toronto: require('../data/Toronto/pickup_pts.topojson'),
@@ -22,7 +22,7 @@ const data = {
 const pointRadius = scalePow()
 	.exponent(2)
 	.domain([10,16])
-	.range([2,10])
+	.range([3,9])
 
 const pointWeight = scalePow()
 		.exponent(2)
@@ -63,7 +63,7 @@ function PickUpPoints(props){
 	const { features, color, zoom } = props
 	let styleOptions = {
 		fillColor: color,
-		opacity: 1, 
+		opacity: 1,
 		fillOpacity: 1,
 		weight: pointWeight(zoom),
 		color: 'white'
