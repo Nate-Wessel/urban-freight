@@ -19,7 +19,7 @@ const carto = 'https://basemaps.cartocdn.com'
 const defaultDisplay = {
 	avoid: new Set(['transit','parking','UPS']),
 	shift: new Set(['bike-paths','bike-lanes','bike-share']),
-	improve: new Set(['CNG','LPG'])
+	improve: new Set(['ELEC','CNG','LPG'])
 }
 
 export default function(props){
@@ -29,8 +29,8 @@ export default function(props){
 	const [ displayed, setDisplayed ] = useState(defaultDisplay[paradigm])
 	return (
 		<div className={`map-wrapper active-city-${city.name}`}>
-			<MapContainer 
-				zoom={zoom} minZoom={10} maxZoom={16} 
+			<MapContainer
+				zoom={zoom} minZoom={10} maxZoom={16}
 				maxBoundsViscosity={0.25}
 				gestureHandling={true}>
 				<MapStateProbe
@@ -40,14 +40,14 @@ export default function(props){
 					<TileLayer url={`${carto}/light_only_labels/{z}/{x}/{y}{r}.png`}/>
 				</Pane>
 				<Pane name="overlayer" style={{zIndex:449}}>
-					<OverLayer city={city} 
+					<OverLayer city={city}
 						paradigm={paradigm} zoom={zoom} displayed={displayed}/>
 				</Pane>
 				<BaseLayer city={city} layer={layer}/>
 				<TileLayer url={`${carto}/light_nolabels/{z}/{x}/{y}{r}.png`}/>
 				<ScaleControl position="bottomleft"/>
 			</MapContainer>
-			<Legend layer={layer} paradigm={paradigm} zoom={zoom} 
+			<Legend layer={layer} paradigm={paradigm} zoom={zoom}
 				displayed={displayed} setDisplayed={setDisplayed}/>
 		</div>
 	)

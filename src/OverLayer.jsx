@@ -15,13 +15,13 @@ export default function (props){
 		case 'shift':
 			return (
 				<Suspense fallback={null}>
-					<Shift city={city} displayed={displayed}/>
+					<Shift city={city} zoom={zoom} displayed={displayed}/>
 				</Suspense>
 			)
 		case 'improve': 
 			return (
 				<Suspense fallback={null}>
-					<Improve city={city} displayed={displayed}/>
+					<Improve city={city} zoom={zoom} displayed={displayed}/>
 				</Suspense>
 			)
 	}

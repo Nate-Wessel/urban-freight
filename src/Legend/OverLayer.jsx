@@ -66,7 +66,7 @@ const paradigms = {
 			},
 			{
 				key: 'LPG',
-				label: 'Liquid Propane Gas?'
+				label: 'Propane'
 			}
 		]
 	}
@@ -92,7 +92,7 @@ export default function(props){
 				paradigms[paradigm].layers.map(l=>{
 					let activeStatus = displayed.has(l.key) ? 'active' : 'disabled'
 					return (
-						<div key={l.key} 
+						<div key={l.key}
 							className={`item clickable ${activeStatus}`}
 							onClick={(e)=>handleClick(l.key)}>
 							{l.label}

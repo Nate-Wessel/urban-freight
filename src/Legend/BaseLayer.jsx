@@ -9,25 +9,25 @@ const landuseScale = scaleOrdinal()
 const baseLayer = {
 	Population: {
 		title: 'Population Density',
-		unit: '1,000 people per square kilometer',
+		unit: '(1,000 people per square kilometer)',
 		items: [
-			{v:12,label:'<1k'},
-			{v:4000,label:'1k-5k'},
-			{v:6000,label:'5k-10k'},
-			{v:12000,label:'10k-20k'},
-			{v:22000,label:'20k+'}
+			{v:12,label:'<1'},
+			{v:4000,label:'1 to 5'},
+			{v:6000,label:'5 to 10'},
+			{v:12000,label:'10 to 20'},
+			{v:22000,label:'20+'}
 		],
 		scale: popDensity
 	},
 	Employment: {
 		title: 'Employment Density',
-		unit: '1,000 jobs per square kilometer',
+		unit: '(1,000 jobs per square kilometer)',
 		items: [
-			{v:12,label:'<1k'},
-			{v:4000,label:'1k-5k'},
-			{v:6000,label:'5k-10k'},
-			{v:12000,label:'10k-20k'},
-			{v:22000,label:'20k+'}
+			{v:12,label:'<1'},
+			{v:4000,label:'1 to 5'},
+			{v:6000,label:'5 to 10'},
+			{v:12000,label:'10 to 20'},
+			{v:22000,label:'20+'}
 		],
 		scale: empDensity
 	},
