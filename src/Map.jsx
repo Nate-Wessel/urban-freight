@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { 
-	MapContainer, 
-	useMapEvent, 
-	TileLayer, 
-	useMap, 
-	Pane,
-	ScaleControl
+	MapContainer, useMapEvent, TileLayer, 
+	useMap, Pane, ScaleControl
 } from 'react-leaflet'
 import { GestureHandling } from 'leaflet-gesture-handling'
 import 'leaflet-gesture-handling/dist/leaflet-gesture-handling.css'

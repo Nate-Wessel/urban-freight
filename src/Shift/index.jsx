@@ -17,12 +17,15 @@ export default function(props){
 	const [ bikeLanes, setBikeLanes ] = useState([])
 	const [ bikeRoutes, setBikeRoutes ] = useState([])
 	useEffect(()=>{
+		//types: [ "L", "P", "S", "T", "O" ]
+		let pathTypes = new Set(['P','T'])
+		let routeTypes = new Set(['S','O'])
 		json(data[city.name]).then( resp => {
 			let features = topo2geo(resp,'bike').features
-			//TODO handle types: [ "L", "P", "S", "T", "O" ]
-			setBikePaths(features.filter(f=>f.properties.type=='P'))
+				.filter(feat=>feat.geometry) // necessary because one feature is null
+			setBikePaths(features.filter(f=>pathTypes.has(f.properties.type)))
 			setBikeLanes(features.filter(f=>f.properties.type=='L'))
-			setBikeRoutes(features.filter(f=>f.properties.type=='S'))
+			setBikeRoutes(features.filter(f=>routeTypes.has(f.properties.type)))
 		} )
 	},[city])
 	return (
