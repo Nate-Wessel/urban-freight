@@ -5,7 +5,7 @@ import { scalePow } from 'd3-scale'
 
 const data = {
 	Toronto: 'https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information',
-	Vancouver: 'https://vancouver-gbfs.smoove.pro/gbfs/en/station_information.json'
+	Vancouver: require('../data/Vancouver/station_information.json')
 }
 
 // area ~= to capacity
@@ -16,9 +16,11 @@ export default function(props){
 	const [ stations, setStations ] = useState([])
 	useEffect(()=>{
 		if(city.name in data){
-			json(data[city.name]).then( resp => {
-				setStations(resp.data.stations)
-			} )
+			if(typeof data[city.name] == 'string'){
+				json(data[city.name]).then(resp=>setStations(resp.data.stations))
+			}else{
+				setStations(data[city.name].data.stations)
+			}
 		}else{
 			setStations([])
 		}
