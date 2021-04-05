@@ -41,21 +41,17 @@ export default function(props){
 			setLines( topo2geo(resp,'transit_lines').features )
 		} )
 	},[city])
+	if(lines.length == 0) return null;
 	let stopFeatures = stops.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
 		return (
-			<CircleMarker key={i} center={ll}
+			<CircleMarker key={`stop/${i}`} center={ll}
 				radius={stopRadius(zoom)} pathOptions={stopStyle}/>
 		)
 	} )
 	let lineFeatures = lines.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
-		return <Polyline key={i} positions={ll} pathOptions={lineStyle}/>
+		return <Polyline key={`line/${i}`} positions={ll} pathOptions={lineStyle}/>
 	} )
-	return (
-	<LayerGroup>
-		{lineFeatures}
-		{lineFeatures.length > 0 && stopFeatures}
-	</LayerGroup>
-	)
+	return [...lineFeatures,...stopFeatures]
 }
