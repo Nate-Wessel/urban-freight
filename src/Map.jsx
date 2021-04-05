@@ -3,10 +3,10 @@ import { MapContainer, useMapEvent, TileLayer, useMap, Pane } from 'react-leafle
 import { GestureHandling } from 'leaflet-gesture-handling'
 import 'leaflet-gesture-handling/dist/leaflet-gesture-handling.css'
 import * as L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 import BaseLayer from './BaseLayer'
 import OverLayer from './OverLayer'
 import Legend from './Legend'
-import 'leaflet/dist/leaflet.css'
 import './map.css'
 
 L.Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
@@ -16,12 +16,11 @@ const carto = 'https://basemaps.cartocdn.com'
 export default function(props){
 	// keep track of zoom-level here and pass as a prop
 	const [ zoom, setZoom ] = useState(11)
+	const [ displayed, setDisplayed ] = useState(new Set())
 	const { city, layer, paradigm } = props
 	
-	const mapWrapperClass = 'map-wrapper active-city-' + city.name
-	
 	return (
-		<div className={mapWrapperClass}>
+		<div className={`map-wrapper active-city-${city.name}`}>
 			<MapContainer 
 				zoom={zoom} minZoom={10} maxZoom={16} 
 				maxBoundsViscosity={0.25}
@@ -33,12 +32,14 @@ export default function(props){
 					<TileLayer url={`${carto}/light_only_labels/{z}/{x}/{y}{r}.png`}/>
 				</Pane>
 				<Pane name="overlayer" style={{zIndex:449}}>
-					<OverLayer city={city} paradigm={paradigm} zoom={zoom}/>
+					<OverLayer city={city} 
+						paradigm={paradigm} zoom={zoom} displayed={displayed}/>
 				</Pane>
 				<BaseLayer city={city} layer={layer}/>
 				<TileLayer url={`${carto}/light_nolabels/{z}/{x}/{y}{r}.png`}/>
 			</MapContainer>
-			<Legend layer={layer} paradigm={paradigm} zoom={zoom}/>
+			<Legend layer={layer} paradigm={paradigm} zoom={zoom} 
+				displayed={displayed} setDisplayed={setDisplayed}/>
 		</div>
 	)
 }

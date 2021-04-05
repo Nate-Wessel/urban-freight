@@ -20,7 +20,7 @@ const data = {
 }
 
 export default function(props){
-	const { city, zoom } = props
+	const { city, zoom, displayed } = props
 	const [ points, setPoints ] = useState([])
 	useEffect(()=>{
 		json(data[city.name]).then( resp => {
@@ -29,13 +29,21 @@ export default function(props){
 	},[city])
 	return ( 
 		<LayerGroup>
-			{operators.map( operatorName => (
-				<PickUpPoints key={operatorName}
-					features={points.filter(f=>f.properties.type==operatorName)} 
-					color={color(operatorName)}/>
-			) )}
-			<Transit city={city} zoom={zoom}/>
-			<ParkingTime city={city}/>
+			{operators.map( operatorKey => {
+				if(displayed.has(operatorKey)){
+					return (
+						<PickUpPoints key={operatorKey}
+							features={points.filter(f=>f.properties.type==operatorKey)} 
+							color={color(operatorKey)}/>
+					)
+				}
+			} ) }
+			{displayed.has('transit') && 
+				<Transit city={city} zoom={zoom}/>
+			}
+			{displayed.has('parking') && 
+				<ParkingTime city={city}/>
+			}
 		</LayerGroup>
 	)
 }

@@ -1,14 +1,16 @@
 /*legend styling goes here*/
 
-.legend {}
+#legend {}
 
-.legend .item {}
+#legend .item {}
 
-.legend .item .swatch {
+#legend .item .swatch {
 	width: 20px;
 	height: 20px;
 	border: solid 1px;
 	border-color: #d6d5d6
 }
 
-.legend .item .label {}
+#legend .item.disabled {
+	opacity: 0.5;
+}

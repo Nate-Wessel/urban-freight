@@ -4,10 +4,11 @@ import OverLayer from './OverLayer'
 import './legend.css'
 
 export default function(props){
-	const { layer, paradigm, zoom } = props
+	const { layer, paradigm, zoom, displayed, setDisplayed } = props
 	return (
 		<div id="legend">
-			<OverLayer paradigm={paradigm} zoom={zoom}/>
+			<OverLayer paradigm={paradigm} zoom={zoom} 
+				displayed={displayed} setDisplayed={setDisplayed}/>
 			<BaseLayer layer={layer}/>
 		</div>
 	)

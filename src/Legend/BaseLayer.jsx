@@ -50,7 +50,7 @@ export default function(props){
 	if(layer.name == 'None') return null;
 	const opts = baseLayer[layer.name]
 	return (
-		<div className="legend baselayer">
+		<div className="baselayer">
 			<h3>{opts.title}</h3>
 			{opts.unit && <p>{opts.unit}</p>}
 			{
