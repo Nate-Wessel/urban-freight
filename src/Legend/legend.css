@@ -14,3 +14,16 @@
 #legend .item.disabled {
 	opacity: 0.5;
 }
+
+#legend .overlayer .items {
+	display: flex;
+	justify-content: space-around;
+}
+
+#legend .overlayer .item {
+	padding: 5px;
+	border-radius: 3px;
+}
+#legend .overlayer .item:hover {
+	background-color: #F00A;
+}

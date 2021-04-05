@@ -1,6 +1,6 @@
 import React from 'react'
 
 export default function(props){
-	const { city } = props
+	const { city, displayed } = props
 	return null
 }
