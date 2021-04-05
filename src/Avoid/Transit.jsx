@@ -24,10 +24,10 @@ const data = {
 const stopRadius = scalePow()
 	.exponent(2)
 	.domain([10,16])
-	.range([2,10])
+	.range([2,8])
 
-const lineStyle = {color:'darkgrey',weight:2}
-const stopStyle = {color:'darkgrey',weight:2,fillColor:'white',fillOpacity:0.8}
+const lineStyle = {color:'black',weight:2, dashArray:[2,4]}
+const stopStyle = {color:'black',weight:2,fillColor:'white',fillOpacity:1}
 
 export default function(props){
 	const { city, zoom } = props
@@ -44,7 +44,7 @@ export default function(props){
 	let stopFeatures = stops.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
 		return (
-			<CircleMarker key={i} center={ll} 
+			<CircleMarker key={i} center={ll}
 				radius={stopRadius(zoom)} pathOptions={stopStyle}/>
 		)
 	} )
@@ -52,11 +52,10 @@ export default function(props){
 		let ll = geojson2leaflet(feat.geometry)
 		return <Polyline key={i} positions={ll} pathOptions={lineStyle}/>
 	} )
-	return ( 
-		<LayerGroup>
-			{stopFeatures}
-			{lineFeatures}
-		</LayerGroup>
+	return (
+	<LayerGroup>
+		{lineFeatures}
+		{lineFeatures.length > 0 && stopFeatures}
+	</LayerGroup>
 	)
 }
-

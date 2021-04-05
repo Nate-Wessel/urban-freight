@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
 import { CircleMarker, LayerGroup } from 'react-leaflet'
-import { scaleOrdinal } from 'd3-scale'
+import { scaleOrdinal, scalePow } from 'd3-scale'
 import { geojson2leaflet } from '../geojson2leaflet'
 import Transit from './Transit'
 import ParkingTime from './ParkingTime'
@@ -11,13 +11,23 @@ const operators = ['Purol','Fedex','UPS','Penguin']
 
 const color = scaleOrdinal()
 	.domain(operators)
-	.range(['red','green','blue','black'])
+	.range(['#fe5a5a','#b082e6','#613c27','#4096ff'])
 
 const data = {
 	Toronto: require('../data/Toronto/pickup_pts.topojson'),
 	Edmonton: require('../data/Edmonton/pickup_pts.topojson'),
 	Vancouver: require('../data/Vancouver/pickup_pts.topojson')
 }
+
+const pointRadius = scalePow()
+	.exponent(2)
+	.domain([10,16])
+	.range([2,10])
+
+const pointWeight = scalePow()
+		.exponent(2)
+		.domain([10,16])
+		.range([1,3])
 
 export default function(props){
 	const { city, zoom } = props
@@ -27,12 +37,15 @@ export default function(props){
 			setPoints( topo2geo(resp,'pickup_pts').features )
 		} )
 	},[city])
-	return ( 
+	return (
 		<LayerGroup>
 			{operators.map( operatorName => (
 				<PickUpPoints key={operatorName}
-					features={points.filter(f=>f.properties.type==operatorName)} 
-					color={color(operatorName)}/>
+					features={points.filter(f=>f.properties.type==operatorName)}
+					color={color(operatorName)}
+					radius={pointRadius(zoom)}
+					weight={pointWeight(zoom)}
+					/>
 			) )}
 			<Transit city={city} zoom={zoom}/>
 			<ParkingTime city={city}/>
@@ -41,13 +54,13 @@ export default function(props){
 }
 
 function PickUpPoints(props){
-	const { features, color } = props
+	const { features, color, radius, weight } = props
 	return features.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
-		return ( 
-			<CircleMarker key={`${feat.properties.type}/${i}`} 
-				center={ll} radius={4}
-				pathOptions={{'color':color,weight:1}}/>
+		return (
+			<CircleMarker key={`${feat.properties.type}/${i}`}
+				center={ll} radius={radius}
+				pathOptions={{'fillColor':color,weight:1, opacity: 1, fillOpacity:1,'weight':weight, color: 'white'}}/>
 		)
 	} )
 }
