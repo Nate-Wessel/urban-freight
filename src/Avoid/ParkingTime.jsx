@@ -22,16 +22,18 @@ export default function(props){
 			setContours( conts )
 		} )
 	},[city])
-	let contourFeatures = contours.map( cont => {
+	const style = {
+		weight: 1.5,
+		color: '#d90000',
+		fillOpacity: 0.09,
+		fillColor: 'grey',
+		opacity: 0.5
+	}
+	return contours.map( cont => {
 		return (
 			<Polygon key={`${city}/${cont.value}`}
 				positions={cont.leafletGeom}
-				pathOptions={{weight:1.5,color:'#d90000		',fillOpacity: 0.09, fillColor: 'grey',opacity: 0.5	}}/>
+				pathOptions={style}/>
 		)
 	} )
-	return (
-		<LayerGroup>
-			{contourFeatures}
-		</LayerGroup>
-	)
 }

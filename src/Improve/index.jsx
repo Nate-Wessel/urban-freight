@@ -22,9 +22,9 @@ const pointRadius = scalePow()
 	.range([3,9])
 
 const pointWeight = scalePow()
-		.exponent(2)
-		.domain([10,16])
-		.range([1,3])
+	.exponent(2)
+	.domain([10,16])
+	.range([1,3])
 
 
 export default function(props){
@@ -40,11 +40,10 @@ export default function(props){
 			{keys.map(key=>{
 				if(displayed.has(key)){
 					return (
-						<FuelingPoints
-						key={key}
-						color={color(key)}
-						features={points.filter(f=>f.properties.fuel_type_code==key)}
-						zoom={zoom}/>
+						<FuelingPoints key={key}
+							color={color(key)}
+							features={points.filter(f=>f.properties.fuel_type_code==key)}
+							zoom={zoom}/>
 					)
 				}
 			} ) }
