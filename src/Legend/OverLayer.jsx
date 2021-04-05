@@ -31,7 +31,28 @@ const paradigms = {
 		]
 	},
 	shift:{
-		layers:[]
+		layers:[
+			{
+				key:'bike-paths',
+				label:'Bike Paths'
+			},
+			{
+				key:'bike-lanes',
+				label:'Bike Lanes'
+			},
+			{
+				key:'bike-routes',
+				label:'Bike Routes'
+			},
+			{
+				key:'bike-share',
+				label:'Bike-share Stations'
+			},
+			{
+				key:'parking-lots',
+				label:'Parking Lots'
+			}
+		]
 	},
 	improve:{
 		layers:[

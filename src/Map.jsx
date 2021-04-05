@@ -15,7 +15,7 @@ const carto = 'https://basemaps.cartocdn.com'
 
 const defaultDisplay = {
 	avoid: new Set(['transit','parking','UPS']),
-	shift: new Set([]),
+	shift: new Set(['bike-paths','bike-lanes','bike-share']),
 	improve: new Set(['CNG','LPG'])
 }
 
