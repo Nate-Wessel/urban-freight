@@ -1,7 +1,6 @@
 import React from 'react'
 import { scaleOrdinal } from 'd3-scale'
-import { empDensity, popDensity } from './BaseLayer/DisseminationAreas'
-import './legend.css'
+import { empDensity, popDensity } from '../BaseLayer/DisseminationAreas'
 
 const landuseScale = scaleOrdinal()
 	.domain(['green','industrial','retail','residential','other'])

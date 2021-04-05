@@ -38,7 +38,7 @@ export default function(props){
 				<BaseLayer city={city} layer={layer}/>
 				<TileLayer url={`${carto}/light_nolabels/{z}/{x}/{y}{r}.png`}/>
 			</MapContainer>
-			<Legend layer={layer} zoom={zoom}/>
+			<Legend layer={layer} paradigm={paradigm} zoom={zoom}/>
 		</div>
 	)
 }
