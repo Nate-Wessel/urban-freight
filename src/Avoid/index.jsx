@@ -43,9 +43,7 @@ export default function(props){
 				<PickUpPoints key={operatorName}
 					features={points.filter(f=>f.properties.type==operatorName)}
 					color={color(operatorName)}
-					radius={pointRadius(zoom)}
-					weight={pointWeight(zoom)}
-					/>
+					zoom={zoom}/>
 			) )}
 			<Transit city={city} zoom={zoom}/>
 			<ParkingTime city={city}/>
@@ -54,13 +52,21 @@ export default function(props){
 }
 
 function PickUpPoints(props){
-	const { features, color, radius, weight } = props
+	const { features, color, zoom } = props
+	let styleOptions = {
+		fillColor: color,
+		weight: 1, 
+		opacity: 1, 
+		fillOpacity: 1,
+		weight: pointWeight(zoom), 
+		color: 'white'
+	}
 	return features.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
 		return (
 			<CircleMarker key={`${feat.properties.type}/${i}`}
-				center={ll} radius={radius}
-				pathOptions={{'fillColor':color,weight:1, opacity: 1, fillOpacity:1,'weight':weight, color: 'white'}}/>
+				center={ll} radius={pointRadius(zoom)}
+				pathOptions={styleOptions}/>
 		)
 	} )
 }
