@@ -13,12 +13,17 @@ L.Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
 
 const carto = 'https://basemaps.cartocdn.com'
 
+const defaultDisplay = {
+	avoid: new Set(['transit','parking','UPS']),
+	shift: new Set([]),
+	improve: new Set(['CNG','LPG'])
+}
+
 export default function(props){
+	const { city, layer, paradigm } = props
 	// keep track of zoom-level here and pass as a prop
 	const [ zoom, setZoom ] = useState(11)
-	const [ displayed, setDisplayed ] = useState(new Set())
-	const { city, layer, paradigm } = props
-	
+	const [ displayed, setDisplayed ] = useState(defaultDisplay[paradigm])
 	return (
 		<div className={`map-wrapper active-city-${city.name}`}>
 			<MapContainer 
