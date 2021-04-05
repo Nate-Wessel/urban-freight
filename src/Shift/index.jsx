@@ -1,15 +1,52 @@
 import React, { useState, useEffect } from 'react'
+import { json } from 'd3-fetch'
+import { feature as topo2geo } from 'topojson-client'
 import { LayerGroup } from 'react-leaflet'
 import ParkingLots from './ParkingLots'
 import BikeShare from './BikeShare'
 
+const data = {
+	Toronto: require('../data/Toronto/bike.topojson'),
+	Edmonton: require('../data/Edmonton/bike.topojson'),
+	Vancouver: require('../data/Vancouver/bike.topojson')
+}
+
 export default function(props){
 	const { city, displayed } = props
-	
+	const [ bikePaths, setBikePaths ] = useState([])
+	const [ bikeLanes, setBikeLanes ] = useState([])
+	const [ bikeRoutes, setBikeRoutes ] = useState([])
+	useEffect(()=>{
+		json(data[city.name]).then( resp => {
+			let features = topo2geo(resp,'bike').features
+			//TODO handle types: [ "L", "P", "S", "T", "O" ]
+			setBikePaths(features.filter(f=>f.properties.type=='P'))
+			setBikeLanes(features.filter(f=>f.properties.type=='L'))
+			setBikeRoutes(features.filter(f=>f.properties.type=='S'))
+		} )
+	},[city])
 	return (
 		<LayerGroup>
+			{displayed.has('bike-paths') && <BikePaths features={bikePaths}/>}
+			{displayed.has('bike-lanes') && <BikeLanes features={bikeLanes}/>}
+			{displayed.has('bike-routes') && <BikeRoutes features={bikeRoutes}/>}
 			{displayed.has('parking-lots') && <ParkingLots city={city}/>}
 			{displayed.has('bike-share') && <BikeShare city={city}/>}
 		</LayerGroup>
 	)
+}
+
+function BikePaths(props){
+	const { features } = props
+	return null
+}
+
+function BikeLanes(props){
+	const { features } = props
+	return null
+}
+
+function BikeRoutes(props){
+	const { features } = props
+	return null
 }
