@@ -43,16 +43,16 @@ export default function(props){
 				if(displayed.has(operatorKey)){
 					return (
 						<PickUpPoints key={operatorKey}
-							features={points.filter(f=>f.properties.type==operatorKey)} 
+							features={points.filter(f=>f.properties.type==operatorKey)}
 							color={color(operatorKey)}
 							zoom={zoom}/>
 					)
 				}
 			} ) }
-			{displayed.has('transit') && 
+			{displayed.has('transit') &&
 				<Transit city={city} zoom={zoom}/>
 			}
-			{displayed.has('parking') && 
+			{displayed.has('parking') &&
 				<ParkingTime city={city}/>
 			}
 		</LayerGroup>
@@ -63,10 +63,9 @@ function PickUpPoints(props){
 	const { features, color, zoom } = props
 	let styleOptions = {
 		fillColor: color,
-		weight: 1, 
 		opacity: 1, 
 		fillOpacity: 1,
-		weight: pointWeight(zoom), 
+		weight: pointWeight(zoom),
 		color: 'white'
 	}
 	return features.map( (feat,i) => {
