@@ -65,8 +65,8 @@ export default function(props){
 		}
 	}
 	return (
-		<div className="overlayer">
-			<h3>Data Layer</h3>
+		<div id="overlayer" className="layer">
+			<span className="title">Data Layers</span>
 			<div className="items">{
 				paradigms[paradigm].layers.map(l=>{
 					let activeStatus = displayed.has(l.key) ? 'active' : 'disabled'

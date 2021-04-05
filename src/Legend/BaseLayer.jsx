@@ -9,7 +9,7 @@ const landuseScale = scaleOrdinal()
 const baseLayer = {
 	Population: {
 		title: 'Population Density',
-		unit: '1000 people per square kilometer',
+		unit: '1,000 people per square kilometer',
 		items: [
 			{v:12,label:'<1k'},
 			{v:4000,label:'1k-5k'},
@@ -21,7 +21,7 @@ const baseLayer = {
 	},
 	Employment: {
 		title: 'Employment Density',
-		unit: '1000 jobs per square kilometer',
+		unit: '1,000 jobs per square kilometer',
 		items: [
 			{v:12,label:'<1k'},
 			{v:4000,label:'1k-5k'},
@@ -50,10 +50,10 @@ export default function(props){
 	if(layer.name == 'None') return null;
 	const opts = baseLayer[layer.name]
 	return (
-		<div className="baselayer">
-			<h3>{opts.title}</h3>
-			{opts.unit && <p>{opts.unit}</p>}
-			{
+		<div id="baselayer" className="layer">
+			<span className="title">{opts.title}</span>&nbsp;
+			{opts.unit && <span className="subtitle">{opts.unit}</span>}
+			<div className="items">{
 				opts.items.map( item => {
 					return (
 						<div key={item.v} className="item">
@@ -64,7 +64,7 @@ export default function(props){
 						</div>
 					)
 				} )
-			}
+			}</div>
 		</div>
 	)
 }

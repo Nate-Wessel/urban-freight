@@ -1,11 +1,18 @@
 /*legend styling goes here*/
 
-#legend {}
+#legend .title {
+	font-size: 1.3em;
+}
+#legend .subtitle {
+	font-style: italic;
+}
 
-#legend .item {}
+#legend .layer {
+	margin: 10px;
+}
 
 #legend .item .swatch {
-	width: 20px;
+	width: 100px;
 	height: 20px;
 	border: solid 1px;
 	border-color: #d6d5d6
@@ -13,17 +20,22 @@
 
 #legend .item.disabled {
 	opacity: 0.5;
+	order: 1;
 }
 
-#legend .overlayer .items {
+#legend .items {
 	display: flex;
-	justify-content: space-around;
 }
 
-#legend .overlayer .item {
+#legend .item {
 	padding: 5px;
+	margin: 5px;
 	border-radius: 3px;
 }
-#legend .overlayer .item:hover {
+#legend #overlayer .item:hover {
 	background-color: #F00A;
+}
+#legend #baselayer .item .label {
+	text-align: center;
+	margin-top: 3px;
 }
