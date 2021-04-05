@@ -34,14 +34,26 @@ const paradigms = {
 		layers:[]
 	},
 	improve:{
-		layers:[]
+		layers:[
+			{
+				key: 'ELEC',
+				label: 'Electric'
+			},
+			{
+				key: 'CNG',
+				label: 'Compressed Natural Gas'
+			},
+			{
+				key: 'LPG',
+				label: 'Liquid Propane Gas?'
+			}
+		]
 	}
 }
 
 export default function(props){
 	const { paradigm, zoom, displayed, setDisplayed } = props
 	function handleClick(key){
-		console.log(key)
 		if(displayed.has(key)){
 			let update = new Set([...displayed])
 			update.delete(key)
