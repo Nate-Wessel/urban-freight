@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { MapContainer, useMapEvent, TileLayer, useMap, Pane } from 'react-leaflet'
+import { 
+	MapContainer, 
+	useMapEvent, 
+	TileLayer, 
+	useMap, 
+	Pane,
+	ScaleControl
+} from 'react-leaflet'
 import { GestureHandling } from 'leaflet-gesture-handling'
 import 'leaflet-gesture-handling/dist/leaflet-gesture-handling.css'
 import * as L from 'leaflet'
@@ -42,6 +49,7 @@ export default function(props){
 				</Pane>
 				<BaseLayer city={city} layer={layer}/>
 				<TileLayer url={`${carto}/light_nolabels/{z}/{x}/{y}{r}.png`}/>
+				<ScaleControl position="bottomleft"/>
 			</MapContainer>
 			<Legend layer={layer} paradigm={paradigm} zoom={zoom} 
 				displayed={displayed} setDisplayed={setDisplayed}/>
