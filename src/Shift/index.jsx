@@ -18,13 +18,14 @@ export default function(props){
 	const [ bikeRoutes, setBikeRoutes ] = useState([])
 	useEffect(()=>{
 		//types: [ "L", "P", "S", "T", "O" ]
-		let pathTypes = new Set(['P','T'])
-		let routeTypes = new Set(['S','O'])
+		let pathTypes = new Set(['P','O'])
+		let routeTypes = new Set(['S'])
+		let laneTypes = new Set(['L','T'])
 		json(data[city.name]).then( resp => {
 			let features = topo2geo(resp,'bike').features
 				.filter(feat=>feat.geometry) // necessary because one feature is null
 			setBikePaths(features.filter(f=>pathTypes.has(f.properties.type)))
-			setBikeLanes(features.filter(f=>f.properties.type=='L'))
+			setBikeLanes(features.filter(f=>laneTypes.has(f.properties.type)))
 			setBikeRoutes(features.filter(f=>routeTypes.has(f.properties.type)))
 		} )
 	},[city])
@@ -42,11 +43,11 @@ export default function(props){
 import { Polyline } from 'react-leaflet'
 import { geojson2leaflet } from '../geojson2leaflet'
 
-const basicStyle = { weight: 1, color: 'grey' }
+const basicStyle = { weight: 1, color: '#00c479', dashArray:[1,3] }
 
 function BikePaths(props){
 	const { features } = props
-	const style = {...basicStyle,...{color:'green'}}
+	const style = {...basicStyle,...{color:'#00c479'}, weight: 2, dashArray:[0,0]}
 	return features.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
 		return <Polyline key={`path/${i}`} positions={ll} pathOptions={style}/>
@@ -55,7 +56,7 @@ function BikePaths(props){
 
 function BikeLanes(props){
 	const { features } = props
-	const style = {...basicStyle,...{color:'blue'}}
+	const style = {...basicStyle,...{color:'#00c479', weight: 1, dashArray:[0,0]}}
 	return features.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
 		return <Polyline key={`lane/${i}`} positions={ll} pathOptions={style}/>

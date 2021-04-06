@@ -12,8 +12,8 @@ const data = {
 
 const style = {
 	stroke: false,
-	fillColor:'red',
-	fillOpacity: 0.8
+	fillColor:'black',
+	fillOpacity: 0.666
 }
 
 export default function(props){
@@ -22,7 +22,7 @@ export default function(props){
 	useEffect(()=>{
 		json(data[city.name]).then( resp => {
 			setLots( topo2geo(resp,'lu_parking').features )
-		} ) 
+		} )
 	},[city])
 	return lots.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
