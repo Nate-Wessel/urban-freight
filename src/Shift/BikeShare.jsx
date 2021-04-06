@@ -9,7 +9,7 @@ const data = {
 }
 
 // area ~= to capacity
-const radius = scalePow().exponent(0.5).domain([5,40]).range([2,10])
+const radius = scalePow().exponent(0.5).domain([1,50]).range([1,5])
 
 export default function(props){
 	const { city } = props
@@ -28,9 +28,9 @@ export default function(props){
 	return stations.map( station => {
 		return (
 			<CircleMarker key={station.station_id}
-				center={[station.lat,station.lon]} 
+				center={[station.lat,station.lon]}
 				radius={radius(station.capacity)}
-				pathOptions={{weight:1}}>
+				pathOptions={{weight:1, color:"#008753", opacity: 0.8, fillOpacity: 0.3}}>
 				<Tooltip>
 					{`${station.name} - capacity: ${station.capacity}`}
 				</Tooltip>
