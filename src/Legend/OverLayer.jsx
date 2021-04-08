@@ -6,27 +6,32 @@ const paradigms = {
 		layers:[
 			{
 				key: 'Purol',
-				label: 'Purolator'
+				label: 'Purolator',
+				type: 'circle'
 			},
 			{
 				key: 'Fedex',
-				label: 'Fedex'
+				label: 'Fedex',
+				type: 'circle'
 			},
 			{
 				key: 'UPS',
-				label: 'UPS'
+				label: 'UPS',
+				type: 'circle'
 			},
 			{
 				key: 'Penguin',
-				label: 'Penguin'
+				label: 'Penguin',
+				type: 'circle'
 			},
 			{
 				key: 'transit',
-				label: 'Public Transit'
+				label: 'Public Transit',
+				type: 'img'
 			},
 			{
 				key: 'parking',
-				label: 'Parking Time'
+				label: 'img'
 			},
 		]
 	},
@@ -80,8 +85,7 @@ export default function(props){
 			update.delete(key)
 			setDisplayed(update)
 		}else{
-			let update = new Set([...displayed])
-			update.add(key)
+			let update = new Set([...displayed,key])
 			setDisplayed(update)
 		}
 	}
@@ -95,7 +99,9 @@ export default function(props){
 						<div key={l.key}
 							className={`item clickable ${activeStatus}`}
 							onClick={(e)=>handleClick(l.key)}>
-							{l.label}
+							<span className="icon">
+							</span>
+							<span className="label">{l.label}</span>
 						</div>
 					)
 				})
