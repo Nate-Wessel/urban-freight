@@ -1,7 +1,7 @@
 import React from 'react'
 import BaseLayer from './BaseLayer'
 import OverLayer from './OverLayer'
-import './legend.css'
+import './legend.less'
 
 export default function(props){
 	const { layer, paradigm, zoom, displayed, setDisplayed } = props

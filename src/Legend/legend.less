@@ -1,0 +1,46 @@
+/*legend styling goes here*/
+
+#legend {
+	.title {
+		font-size: 1.3em;
+	}
+	.subtitle {
+		font-style: italic;
+	}
+	.layer {
+		margin: 10px;
+	}
+	.items {
+		display: flex;
+		.item {
+			padding: 5px;
+			margin: 5px;
+			border-radius: 3px;
+			.swatch {
+				width: 100px;
+				height: 20px;
+				border: solid 1px;
+				border-color: #d6d5d6
+			}
+			.icon {
+				display: inline-block;
+				margin: 0px 5px;
+			}
+			.icon:empty {
+				height: 1em;
+				min-width: 1em;
+				background-color: grey;
+			}
+		}
+		.item.disabled {
+			opacity: 0.5;
+		}
+	}
+	#overlayer .item:hover {
+		background-color: #F00A;
+	}
+	#baselayer .item .label {
+		text-align: center;
+		margin-top: 3px;
+	}
+}

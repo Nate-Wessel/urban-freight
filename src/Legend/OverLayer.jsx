@@ -1,4 +1,5 @@
 import React from 'react'
+import { CircleSvg } from './Circle.jsx'
 
 // keys should be unique across paradigms
 const paradigms = {
@@ -6,27 +7,33 @@ const paradigms = {
 		layers:[
 			{
 				key: 'Purol',
-				label: 'Purolator'
+				label: 'Purolator',
+				type: 'circle'
 			},
 			{
 				key: 'Fedex',
-				label: 'Fedex'
+				label: 'Fedex',
+				type: 'circle'
 			},
 			{
 				key: 'UPS',
-				label: 'UPS'
+				label: 'UPS',
+				type: 'circle'
 			},
 			{
 				key: 'Penguin',
-				label: 'Penguin'
+				label: 'Penguin',
+				type: 'circle'
 			},
 			{
 				key: 'transit',
-				label: 'Public Transit'
+				label: 'Public Transit',
+				type: 'img'
 			},
 			{
 				key: 'parking',
-				label: 'Parking Time'
+				label: 'Parking Time',
+				type: 'img'
 			},
 		]
 	},
@@ -80,8 +87,7 @@ export default function(props){
 			update.delete(key)
 			setDisplayed(update)
 		}else{
-			let update = new Set([...displayed])
-			update.add(key)
+			let update = new Set([...displayed,key])
 			setDisplayed(update)
 		}
 	}
@@ -90,16 +96,37 @@ export default function(props){
 			<span className="title">Data Layers</span>
 			<div className="items">{
 				paradigms[paradigm].layers.map(l=>{
-					let activeStatus = displayed.has(l.key) ? 'active' : 'disabled'
 					return (
-						<div key={l.key}
-							className={`item clickable ${activeStatus}`}
-							onClick={(e)=>handleClick(l.key)}>
-							{l.label}
-						</div>
+						<Item key={l.key} layer={l} zoom={zoom}
+							active={displayed.has(l.key)}
+							handleClick={handleClick}/>
 					)
 				})
 			}</div>
+		</div>
+	)
+}
+
+
+import { color, pointRadius, pointWeight } from '../Avoid/PickupPoints'
+
+function Item(props){
+	const { layer, active, handleClick, zoom } = props
+	let icon = null
+	if(layer.type == 'circle'){
+		icon = (
+			<CircleSvg 
+				color={color(layer.key)} 
+				radius={pointRadius(zoom)}
+				strokeWidth={pointWeight(zoom)}/>
+		)
+	}
+	return (
+		<div 
+			className={`item clickable ${active ? 'active' : 'disabled'}`}
+			onClick={(e)=>handleClick(layer.key)}>
+			<span className="icon">{icon}</span>
+			<span className="label">{layer.label}</span>
 		</div>
 	)
 }

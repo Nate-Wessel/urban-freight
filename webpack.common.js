@@ -41,7 +41,15 @@ module.exports = {
 	      {
 				test: /\.(topojson)$/i,
 				type: 'asset/resource'
-	      }
+	      },
+	      {
+				test: /\.less$/i,
+				use: [ 
+					{ loader: "style-loader"},
+					{ loader: "css-loader"},
+					{ loader: "less-loader"}
+				]
+			}
 		]
 	},
 	plugins: [
