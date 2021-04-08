@@ -1,4 +1,5 @@
 import React from 'react'
+import { CircleSvg } from './Circle.jsx'
 
 // keys should be unique across paradigms
 const paradigms = {
@@ -31,7 +32,8 @@ const paradigms = {
 			},
 			{
 				key: 'parking',
-				label: 'img'
+				label: 'Parking Time',
+				type: 'img'
 			},
 		]
 	},
@@ -94,18 +96,37 @@ export default function(props){
 			<span className="title">Data Layers</span>
 			<div className="items">{
 				paradigms[paradigm].layers.map(l=>{
-					let activeStatus = displayed.has(l.key) ? 'active' : 'disabled'
 					return (
-						<div key={l.key}
-							className={`item clickable ${activeStatus}`}
-							onClick={(e)=>handleClick(l.key)}>
-							<span className="icon">
-							</span>
-							<span className="label">{l.label}</span>
-						</div>
+						<Item key={l.key} layer={l} zoom={zoom}
+							active={displayed.has(l.key)}
+							handleClick={handleClick}/>
 					)
 				})
 			}</div>
+		</div>
+	)
+}
+
+
+import { color, pointRadius, pointWeight } from '../Avoid/PickupPoints'
+
+function Item(props){
+	const { layer, active, handleClick, zoom } = props
+	let icon = null
+	if(layer.type == 'circle'){
+		icon = (
+			<CircleSvg 
+				color={color(layer.key)} 
+				radius={pointRadius(zoom)}
+				strokeWidth={pointWeight(zoom)}/>
+		)
+	}
+	return (
+		<div 
+			className={`item clickable ${active ? 'active' : 'disabled'}`}
+			onClick={(e)=>handleClick(layer.key)}>
+			<span className="icon">{icon}</span>
+			<span className="label">{layer.label}</span>
 		</div>
 	)
 }
