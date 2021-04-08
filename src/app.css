@@ -1,9 +1,9 @@
 /* Styling for global context of the app, inluding fullscreen toggling */
 
-.urban-freight-app-inner {
+.urban-freight-wrap {
   position: relative; 
 }
-.urban-freight-app-inner.fullscreen {
+.urban-freight-wrap.fullscreen {
 	z-index: 1000;
   width: calc(100% - 10px);
   height: calc(100% - 10px);
@@ -13,6 +13,10 @@
   background-color: #fff;
   padding: 5px;
   overflow-y: scroll;
+}
+
+.urban-freight-wrap .urban-freight-inner {
+  position: relative;
 }
 
 .fullscreen-toggler {
@@ -26,7 +30,18 @@
   height: 20px;
 }
 
-.urban-freight-app-inner.fullscreen .fullscreen-toggler {
- top: 53px;
- right: 15px;
+.urban-freight-wrap .fullscreen-toggler {
+  top: 44px;
+  left: 11px;
+  border: 2px solid rgba(0,0,0,0.2);
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 4px 5px;
+}
+.urban-freight-wrap .fullscreen-toggler:hover {
+  background-color: #f4f4f4;
+}
+
+.urban-freight-wrap .leaflet-control-zoom {
+  top: 40px;
 }

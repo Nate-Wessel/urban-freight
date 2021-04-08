@@ -32,16 +32,18 @@ export default function(props){
 	const [ layer, setLayer ] = useState(layers[0])
 	const [ fullscreen, setFullscreen ] = useState(false)
 	const target = useRef(null)
-	const appInnerClass = "urban-freight-app-inner" + (fullscreen ? " fullscreen" : "");
+	const appInnerClass = "urban-freight-wrap" + (fullscreen ? " fullscreen" : "");
 	return (
 		<div id="app" ref={target}>
 			<div className={appInnerClass}>
-				<div id="nav-tabs">
-					<CityNav city={city} setCity={setCity}/>
-					<LayerNav layer={layer} setLayer={setLayer}/>
+				<div className="urban-freight-inner">
+					<div id="nav-tabs">
+						<LayerNav layer={layer} setLayer={setLayer}/>
+						<CityNav city={city} setCity={setCity}/>					
+					</div>
+					<Map city={city} layer={layer} paradigm={props.paradigm}/>
+					<FullscreenToggler fullscreen={fullscreen} setFullscreen={setFullscreen} target={target}/>			
 				</div>
-				<Map city={city} layer={layer} paradigm={props.paradigm}/>
-				<FullscreenToggler fullscreen={fullscreen} setFullscreen={setFullscreen} target={target}/>			
 			</div> 
 		</div>
 	)
@@ -49,7 +51,7 @@ export default function(props){
 
 function CityNav(props){
 	return (
-		<div className="tab-container">
+		<div className="tab-container city-nav">
 			{ cities.map( (c,i) => {
 				let cls = 'tab' + (props.city == c ? ' active' : '') + ' city-' + c.name
 				function click(e){ props.setCity(cities[i]) }
@@ -65,7 +67,7 @@ function CityNav(props){
 
 function LayerNav(props){
 	return (
-		<div className="tab-container">
+		<div className="tab-container layer-nav">
 			{ layers.map( (l,i) => {
 				let cls = 'tab' + (props.layer == l ? ' active' : '')
 				function click(e){ props.setLayer(layers[i]) }
