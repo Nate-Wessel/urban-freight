@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import Map from './Map'
 import './nav.css'
 import './app.css'
@@ -31,6 +31,17 @@ export default function(props){
 	const [ city, setCity ] = useState(cities[0])
 	const [ layer, setLayer ] = useState(layers[0])
 	const [ fullscreen, setFullscreen ] = useState(false)
+	const escFn = e => {    
+		if (e.keyCode == 27) {				
+			setFullscreen(false)
+			e.preventDefault();		
+		}	
+	}
+	useEffect(() => {		
+		fullscreen ?
+			document.addEventListener("keydown", escFn, false):
+			document.removeEventListener("keydown", escFn, false);
+  }, [fullscreen]);
 	const target = useRef(null)
 	const appInnerClass = "urban-freight-wrap" + (fullscreen ? " fullscreen" : "");
 	return (
