@@ -45,38 +45,14 @@
 	height: 100%
 }
 
-#nav-tabs .tab-container .tab.city-Toronto,
-.map-wrapper.active-city-Toronto {
-	border-color: red;
+#nav-tabs .tab-container .tab,
+.map-wrapper {
+	border-color: #094c82;
 }
-#nav-tabs .tab-container .tab.city-Toronto {
-	background-color: rgb(255, 212, 212, 0.16);
+#nav-tabs .tab-container .tab {
+	background-color: #3c759e;
+	color: #fff;
 }
-#nav-tabs .tab-container .tab.city-Toronto:hover,
-#nav-tabs .tab-container .tab.city-Toronto.active {
-	background-color: rgb(255, 212, 212, 1);
-}
-
-#nav-tabs .tab-container .tab.city-Edmonton,
-.map-wrapper.active-city-Edmonton {
-	border-color: green;
-}
-#nav-tabs .tab-container .tab.city-Edmonton {
-	background-color: rgb(212, 255, 212, 0.16);
-}
-#nav-tabs .tab-container .tab.city-Edmonton:hover,
-#nav-tabs .tab-container .tab.city-Edmonton.active {
-	background-color: rgb(212, 255, 212, 1);
-}
-
-#nav-tabs .tab-container .tab.city-Vancouver,
-.map-wrapper.active-city-Vancouver {
-	border-color: blue;	
-}
-#nav-tabs .tab-container .tab.city-Vancouver {
-	background-color: rgb(212, 212, 255, 0.16);
-}
-#nav-tabs .tab-container .tab.city-Vancouver:hover,
-#nav-tabs .tab-container .tab.city-Vancouver.active {
-	background-color: rgb(212, 212, 255, 1);
+#nav-tabs .tab-container .tab.active {
+	background-color: #094c82;
 }
