@@ -43,11 +43,11 @@ export default function(props){
 import { Polyline } from 'react-leaflet'
 import { geojson2leaflet } from '../geojson2leaflet'
 
-const basicStyle = { weight: 1, color: '#00c479', dashArray:[1,3] }
+const basicStyle = { weight: 1, color: '#4e472f' }
 
 function BikePaths(props){
 	const { features } = props
-	const style = {...basicStyle,...{color:'#00c479'}, weight: 2, dashArray:[0,0]}
+	const style = {...basicStyle,...{color:'#50ab28'}, weight: 2, dashArray:[0,0]}
 	return features.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
 		return <Polyline key={`path/${i}`} positions={ll} pathOptions={style}/>
@@ -56,7 +56,7 @@ function BikePaths(props){
 
 function BikeLanes(props){
 	const { features } = props
-	const style = {...basicStyle,...{color:'#00c479', weight: 1, dashArray:[0,0]}}
+	const style = {...basicStyle,...{color:'#2c6917', weight: 1, dashArray:[0,0]}}
 	return features.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
 		return <Polyline key={`lane/${i}`} positions={ll} pathOptions={style}/>

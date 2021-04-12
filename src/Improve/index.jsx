@@ -8,7 +8,7 @@ import { geojson2leaflet } from '../geojson2leaflet'
 const keys = ['ELEC','CNG','LPG']
 const color = scaleOrdinal()
 	.domain(keys)
-	.range(['#00c479','#ff2a7f','#5555ff'])
+	.range(['#d64a00','#a13134','#4e472f'])
 
 const data = {
 	Toronto: require('../data/Toronto/alt_fuel_stations.topojson'),

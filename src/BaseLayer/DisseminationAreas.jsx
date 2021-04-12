@@ -12,11 +12,11 @@ const sources = {
 
 export const empDensity = scaleThreshold()
     .domain([1000, 5000, 10000, 20000])
-    .range(['#fffcf7','#ffe6ba','#ffd285','#ffbb47','#ffa200'])
+    .range(['#fbede5','#f7dbcc','#f1c0a6','#eaa47f','#e48959'])
 
 export const popDensity = scaleThreshold()
     .domain([1000, 5000, 10000, 20000])
-    .range(['#fffcf7','#ffe6ba','#ffd285','#ffbb47','#ffa200'])
+    .range(['#eff9f6','#e7f6f2','#d4eeef','#c1e6dd','#aedfd3'])
 
 
 export function DisseminationAreas(props){
@@ -34,7 +34,7 @@ export function DisseminationAreas(props){
 		stroke:true,
 		color: "white",
 		weight:0.5,
-		fillOpacity:0.5,
+		fillOpacity:0.8,
 		opacity:0.8
 	}
 	return (

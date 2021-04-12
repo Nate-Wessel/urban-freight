@@ -30,7 +30,7 @@ export default function(props){
 			<CircleMarker key={station.station_id}
 				center={[station.lat,station.lon]}
 				radius={radius(station.capacity)}
-				pathOptions={{weight:1, color:"#008753", opacity: 0.8, fillOpacity: 0.3}}>
+				pathOptions={{weight:1, color:"#d64a00", opacity: 0.8, fillOpacity: 0.3}}>
 				<Tooltip>
 					{`${station.name} - capacity: ${station.capacity}`}
 				</Tooltip>

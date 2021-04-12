@@ -7,7 +7,7 @@ export const operators = ['Purol','Fedex','UPS','Penguin']
 
 export const color = scaleOrdinal()
 	.domain(operators)
-	.range(['#fe35da','#914ce1','#702f05','#0095fc'])
+	.range(['#a13134','#622f89','#4e472f','#d64a00'])
 
 export const pointRadius = scalePow()
 	.exponent(2)
