@@ -12,21 +12,21 @@ const cities = [
 		diesel: 40.34,
 		gasoline: 29.24,
 		electricHDT: 17.87,
-		electricMDT: 2.60
+		electricMDT: 2.87
 	},
 	{
 		label: 'Edmonton',
 		diesel: 40.88,
 		gasoline: 29.23,
 		electricHDT: 22.825,
-		electricMDT: 3.32
+		electricMDT: 3.67
 	},
 	{
 		label: 'Vancouver',
 		diesel: 50.30,
 		gasoline: 35.81,
 		electricHDT: 17.325,
-		electricMDT: 2.52
+		electricMDT: 2.78
 	},
 ]
 
