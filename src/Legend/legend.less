@@ -16,7 +16,6 @@
 			padding: 5px;
 			margin: 5px;
 			border-radius: 3px;
-			vertical-align: middle;
 			.swatch {
 				width: 100px;
 				height: 20px;
@@ -24,8 +23,12 @@
 				border-color: #d6d5d6
 			}
 			.icon {
+				vertical-align: middle;
 				display: inline-block;
 				margin: 1px 5px;
+			}
+			.label {
+				vertical-align: middle;
 			}
 			.icon:empty {
 				height: 1em;
@@ -36,6 +39,7 @@
 		.item.active {
 			color: white;
 			background-color: #154c81;
+			border: #0000 2px solid;
 		}
 		.item.disabled {
 			color: #50729d;
