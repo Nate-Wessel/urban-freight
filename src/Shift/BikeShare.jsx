@@ -17,9 +17,10 @@ export function radius(capacity,zoom){
 
 export const style = {
 	weight: 1,
-	color: "#d64a00",
-	opacity: 0.8,
-	fillOpacity: 0.3
+	color: "white",
+	fillColor: "#d64a00",
+	opacity: 0.9,
+	fillOpacity: 0.9
 }
 
 export function BikeShare(props){

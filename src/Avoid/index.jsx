@@ -26,8 +26,8 @@ export default function(props){
 				if(displayed.has(operatorKey)){
 					let features = points.filter(f=>f.properties.type==operatorKey)
 					return (
-						<PickupPoints key={operatorKey} 
-							zoom={zoom} 
+						<PickupPoints key={operatorKey}
+							zoom={zoom}
 							features={features}/>
 					)
 				}
