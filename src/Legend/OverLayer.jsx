@@ -80,7 +80,7 @@ const paradigms = {
 }
 
 export default function(props){
-	const { paradigm, zoom, displayed, setDisplayed } = props
+	const { paradigm, city, zoom, displayed, setDisplayed } = props
 	function handleClick(key){
 		if(displayed.has(key)){
 			let update = new Set([...displayed])
@@ -93,7 +93,9 @@ export default function(props){
 	}
 	return (
 		<div id="overlayer" className="layer">
-			<span className="title">Data Layers</span>
+			<span className="title">
+				"{paradigm.toUpperCase()}" data layers: {city.name}
+			</span>
 			<div className="items">{
 				paradigms[paradigm].layers.map(l=>{
 					return (
@@ -109,6 +111,7 @@ export default function(props){
 
 
 import { color, pointRadius, pointWeight } from '../Avoid/PickupPoints'
+//import { color, pointRadius, pointWeight } from '../Improve/scales.js'
 
 function Item(props){
 	const { layer, active, handleClick, zoom } = props
