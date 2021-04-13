@@ -1,5 +1,6 @@
 import React from 'react'
-import { CircleSvg } from './Circle.jsx'
+import PickupPoint from './PickupPoint'
+import ChargingStation from './ChargingStation'
 
 // keys should be unique across paradigms
 const paradigms = {
@@ -8,32 +9,30 @@ const paradigms = {
 			{
 				key: 'Purol',
 				label: 'Purolator',
-				type: 'circle'
+				icon: PickupPoint
 			},
 			{
 				key: 'Fedex',
 				label: 'Fedex',
-				type: 'circle'
+				icon: PickupPoint
 			},
 			{
 				key: 'UPS',
 				label: 'UPS',
-				type: 'circle'
+				icon: PickupPoint
 			},
 			{
 				key: 'Penguin',
 				label: 'Penguin',
-				type: 'circle'
+				icon: PickupPoint
 			},
 			{
 				key: 'transit',
-				label: 'Public Transit',
-				type: 'img'
+				label: 'Public Transit'
 			},
 			{
 				key: 'parking',
-				label: 'Parking Time',
-				type: 'img'
+				label: 'Parking Time'
 			},
 		]
 	},
@@ -65,15 +64,18 @@ const paradigms = {
 		layers:[
 			{
 				key: 'ELEC',
-				label: 'Electric'
+				label: 'Electric',
+				icon: ChargingStation
 			},
 			{
 				key: 'CNG',
-				label: 'Compressed Natural Gas'
+				label: 'Compressed Natural Gas',
+				icon: ChargingStation
 			},
 			{
 				key: 'LPG',
-				label: 'Propane'
+				label: 'Propane',
+				icon: ChargingStation
 			}
 		]
 	}
@@ -109,20 +111,11 @@ export default function(props){
 	)
 }
 
-
-import { color, pointRadius, pointWeight } from '../Avoid/PickupPoints'
-//import { color, pointRadius, pointWeight } from '../Improve/scales.js'
-
 function Item(props){
 	const { layer, active, handleClick, zoom } = props
 	let icon = null
-	if(layer.type == 'circle'){
-		icon = (
-			<CircleSvg 
-				color={color(layer.key)} 
-				radius={pointRadius(zoom)}
-				strokeWidth={pointWeight(zoom)}/>
-		)
+	if(layer.icon){
+		icon = <layer.icon layerKey={layer.key} zoom={zoom}/>
 	}
 	return (
 		<div 
