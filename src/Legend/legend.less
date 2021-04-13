@@ -1,10 +1,15 @@
 /*legend styling goes here*/
 
 #legend {
+	margin: 20px;
+
 	.title {
 		font-size: 1.3em;
 	}
 	.subtitle {
+		font-size: 1.3em;
+	}
+	.layerunits {
 		font-style: italic;
 	}
 	.layer {
@@ -12,23 +17,35 @@
 	}
 	.items {
 		display: flex;
+
 		.item {
 			padding: 5px;
 			margin: 5px;
 			border-radius: 3px;
+			cursor: pointer;
+
 			.swatch {
-				width: 100px;
+				width: 40px;
 				height: 20px;
+				margin-right: 3px;
 				border: solid 1px;
-				border-color: #d6d5d6
+				border-color: #d6d5d6;
+				cursor: default;
+				float:left;
 			}
 			.icon {
 				vertical-align: middle;
 				display: inline-block;
 				margin: 1px 5px;
+
 			}
 			.label {
 				vertical-align: middle;
+			}
+			.baselabel {
+				vertical-align: middle;
+				overflow: hidden;
+				cursor: default;
 			}
 			.icon:empty {
 				height: 1em;
@@ -45,13 +62,20 @@
 			color: var(--mid-blue);
 			border: var(--light-blue) 2px solid;
 		}
+
 	}
 	#overlayer .item:hover {
 		color: var(--dark-blue);
 		background-color: var(--light-blue);
 	}
+	#baselayer {
+		border-top: 2px solid;
+		border-color: var(--light-blue);
+		padding-top: 8px;
+	}
 	#baselayer .item .label {
 		text-align: center;
 		margin-top: 3px;
 	}
+
 }

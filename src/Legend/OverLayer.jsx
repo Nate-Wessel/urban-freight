@@ -8,6 +8,14 @@ const paradigms = {
 	avoid:{
 		layers:[
 			{
+				key: 'transit',
+				label: 'Public Transit'
+			},
+			{
+				key: 'parking',
+				label: 'Parking Time'
+			},
+			{
 				key: 'Purol',
 				label: 'Purolator',
 				icon: PickupPoint
@@ -27,14 +35,7 @@ const paradigms = {
 				label: 'Penguin',
 				icon: PickupPoint
 			},
-			{
-				key: 'transit',
-				label: 'Public Transit'
-			},
-			{
-				key: 'parking',
-				label: 'Parking Time'
-			},
+
 		]
 	},
 	shift:{
@@ -98,7 +99,7 @@ export default function(props){
 	return (
 		<div id="overlayer" className="layer">
 			<span className="title">
-				"{paradigm.toUpperCase()}" data layers: {city.name}
+				"<b>{paradigm.toUpperCase()}" data layers:</b> {city.name}
 			</span>
 			<div className="items">{
 				paradigms[paradigm].layers.map(l=>{
@@ -120,7 +121,7 @@ function Item(props){
 		icon = <layer.icon layerKey={layer.key} zoom={zoom}/>
 	}
 	return (
-		<div 
+		<div
 			className={`item clickable ${active ? 'active' : 'disabled'}`}
 			onClick={(e)=>handleClick(layer.key)}>
 			<span className="icon">{icon}</span>

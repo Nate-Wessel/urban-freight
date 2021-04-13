@@ -17,9 +17,9 @@ L.Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
 const carto = 'https://basemaps.cartocdn.com'
 
 const defaultDisplay = {
-	avoid: new Set(['transit','parking','UPS']),
-	shift: new Set(['bike-paths','bike-lanes','bike-share']),
-	improve: new Set(['ELEC','CNG','LPG'])
+	avoid: new Set(['transit','parking','Purol']),
+	shift: new Set(['bike-paths','bike-lanes','bike-routes','bike-share']),
+	improve: new Set(['ELEC'])
 }
 
 export default function(props){

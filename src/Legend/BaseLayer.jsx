@@ -9,25 +9,25 @@ const landuseScale = scaleOrdinal()
 const baseLayer = {
 	Population: {
 		title: 'Population Density',
-		unit: '(1,000 people per square kilometer)',
+		unit: '(people per square kilometer)',
 		items: [
-			{v:12,label:'<1'},
-			{v:4000,label:'1 to 5'},
-			{v:6000,label:'5 to 10'},
-			{v:12000,label:'10 to 20'},
-			{v:22000,label:'20+'}
+			{v:12,label:' <1,000'},
+			{v:4000,label:' 1,000 to 5,000'},
+			{v:6000,label:' 5,000 to 10,000'},
+			{v:12000,label:' 10,000 to 20,000'},
+			{v:22000,label:' 20,000+'}
 		],
 		scale: popDensity
 	},
 	Employment: {
 		title: 'Employment Density',
-		unit: '(1,000 jobs per square kilometer)',
+		unit: '(jobs per square kilometer)',
 		items: [
-			{v:12,label:'<1'},
-			{v:4000,label:'1 to 5'},
-			{v:6000,label:'5 to 10'},
-			{v:12000,label:'10 to 20'},
-			{v:22000,label:'20+'}
+			{v:12,label:' <1,000'},
+			{v:4000,label:' 1,000 to 5,000'},
+			{v:6000,label:' 5,000 to 10,000'},
+			{v:12000,label:' 10,000 to 20,000'},
+			{v:22000,label:' 20,000+'}
 		],
 		scale: empDensity
 	},
@@ -51,8 +51,11 @@ export default function(props){
 	const opts = baseLayer[layer.name]
 	return (
 		<div id="baselayer" className="layer">
-			<span className="title">{opts.title}</span>&nbsp;
-			{opts.unit && <span className="subtitle">{opts.unit}</span>}
+			<span className="title">
+				<b>Base map layers:</b>
+			</span>
+			<span className="subtitle">{opts.title}</span>&nbsp;
+			{opts.unit && <span className="layerunits">{opts.unit}</span>}
 			<div className="items">{
 				opts.items.map( item => {
 					return (
@@ -60,7 +63,7 @@ export default function(props){
 							<div className="swatch"
 								style={ { backgroundColor: opts.scale(item.v) } }>
 							</div>
-							<div className="label">{item.label}</div>
+							<div className="baselabel">{item.label}</div>
 						</div>
 					)
 				} )
