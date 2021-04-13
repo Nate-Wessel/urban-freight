@@ -1,5 +1,11 @@
 /* Styling for global context of the app, inluding fullscreen toggling */
 
+:root {
+	--dark-blue: #154c81;
+	--mid-blue: #50729d;
+	--light-blue: #dce4f4;
+}
+
 .urban-freight-wrap {
   position: relative; 
 }

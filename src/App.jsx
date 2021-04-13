@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react"
 import Map from './Map'
-import './nav.css'
+import './nav.less'
 import './app.css'
 import fullscreenIconClose from './images/fullscreen-1.svg'
 import fullscreenIconOpen from './images/fullscreen-2.svg'
