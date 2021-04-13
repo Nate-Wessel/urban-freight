@@ -16,6 +16,7 @@
 			padding: 5px;
 			margin: 5px;
 			border-radius: 3px;
+			vertical-align: middle;
 			.swatch {
 				width: 100px;
 				height: 20px;
@@ -24,7 +25,7 @@
 			}
 			.icon {
 				display: inline-block;
-				margin: 0px 5px;
+				margin: 1px 5px;
 			}
 			.icon:empty {
 				height: 1em;
@@ -32,12 +33,18 @@
 				background-color: grey;
 			}
 		}
+		.item.active {
+			color: white;
+			background-color: #154c81;
+		}
 		.item.disabled {
-			opacity: 0.5;
+			color: #50729d;
+			border: #dce4f4 2px solid;
 		}
 	}
 	#overlayer .item:hover {
-		background-color: #F00A;
+		color: #154c81;
+		background-color: #dce4f4;
 	}
 	#baselayer .item .label {
 		text-align: center;

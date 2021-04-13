@@ -53,7 +53,8 @@ export default function(props){
 						<CityNav city={city} setCity={setCity}/>					
 					</div>
 					<Map city={city} layer={layer} paradigm={props.paradigm}/>
-					<FullscreenToggler fullscreen={fullscreen} setFullscreen={setFullscreen} target={target}/>			
+					<FullscreenToggler fullscreen={fullscreen} 
+						setFullscreen={setFullscreen} target={target}/>			
 				</div>
 			</div> 
 		</div>
