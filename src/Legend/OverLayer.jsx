@@ -1,6 +1,7 @@
 import React from 'react'
 import PickupPoint from './PickupPoint'
 import ChargingStation from './ChargingStation'
+import BikeShare from './BikeShare'
 
 // keys should be unique across paradigms
 const paradigms = {
@@ -52,7 +53,8 @@ const paradigms = {
 			},
 			{
 				key:'bike-share',
-				label:'Bike-share Stations'
+				label:'Bike-share Stations',
+				icon: BikeShare
 			},
 			{
 				key:'parking-lots',

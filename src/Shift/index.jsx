@@ -3,7 +3,7 @@ import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
 import { LayerGroup } from 'react-leaflet'
 import ParkingLots from './ParkingLots'
-import BikeShare from './BikeShare'
+import { BikeShare } from './BikeShare'
 
 const data = {
 	Toronto: require('../data/Toronto/bike.topojson'),
