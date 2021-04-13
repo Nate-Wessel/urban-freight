@@ -1,0 +1,25 @@
+#fuel-chart {
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	path {
+		stroke-width: 1px;
+		stroke: black;
+	} 
+	text {
+		text-anchor: middle;
+	}
+	.city {
+		text {
+			text-anchor: end;
+			dominant-baseline: middle;
+		}
+		path {
+			stroke: none;
+			fill-opacity: 0.4;
+		}
+		.gasoline { fill: red; }
+		.diesel { fill: green; }
+		.ev.HDT { fill: blue; }
+		.ev.MDT { fill: purple; }
+	}
+}

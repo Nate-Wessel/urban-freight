@@ -65,6 +65,10 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template:'src/entrypoints/improve.html',
 			filename:'improve/index.html'
+		}),
+		new HtmlWebpackPlugin({
+			template:'src/entrypoints/fuel.html',
+			filename:'fuel/index.html'
 		})
 	],
 	resolve: {
