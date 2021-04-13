@@ -23,8 +23,12 @@
 				border-color: #d6d5d6
 			}
 			.icon {
+				vertical-align: middle;
 				display: inline-block;
-				margin: 0px 5px;
+				margin: 1px 5px;
+			}
+			.label {
+				vertical-align: middle;
 			}
 			.icon:empty {
 				height: 1em;
@@ -32,12 +36,19 @@
 				background-color: grey;
 			}
 		}
+		.item.active {
+			color: white;
+			background-color: var(--dark-blue);
+			border: #0000 2px solid;
+		}
 		.item.disabled {
-			opacity: 0.5;
+			color: var(--mid-blue);
+			border: var(--light-blue) 2px solid;
 		}
 	}
 	#overlayer .item:hover {
-		background-color: #F00A;
+		color: var(--dark-blue);
+		background-color: var(--light-blue);
 	}
 	#baselayer .item .label {
 		text-align: center;

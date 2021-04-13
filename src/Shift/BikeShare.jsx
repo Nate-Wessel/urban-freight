@@ -11,18 +11,18 @@ const data = {
 // area ~= to capacity
 const defaultRadius = scalePow().exponent(0.5).domain([1,50]).range([1,5])
 const zoomFactor = scalePow().exponent(1).domain([10,16]).range([0.5,3])
-function radius(capacity,zoom){
+export function radius(capacity,zoom){
 	return defaultRadius(capacity) * zoomFactor(zoom)
 }
 
-const style = {
+export const style = {
 	weight: 1,
 	color: "#d64a00",
 	opacity: 0.8,
 	fillOpacity: 0.3
 }
 
-export default function(props){
+export function BikeShare(props){
 	const { city, zoom } = props
 	const [ stations, setStations ] = useState([])
 	useEffect(()=>{

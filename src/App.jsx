@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react"
 import Map from './Map'
-import './nav.css'
+import './nav.less'
 import './app.css'
 import fullscreenIconClose from './images/fullscreen-1.svg'
 import fullscreenIconOpen from './images/fullscreen-2.svg'
@@ -53,7 +53,8 @@ export default function(props){
 						<CityNav city={city} setCity={setCity}/>					
 					</div>
 					<Map city={city} layer={layer} paradigm={props.paradigm}/>
-					<FullscreenToggler fullscreen={fullscreen} setFullscreen={setFullscreen} target={target}/>			
+					<FullscreenToggler fullscreen={fullscreen} 
+						setFullscreen={setFullscreen} target={target}/>			
 				</div>
 			</div> 
 		</div>

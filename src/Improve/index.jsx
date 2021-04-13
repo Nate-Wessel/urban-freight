@@ -2,30 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
 import { CircleMarker, LayerGroup } from 'react-leaflet'
-import { scaleOrdinal, scalePow } from 'd3-scale'
+import { pointRadius, pointWeight, keys, color } from './scales.js'
 import { geojson2leaflet } from '../geojson2leaflet'
-
-const keys = ['ELEC','CNG','LPG']
-const color = scaleOrdinal()
-	.domain(keys)
-	.range(['#d64a00','#a13134','#4e472f'])
 
 const data = {
 	Toronto: require('../data/Toronto/alt_fuel_stations.topojson'),
 	Edmonton: require('../data/Edmonton/alt_fuel_stations.topojson'),
 	Vancouver: require('../data/Vancouver/alt_fuel_stations.topojson')
 }
-
-const pointRadius = scalePow()
-	.exponent(2)
-	.domain([10,16])
-	.range([3,9])
-
-const pointWeight = scalePow()
-	.exponent(2)
-	.domain([10,16])
-	.range([1,3])
-
 
 export default function(props){
 	const { city, zoom, displayed } = props

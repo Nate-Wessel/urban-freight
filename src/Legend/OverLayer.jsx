@@ -1,5 +1,7 @@
 import React from 'react'
-import { CircleSvg } from './Circle.jsx'
+import PickupPoint from './PickupPoint'
+import ChargingStation from './ChargingStation'
+import BikeShare from './BikeShare'
 
 // keys should be unique across paradigms
 const paradigms = {
@@ -8,32 +10,30 @@ const paradigms = {
 			{
 				key: 'Purol',
 				label: 'Purolator',
-				type: 'circle'
+				icon: PickupPoint
 			},
 			{
 				key: 'Fedex',
 				label: 'Fedex',
-				type: 'circle'
+				icon: PickupPoint
 			},
 			{
 				key: 'UPS',
 				label: 'UPS',
-				type: 'circle'
+				icon: PickupPoint
 			},
 			{
 				key: 'Penguin',
 				label: 'Penguin',
-				type: 'circle'
+				icon: PickupPoint
 			},
 			{
 				key: 'transit',
-				label: 'Public Transit',
-				type: 'img'
+				label: 'Public Transit'
 			},
 			{
 				key: 'parking',
-				label: 'Parking Time',
-				type: 'img'
+				label: 'Parking Time'
 			},
 		]
 	},
@@ -53,7 +53,8 @@ const paradigms = {
 			},
 			{
 				key:'bike-share',
-				label:'Bike-share Stations'
+				label:'Bike-share Stations',
+				icon: BikeShare
 			},
 			{
 				key:'parking-lots',
@@ -65,22 +66,25 @@ const paradigms = {
 		layers:[
 			{
 				key: 'ELEC',
-				label: 'Electric'
+				label: 'Electric',
+				icon: ChargingStation
 			},
 			{
 				key: 'CNG',
-				label: 'Compressed Natural Gas'
+				label: 'Compressed Natural Gas',
+				icon: ChargingStation
 			},
 			{
 				key: 'LPG',
-				label: 'Propane'
+				label: 'Propane',
+				icon: ChargingStation
 			}
 		]
 	}
 }
 
 export default function(props){
-	const { paradigm, zoom, displayed, setDisplayed } = props
+	const { paradigm, city, zoom, displayed, setDisplayed } = props
 	function handleClick(key){
 		if(displayed.has(key)){
 			let update = new Set([...displayed])
@@ -93,7 +97,9 @@ export default function(props){
 	}
 	return (
 		<div id="overlayer" className="layer">
-			<span className="title">Data Layers</span>
+			<span className="title">
+				"{paradigm.toUpperCase()}" data layers: {city.name}
+			</span>
 			<div className="items">{
 				paradigms[paradigm].layers.map(l=>{
 					return (
@@ -107,19 +113,11 @@ export default function(props){
 	)
 }
 
-
-import { color, pointRadius, pointWeight } from '../Avoid/PickupPoints'
-
 function Item(props){
 	const { layer, active, handleClick, zoom } = props
 	let icon = null
-	if(layer.type == 'circle'){
-		icon = (
-			<CircleSvg 
-				color={color(layer.key)} 
-				radius={pointRadius(zoom)}
-				strokeWidth={pointWeight(zoom)}/>
-		)
+	if(layer.icon){
+		icon = <layer.icon layerKey={layer.key} zoom={zoom}/>
 	}
 	return (
 		<div 
