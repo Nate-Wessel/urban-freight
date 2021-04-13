@@ -52,7 +52,7 @@ export default function(props){
 	return (
 		<div id="baselayer" className="layer">
 			<span className="title">
-				<b>Base map layers:</b>
+				<b>Base map layers:</b>&nbsp;
 			</span>
 			<span className="subtitle">{opts.title}</span>&nbsp;
 			{opts.unit && <span className="layerunits">{opts.unit}</span>}
