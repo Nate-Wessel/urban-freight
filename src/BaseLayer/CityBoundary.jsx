@@ -10,6 +10,13 @@ const sources = {
 	Edmonton: require('../data/Edmonton/csd_boundary.topojson')
 }
 
+const style = {
+	color: '#0005', 
+	fill: false, 
+	weight: 1.5, 
+	dashArray: '5 10 5'
+}
+
 export default function(props){
 	const [ boundaryFeature, setBoundaryFeature ] = useState(null)
 	useEffect(()=>{
@@ -19,9 +26,5 @@ export default function(props){
 	},[props.city])
 	if( ! boundaryFeature ) return null;
 	let latLngs = geojson2leaflet(boundaryFeature.geometry)
-	return (
-		<Polygon id="city-boundary"
-			positions={latLngs}
-			pathOptions={ {color:'black', fill:false, weight: 1} }/>
-	)
+	return <Polygon id="city-boundary" positions={latLngs} pathOptions={style}/>
 }

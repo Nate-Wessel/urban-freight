@@ -12,8 +12,8 @@ const data = {
 
 const style = {
 	stroke: false,
-	fillColor:'black',
-	fillOpacity: 0.666
+	fillColor:'#a2a094',
+	fillOpacity: 1
 }
 
 export default function(props){
