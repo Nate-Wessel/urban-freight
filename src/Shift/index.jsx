@@ -12,7 +12,7 @@ const data = {
 }
 
 export default function(props){
-	const { city, displayed } = props
+	const { city, displayed, zoom } = props
 	const [ bikePaths, setBikePaths ] = useState([])
 	const [ bikeLanes, setBikeLanes ] = useState([])
 	const [ bikeRoutes, setBikeRoutes ] = useState([])
@@ -35,7 +35,7 @@ export default function(props){
 			{displayed.has('bike-lanes') && <BikeLanes features={bikeLanes}/>}
 			{displayed.has('bike-routes') && <BikeRoutes features={bikeRoutes}/>}
 			{displayed.has('parking-lots') && <ParkingLots city={city}/>}
-			{displayed.has('bike-share') && <BikeShare city={city}/>}
+			{displayed.has('bike-share') && <BikeShare city={city} zoom={zoom}/>}
 		</LayerGroup>
 	)
 }
