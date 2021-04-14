@@ -2,6 +2,9 @@ import React from 'react'
 import PickupPoint from './PickupPoint'
 import ChargingStation from './ChargingStation'
 import BikeShare from './BikeShare'
+import Transit from './Transit'
+import ParkingLot from './ParkingLot'
+import ParkingTime from './ParkingTime'
 
 // keys should be unique across paradigms
 const paradigms = {
@@ -9,11 +12,13 @@ const paradigms = {
 		layers:[
 			{
 				key: 'transit',
-				label: 'Public Transit'
+				label: 'Public Transit',
+				icon: Transit
 			},
 			{
 				key: 'parking',
-				label: 'Parking Time'
+				label: 'Parking Time',
+				icon: ParkingTime
 			},
 			{
 				key: 'Purol',
@@ -59,7 +64,8 @@ const paradigms = {
 			},
 			{
 				key:'parking-lots',
-				label:'Parking Lots'
+				label:'Parking Lots',
+				icon: ParkingLot
 			}
 		]
 	},

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="20"
+   height="20"
+   viewBox="0 0 5.2916665 5.2916665"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2 (394de47547, 2021-03-26)"
+   sodipodi:docname="icon_parkinglot.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.2"
+     inkscape:cx="2.6254446"
+     inkscape:cy="22.455769"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1515"
+     inkscape:window-height="1043"
+     inkscape:window-x="50"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#a2a094;fill-opacity:1;stroke:none;stroke-width:0.298912;stroke-linecap:round;stroke-miterlimit:10;stroke-dasharray:0.298912, 0.29891200000000001;stop-color:#000000"
+       id="rect891"
+       width="2.9751735"
+       height="4.2195206"
+       x="2.2256584"
+       y="-2.1493227"
+       rx="7.0484413e-10"
+       ry="3.7759552e-08"
+       transform="rotate(45)" />
+  </g>
+</svg>

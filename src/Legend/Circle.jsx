@@ -10,9 +10,9 @@ export function CircleSvg(props){
 	}
 	return (
 		<svg width={2*radius+strokeWidth} height={2*radius+strokeWidth}>
-			<circle 
+			<circle
 				cx={radius+strokeWidth/2}
-				cy={radius+strokeWidth/2} 
+				cy={radius+strokeWidth/2}
 				r={radius}
 				style={styleOptions}/>
 		</svg>

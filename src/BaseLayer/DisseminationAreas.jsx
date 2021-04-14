@@ -16,7 +16,9 @@ export const empDensity = scaleThreshold()
 
 export const popDensity = scaleThreshold()
     .domain([1000, 5000, 10000, 20000])
-    .range(['#eff9f6','#e7f6f2','#d4eeef','#c1e6dd','#aedfd3'])
+    .range(['#e7f6f2','#d4eeef','#c1e6dd','#a6e0d2','#8cdbc8'])
+
+// ['#eff9f6','#e7f6f2','#d4eeef','#c1e6dd','#aedfd3']
 
 
 export function DisseminationAreas(props){
