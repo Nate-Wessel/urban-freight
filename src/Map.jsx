@@ -23,7 +23,7 @@ const defaultDisplay = {
 }
 
 export default function(props){
-	const { city, layer, paradigm } = props
+	const { city, layer, setLayer, paradigm } = props
 	// keep track of zoom-level here and pass as a prop
 	const [ zoom, setZoom ] = useState(11)
 	const [ displayed, setDisplayed ] = useState(defaultDisplay[paradigm])
@@ -47,7 +47,8 @@ export default function(props){
 				<TileLayer url={`${carto}/light_nolabels/{z}/{x}/{y}{r}.png`}/>
 				<ScaleControl position="bottomleft" imperial={false}/>
 			</MapContainer>
-			<Legend layer={layer} city={city} paradigm={paradigm} zoom={zoom}
+			<Legend city={city} paradigm={paradigm} zoom={zoom}
+				layer={layer} setLayer={setLayer}
 				displayed={displayed} setDisplayed={setDisplayed}/>
 		</div>
 	)

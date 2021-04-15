@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CircleMarker } from 'react-leaflet'
+import { CircleMarker, Tooltip } from 'react-leaflet'
 import { json } from 'd3-fetch'
 import { scalePow } from 'd3-scale'
 
@@ -43,6 +43,9 @@ export function BikeShare(props){
 				center={[station.lat,station.lon]}
 				radius={radius(station.capacity,zoom)}
 				pathOptions={style}>
+				<Tooltip pane="tooltipPane">
+					{`${station.name} - capacity: ${station.capacity}`}
+				</Tooltip>
 			</CircleMarker>
 		)
 	} )

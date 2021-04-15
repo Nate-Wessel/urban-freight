@@ -6,8 +6,14 @@ const landuseScale = scaleOrdinal()
 	.domain(['green','industrial','retail','residential','other'])
 	.range(['#daf8e8','#fecf92','#c7c4fe','#fbeef5','white'])
 
-const baseLayer = {
-	Population: {
+export const baseLayers = [
+	{
+		name: 'None',
+		tabName: 'No base layer'
+	},
+	{
+		name: 'Population',
+		tabName: 'Population',
 		title: 'Population Density',
 		unit: '(people per square kilometer)',
 		items: [
@@ -19,7 +25,9 @@ const baseLayer = {
 		],
 		scale: popDensity
 	},
-	Employment: {
+	{
+		name: 'Employment',
+		tabName: 'Employment',
 		title: 'Employment Density',
 		unit: '(jobs per square kilometer)',
 		items: [
@@ -31,7 +39,9 @@ const baseLayer = {
 		],
 		scale: empDensity
 	},
-	Landuse: {
+	{
+		name: 'Landuse',
+		tabName: 'Landuse',
 		title: 'Prevailing Landuse',
 		unit: null,
 		items: [
@@ -43,31 +53,49 @@ const baseLayer = {
 		],
 		scale: landuseScale
 	}
-}
+]
 
-export default function(props){
-	const { layer } = props
-	if(layer.name == 'None') return null;
-	const opts = baseLayer[layer.name]
+export function BaseLayer({city,layer,setLayer}){
+	const opts = baseLayers.find( bl => bl.name == layer.name )
 	return (
 		<div id="baselayer" className="layer">
 			<span className="title">
 				<b>Base map layers:</b>&nbsp;
 			</span>
-			<span className="subtitle">{opts.title}</span>&nbsp;
-			{opts.unit && <span className="layerunits">{opts.unit}</span>}
-			<div className="items">{
-				opts.items.map( item => {
-					return (
-						<div key={item.v} className="item">
-							<div className="swatch"
-								style={ { backgroundColor: opts.scale(item.v) } }>
+			<Nav layer={layer} setLayer={setLayer}/>
+			{ layer.name != 'None' && <>
+				<span className="subtitle">{opts.title}</span>&nbsp;
+				{opts.unit && <span className="layerunits">{opts.unit}</span>}
+				<div className="items">{
+					opts.items.map( item => {
+						return (
+							<div key={item.v} className="item">
+								<div className="swatch"
+									style={ { backgroundColor: opts.scale(item.v) } }>
+								</div>
+								<div className="baselabel">{item.label}</div>
 							</div>
-							<div className="baselabel">{item.label}</div>
-						</div>
-					)
-				} )
-			}</div>
+						)
+					} )
+				}</div>
+			</> }
+		</div>
+	)
+}
+
+function Nav({layer,setLayer}){
+	return (
+		<div className="items">
+			{ baseLayers.map( (l,i) => {
+				function click(e){ setLayer(baseLayers[i]) }
+				return (
+					<div key={i} 
+						className={`item clickable ${layer==l?'active':'disabled'}`} 
+						onClick={click}>
+						{l.tabName}
+					</div>
+				)
+			} ) }
 		</div>
 	)
 }
