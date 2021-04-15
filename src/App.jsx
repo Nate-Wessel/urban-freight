@@ -43,7 +43,6 @@ export function App(props){
 			<div className={appInnerClass}>
 				<div className="urban-freight-inner">
 					<div id="nav-tabs">
-						<LayerNav layer={layer} setLayer={setLayer}/>
 						<CityNav city={city} setCity={setCity}/>					
 					</div>
 					<Map city={city} 
@@ -66,22 +65,6 @@ function CityNav(props){
 				return (
 					<div key={i} className={cls} onClick={click}>
 						{c.name}
-					</div>
-				)
-			} ) }
-		</div>
-	)
-}
-
-function LayerNav(props){
-	return (
-		<div className="tab-container layer-nav">
-			{ baseLayers.map( (l,i) => {
-				let cls = 'tab' + (props.layer == l ? ' active' : '')
-				function click(e){ props.setLayer(baseLayers[i]) }
-				return (
-					<div key={i} className={cls} onClick={click}>
-						{l.name}
 					</div>
 				)
 			} ) }

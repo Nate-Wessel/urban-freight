@@ -55,13 +55,14 @@ export const baseLayers = [
 	}
 ]
 
-export function BaseLayer({layer,city}){
+export function BaseLayer({city,layer,setLayer}){
 	const opts = baseLayers.find( bl => bl.name == layer.name )
 	return (
 		<div id="baselayer" className="layer">
 			<span className="title">
 				<b>Base map layers:</b>&nbsp;
 			</span>
+			<Nav layer={layer} setLayer={setLayer}/>
 			{ layer.name != 'None' && <>
 				<span className="subtitle">{opts.title}</span>&nbsp;
 				{opts.unit && <span className="layerunits">{opts.unit}</span>}
@@ -78,6 +79,23 @@ export function BaseLayer({layer,city}){
 					} )
 				}</div>
 			</> }
+		</div>
+	)
+}
+
+function Nav({layer,setLayer}){
+	return (
+		<div className="items">
+			{ baseLayers.map( (l,i) => {
+				function click(e){ setLayer(baseLayers[i]) }
+				return (
+					<div key={i} 
+						className={`item clickable ${layer==l?'active':'disabled'}`} 
+						onClick={click}>
+						{l.tabName}
+					</div>
+				)
+			} ) }
 		</div>
 	)
 }
