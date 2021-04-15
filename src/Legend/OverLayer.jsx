@@ -47,20 +47,24 @@ const paradigms = {
 		layers:[
 			{
 				key:'bike-paths',
-				label:'Bike Paths'
+				label:'Bike Paths',
+				description: 'Bike paths are fully separate from cars, though generally shared with pedestrians and other modes like skateboards.'
 			},
 			{
 				key:'bike-lanes',
-				label:'Bike Lanes'
+				label:'Bike Lanes',
+				description: 'Bike lanes are bike-only infrastructure generally running parallel to other modes between a primarily automotive lane and the sidewalk.'
 			},
 			{
 				key:'bike-routes',
-				label:'Bike Routes'
+				label:'Bike Routes',
+				description: 'Bike "routes" include non-segregated infrastucture that is explicitly signed/designated for use by cyclists. E.g. "sharrows". '
 			},
 			{
 				key:'bike-share',
 				label:'Bike-share Stations',
-				icon: BikeShare
+				icon: BikeShare,
+				description: "Hover over a bikeshare station to see its name and designated capacity"
 			},
 			{
 				key:'parking-lots',
@@ -127,9 +131,9 @@ function Item(props){
 		icon = <layer.icon layerKey={layer.key} zoom={zoom}/>
 	}
 	return (
-		<div
-			className={`item clickable ${active ? 'active' : 'disabled'}`}
-			onClick={(e)=>handleClick(layer.key)}>
+		<div onClick={(e)=>handleClick(layer.key)}
+			title={layer.description}
+			className={`item clickable ${active ? 'active' : 'disabled'}`}>
 			<span className="icon">{icon}</span>
 			<span className="label">{layer.label}</span>
 		</div>
