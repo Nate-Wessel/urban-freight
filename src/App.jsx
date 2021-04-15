@@ -42,9 +42,7 @@ export function App(props){
 		<div id="app" ref={target}>
 			<div className={appInnerClass}>
 				<div className="urban-freight-inner">
-					<div id="nav-tabs">
-						<CityNav city={city} setCity={setCity}/>					
-					</div>
+					<CityNav city={city} setCity={setCity}/>					
 					<Map city={city} 
 						layer={layer} setLayer={setLayer} 
 						paradigm={props.paradigm}/>
@@ -58,7 +56,7 @@ export function App(props){
 
 function CityNav(props){
 	return (
-		<div className="tab-container city-nav">
+		<div id="city-nav-tabs" className="tab-container city-nav">
 			{ cities.map( (c,i) => {
 				let cls = 'tab' + (props.city == c ? ' active' : '') + ' city-' + c.name
 				function click(e){ props.setCity(cities[i]) }
