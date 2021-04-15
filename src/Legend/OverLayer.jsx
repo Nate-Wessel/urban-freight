@@ -5,6 +5,7 @@ import BikeShare from './BikeShare'
 import Transit from './Transit'
 import ParkingLot from './ParkingLot'
 import ParkingTime from './ParkingTime'
+import { routeIcon } from '../Shift/routeStyles'
 
 // keys should be unique across paradigms
 const paradigms = {
@@ -47,15 +48,18 @@ const paradigms = {
 		layers:[
 			{
 				key:'bike-paths',
-				label:'Bike Paths'
+				label:'Bike Paths',
+				icon: routeIcon
 			},
 			{
 				key:'bike-lanes',
-				label:'Bike Lanes'
+				label:'Bike Lanes',
+				icon: routeIcon
 			},
 			{
 				key:'bike-routes',
-				label:'Bike Routes'
+				label:'Bike Routes',
+				icon: routeIcon
 			},
 			{
 				key:'bike-share',

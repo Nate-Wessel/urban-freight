@@ -4,6 +4,7 @@ import { feature as topo2geo } from 'topojson-client'
 import { LayerGroup } from 'react-leaflet'
 import ParkingLots from './ParkingLots'
 import { BikeShare } from './BikeShare'
+import { color } from './routeStyles'
 
 const data = {
 	Toronto: require('../data/Toronto/bike.topojson'),
@@ -43,11 +44,11 @@ export default function(props){
 import { Polyline } from 'react-leaflet'
 import { geojson2leaflet } from '../geojson2leaflet'
 
-const basicStyle = { weight: 2, color: '#4e472f' }
+const basicStyle = { weight: 2 }
 
 function BikePaths(props){
 	const { features } = props
-	const style = {...basicStyle,...{color:'#50ab28'}}
+	const style = {...basicStyle,...{'color':color('bike-paths')}}
 	return features.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
 		return <Polyline key={`path/${i}`} positions={ll} pathOptions={style}/>
@@ -56,7 +57,7 @@ function BikePaths(props){
 
 function BikeLanes(props){
 	const { features } = props
-	const style = {...basicStyle,...{color:'#2c6917'}}
+	const style = {...basicStyle,...{'color':color('bike-lanes')}}
 	return features.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
 		return <Polyline key={`lane/${i}`} positions={ll} pathOptions={style}/>
@@ -65,7 +66,7 @@ function BikeLanes(props){
 
 function BikeRoutes(props){
 	const { features } = props
-	const style = basicStyle
+	const style = {...basicStyle,...{'color':color('bike-routes')}}
 	return features.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
 		return <Polyline key={`route/${i}`} positions={ll}pathOptions={style}/>
