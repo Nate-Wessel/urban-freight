@@ -5,6 +5,7 @@ import BikeShare from './BikeShare'
 import Transit from './Transit'
 import ParkingLot from './ParkingLot'
 import ParkingTime from './ParkingTime'
+import { routeIcon } from '../Shift/routeStyles'
 
 // keys should be unique across paradigms
 const paradigms = {
@@ -48,17 +49,21 @@ const paradigms = {
 			{
 				key:'bike-paths',
 				label:'Bike Paths',
+				icon: routeIcon
 				description: 'Bike paths are fully separate from cars, though generally shared with pedestrians and other modes like skateboards.'
+
 			},
 			{
 				key:'bike-lanes',
 				label:'Bike Lanes',
+				icon: routeIcon
 				description: 'Bike lanes are bike-only infrastructure generally running parallel to other modes between a primarily automotive lane and the sidewalk.'
 			},
 			{
 				key:'bike-routes',
 				label:'Bike Routes',
-				description: 'Bike "routes" include non-segregated infrastucture that is explicitly signed/designated for use by cyclists. E.g. "sharrows". '
+				icon: routeIcon
+				description: 'Bike "routes" include non-segregated infrastucture that is explicitly signed/designated for use by cyclists. E.g. "sharrows".'
 			},
 			{
 				key:'bike-share',
