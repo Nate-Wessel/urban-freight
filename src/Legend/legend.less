@@ -23,7 +23,8 @@
 			margin: 5px;
 			border-radius: 3px;
 			cursor: pointer;
-
+			transition: background-color 0.3s;
+			
 			.swatch {
 				width: 40px;
 				height: 20px;
@@ -62,11 +63,11 @@
 			color: var(--mid-blue);
 			border: var(--light-blue) 2px solid;
 		}
+		.item.clickable:hover {
+			color: var(--dark-blue);
+			background-color: var(--light-blue);
+		}
 
-	}
-	#overlayer .item:hover {
-		color: var(--dark-blue);
-		background-color: var(--light-blue);
 	}
 	#baselayer {
 		border-top: 2px solid;

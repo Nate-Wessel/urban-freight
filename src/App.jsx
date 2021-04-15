@@ -4,6 +4,7 @@ import './nav.less'
 import './app.css'
 import fullscreenIconClose from './images/fullscreen-1.svg'
 import fullscreenIconOpen from './images/fullscreen-2.svg'
+import { baseLayers } from './Legend/BaseLayer'
 
 const cities = [
 	{
@@ -20,16 +21,9 @@ const cities = [
 	}
 ]
 
-const layers = [
-	{name: 'None'},
-	{name: 'Population'},
-	{name: 'Employment'},
-	{name: 'Landuse'}
-]
-
-export default function(props){
+export function App(props){
 	const [ city, setCity ] = useState(cities[0])
-	const [ layer, setLayer ] = useState(layers[0])
+	const [ layer, setLayer ] = useState(baseLayers[0])
 	const [ fullscreen, setFullscreen ] = useState(false)
 	const escFn = e => {    
 		if (e.keyCode == 27) {				
@@ -48,11 +42,10 @@ export default function(props){
 		<div id="app" ref={target}>
 			<div className={appInnerClass}>
 				<div className="urban-freight-inner">
-					<div id="nav-tabs">
-						<LayerNav layer={layer} setLayer={setLayer}/>
-						<CityNav city={city} setCity={setCity}/>					
-					</div>
-					<Map city={city} layer={layer} paradigm={props.paradigm}/>
+					<CityNav city={city} setCity={setCity}/>					
+					<Map city={city} 
+						layer={layer} setLayer={setLayer} 
+						paradigm={props.paradigm}/>
 					<FullscreenToggler fullscreen={fullscreen} 
 						setFullscreen={setFullscreen} target={target}/>			
 				</div>
@@ -63,29 +56,13 @@ export default function(props){
 
 function CityNav(props){
 	return (
-		<div className="tab-container city-nav">
+		<div id="city-nav-tabs" className="tab-container city-nav">
 			{ cities.map( (c,i) => {
 				let cls = 'tab' + (props.city == c ? ' active' : '') + ' city-' + c.name
 				function click(e){ props.setCity(cities[i]) }
 				return (
 					<div key={i} className={cls} onClick={click}>
 						{c.name}
-					</div>
-				)
-			} ) }
-		</div>
-	)
-}
-
-function LayerNav(props){
-	return (
-		<div className="tab-container layer-nav">
-			{ layers.map( (l,i) => {
-				let cls = 'tab' + (props.layer == l ? ' active' : '')
-				function click(e){ props.setLayer(layers[i]) }
-				return (
-					<div key={i} className={cls} onClick={click}>
-						{l.name}
 					</div>
 				)
 			} ) }
