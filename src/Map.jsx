@@ -44,7 +44,9 @@ export default function(props){
 						paradigm={paradigm} zoom={zoom} displayed={displayed}/>
 				</Pane>
 				<BaseLayer city={city} layer={layer}/>
-				<TileLayer url={`${carto}/light_nolabels/{z}/{x}/{y}{r}.png`}/>
+				<TileLayer url={`${carto}/light_nolabels/{z}/{x}/{y}{r}.png`}
+				attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+				/>
 				<ScaleControl position="bottomleft" imperial={false}/>
 			</MapContainer>
 			<Legend city={city} paradigm={paradigm} zoom={zoom}
