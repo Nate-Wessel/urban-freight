@@ -24,7 +24,21 @@
 			border-radius: 3px;
 			cursor: pointer;
 			transition: background-color 0.3s;
-			
+			&.active {
+				color: white;
+				background-color: var(--dark-blue);
+				border: #0000 2px solid;
+			}
+			&.disabled {
+				color: var(--mid-blue);
+				border: var(--light-blue) 2px solid;
+			}
+			&.clickable {
+				&:hover {
+					color: var(--dark-blue);
+					background-color: var(--light-blue);
+				}
+			}
 			.swatch {
 				width: 40px;
 				height: 20px;
@@ -38,6 +52,11 @@
 				vertical-align: middle;
 				display: inline-block;
 				margin: 1px 5px;
+				&:empty {
+					height: 1em;
+					min-width: 1em;
+					background-color: grey;
+				}
 
 			}
 			.label {
@@ -48,35 +67,15 @@
 				overflow: hidden;
 				cursor: default;
 			}
-			.icon:empty {
-				height: 1em;
-				min-width: 1em;
-				background-color: grey;
-			}
 		}
-		.item.active {
-			color: white;
-			background-color: var(--dark-blue);
-			border: #0000 2px solid;
-		}
-		.item.disabled {
-			color: var(--mid-blue);
-			border: var(--light-blue) 2px solid;
-		}
-		.item.clickable:hover {
-			color: var(--dark-blue);
-			background-color: var(--light-blue);
-		}
-
 	}
 	#baselayer {
 		border-top: 2px solid;
 		border-color: var(--light-blue);
 		padding-top: 8px;
+		 .item .label {
+			text-align: center;
+			margin-top: 3px;
+		}
 	}
-	#baselayer .item .label {
-		text-align: center;
-		margin-top: 3px;
-	}
-
 }
