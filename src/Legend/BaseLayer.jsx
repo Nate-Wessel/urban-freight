@@ -47,7 +47,7 @@ export const baseLayers = [
 		items: [
 			{v:'green',label:'Green Space'},
 			{v:'industrial',label:'Industrial'},
-			{v:'retail',label:'Retail'},
+			{v:'retail',label:'Commercial'},
 			{v:'residential',label:'Residential'},
 			{v:'other',label:'Other'}
 		],
