@@ -3,7 +3,6 @@ import { geoMercator, geoDistance } from 'd3-geo'
 
 const size = [800,800]	
 const EarthRadius = 6360e3 //6360km
-const geohashSqM = 15000
 
 const tVals = [1,2,3,4,5,6,7,8,9,10]
 
@@ -28,7 +27,7 @@ export function density(points,city){
 	let m_per_px = mLen/pxLen
 	let sq_m_per_px = m_per_px**2
 	//area conversion
-	let one_min = sq_m_per_px / geohashSqM
+	let one_min = sq_m_per_px / city.geohashSqM
 	
 	points.map( f => [ f.x, f.y ] = proj(f.geometry.coordinates) )
 	const contours = contourDensity()
