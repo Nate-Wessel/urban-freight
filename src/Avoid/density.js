@@ -36,7 +36,7 @@ export function density(points,city){
 		.size(size)
 		.thresholds(tVals.map(v=>v*one_min))
 		.cellSize(1)
-		.bandwidth(400*px_per_m) // convert meters to pixels
+		.bandwidth(200*px_per_m) // convert meters to pixels
 		( points )
 	contours.map(cont => {
 		cont.coordinates = unproject(cont.coordinates,proj) 
