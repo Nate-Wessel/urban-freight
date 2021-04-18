@@ -3,8 +3,11 @@ import { geoMercator, geoDistance } from 'd3-geo'
 
 const size = [800,800]	
 const EarthRadius = 6360e3 //6360km
+const geohashSqM = 15000
 
-// returns unprojected d3-contours
+const tVals = [1,2,3,4,5,6,7,8,9,10]
+
+// returns unprojected (EPSG:4326) d3-contours
 // from a dataset [list] with lat/lon properties on entries
 export function density(points,city){
 	let bndFeature = { 
@@ -20,15 +23,21 @@ export function density(points,city){
 	let pxLen = Math.sqrt(size[0]**2+size[1]**2)
 	let [ A, B ] = [ proj.invert([0,0]), proj.invert(size) ]
 	let mLen = geoDistance(A,B)*EarthRadius
-	let m2px = pxLen/mLen
+	// distance conversion
+	let px_per_m = pxLen/mLen
+	let m_per_px = mLen/pxLen
+	let sq_m_per_px = m_per_px**2
+	//area conversion
+	let one_min = sq_m_per_px / geohashSqM
+	
 	points.map( f => [ f.x, f.y ] = proj(f.geometry.coordinates) )
 	const contours = contourDensity()
 		.x(f=>f.x).y(f=>f.y)
 		.weight( f => f.properties.AvgTimeToPark )
 		.size(size)
-		.thresholds(5)
+		.thresholds(tVals.map(v=>v*one_min))
 		.cellSize(1)
-		.bandwidth(400*m2px) // convert meters to pixels
+		.bandwidth(400*px_per_m) // convert meters to pixels
 		( points )
 	contours.map(cont => {
 		cont.coordinates = unproject(cont.coordinates,proj) 
