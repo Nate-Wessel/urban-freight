@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { render } from 'react-dom'
 import { App } from './App'
-import FuelChart from './FuelChart'
+const FuelChart = lazy(()=>import('./FuelChart'))
 
 
-var reactElem;
-if (reactElem = document.querySelector('#avoid-container')){
-	render(<App paradigm="avoid"/>, reactElem)
-}else if (reactElem = document.querySelector('#shift-container')){
-	render(<App paradigm="shift"/>, reactElem)
-}else if (reactElem = document.querySelector('#improve-container')){
-	render(<App paradigm="improve"/>, reactElem)
-}else if (reactElem = document.querySelector('#fuel-container')){
-	render(<FuelChart/>, reactElem)
+var mapElem, chartElem
+
+if (mapElem = document.querySelector('#avoid-container')){
+	render(<App paradigm="avoid"/>, mapElem)
+}else if (mapElem = document.querySelector('#shift-container')){
+	render(<App paradigm="shift"/>, mapElem)
+}else if (mapElem = document.querySelector('#improve-container')){
+	render(<App paradigm="improve"/>, mapElem)
+}
+
+if (chartElem = document.querySelector('#fuel-container')){
+	render(<Suspense fallback={null}><FuelChart/></Suspense>, chartElem)
 }
