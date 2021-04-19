@@ -81,8 +81,18 @@ const paradigms = {
 	improve:{
 		layers:[
 			{
-				key: 'ELEC',
-				label: 'Electric',
+				key: 'E1',
+				label: 'Electric (E1)',
+				icon: ChargingStation
+			},
+			{
+				key: 'E2',
+				label: 'Electric (E2)',
+				icon: ChargingStation
+			},
+			{
+				key: 'E3',
+				label: 'Electric (E3/DC)',
 				icon: ChargingStation
 			},
 			{
