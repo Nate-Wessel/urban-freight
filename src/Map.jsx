@@ -32,7 +32,8 @@ export default function(props){
 			<MapContainer
 				zoom={zoom} minZoom={10} maxZoom={16}
 				maxBoundsViscosity={0.25}
-				gestureHandling={true}>
+				gestureHandling={true}
+				preferCanvas={true}>
 				<MapStateProbe
 					setZoom={setZoom}
 					bounds={city.bounds}/>
