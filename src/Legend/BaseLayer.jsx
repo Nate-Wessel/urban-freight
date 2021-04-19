@@ -52,6 +52,16 @@ export const baseLayers = [
 			{v:'other',label:'Other'}
 		],
 		scale: landuseScale
+	},
+	{
+		name: 'Transit',
+		tabName: 'Transit',
+		title: 'Transit Layer',
+		unit: null,
+		items: [
+			
+		],
+		scale: landuseScale
 	}
 ]
 
@@ -89,8 +99,8 @@ function Nav({layer,setLayer}){
 			{ baseLayers.map( (l,i) => {
 				function click(e){ setLayer(baseLayers[i]) }
 				return (
-					<div key={i} 
-						className={`item clickable ${layer==l?'active':'disabled'}`} 
+					<div key={i}
+						className={`item clickable ${layer==l?'active':'disabled'}`}
 						onClick={click}>
 						{l.tabName}
 					</div>

@@ -3,6 +3,7 @@ import { LayerGroup, Pane } from 'react-leaflet'
 import { DisseminationAreas } from './DisseminationAreas'
 import CityBoundary from './CityBoundary'
 import Landuse from './Landuse'
+import Transit from './Transit'
 
 const DaLayers = new Set(['Employment','Population'])
 
@@ -13,6 +14,9 @@ export default function(props){
 			<Pane name="city-border" style={{zIndex:440}}>
 				<CityBoundary city={city} layer={layer}/>
 			</Pane>
+			{ layer.name == 'Transit' &&
+				<Transit city={city}/>
+			}
 			{ layer.name == 'Landuse' &&
 				<Landuse city={city}/>
 			}
