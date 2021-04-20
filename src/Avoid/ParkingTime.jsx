@@ -33,7 +33,8 @@ export default function(props){
 		return (
 			<Polygon key={`${city}/${cont.value}`}
 				positions={cont.leafletGeom}
-				pathOptions={style}/>
+				pathOptions={style}
+				smoothFactor={0.5}/>
 		)
 	} )
 }
