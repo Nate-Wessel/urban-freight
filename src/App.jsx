@@ -25,13 +25,13 @@ export function App(props){
 	const [ city, setCity ] = useState(cities[0])
 	const [ layer, setLayer ] = useState(baseLayers[0])
 	const [ fullscreen, setFullscreen ] = useState(false)
-	const escFn = e => {    
-		if (e.keyCode == 27) {				
+	const escFn = e => {
+		if (e.keyCode == 27) {
 			setFullscreen(false)
-			e.preventDefault();		
-		}	
+			e.preventDefault();
+		}
 	}
-	useEffect(() => {		
+	useEffect(() => {
 		fullscreen ?
 			document.addEventListener("keydown", escFn, false):
 			document.removeEventListener("keydown", escFn, false);
@@ -42,14 +42,14 @@ export function App(props){
 		<div id="app" ref={target}>
 			<div className={appInnerClass}>
 				<div className="urban-freight-inner">
-					<CityNav city={city} setCity={setCity}/>					
-					<Map city={city} 
-						layer={layer} setLayer={setLayer} 
+					<CityNav city={city} setCity={setCity}/>
+					<Map city={city}
+						layer={layer} setLayer={setLayer}
 						paradigm={props.paradigm}/>
-					<FullscreenToggler fullscreen={fullscreen} 
-						setFullscreen={setFullscreen} target={target}/>			
+					<FullscreenToggler fullscreen={fullscreen}
+						setFullscreen={setFullscreen} target={target}/>
 				</div>
-			</div> 
+			</div>
 		</div>
 	)
 }
@@ -72,16 +72,16 @@ function CityNav(props){
 
 function FullscreenToggler({fullscreen, setFullscreen, target}){
 	return (
-		<button 
-			className="fullscreen-toggler" 
-			onClick={() => {				
+		<button
+			className="fullscreen-toggler"
+			onClick={() => {
 				if (fullscreen)
 					target.current.scrollIntoView()
-				setFullscreen(!fullscreen)				
+				setFullscreen(!fullscreen)
 			}
-		}>		
-			<img 
-				className= "fullscreen-icon" 
+		}>
+			<img
+				className= "fullscreen-icon"
 				src ={fullscreen ? fullscreenIconClose : fullscreenIconOpen}
 			/>
 		</button>
