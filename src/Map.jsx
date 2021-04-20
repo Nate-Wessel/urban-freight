@@ -7,6 +7,7 @@ import { GestureHandling } from 'leaflet-gesture-handling'
 import 'leaflet-gesture-handling/dist/leaflet-gesture-handling.css'
 import * as L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import { baseLayers as baseLayerOptions } from './Legend/BaseLayer'
 import BaseLayer from './BaseLayer'
 import OverLayer from './OverLayer'
 import Legend from './Legend'
@@ -17,16 +18,17 @@ L.Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
 const carto = 'https://basemaps.cartocdn.com'
 
 const defaultDisplay = {
-	avoid: new Set(['transit','parking','Purol']),
+	avoid: new Set(['parking','Purol']),
 	shift: new Set(['bike-paths','bike-lanes','bike-routes','bike-share']),
 	improve: new Set(['ELEC'])
 }
 
 export default function(props){
-	const { city, layer, setLayer, paradigm } = props
-	// keep track of zoom-level here and pass as a prop
+	const { city, paradigm } = props
 	const [ zoom, setZoom ] = useState(11)
-	const [ displayed, setDisplayed ] = useState(defaultDisplay[paradigm])
+	const [ mainLayer, setMainLayer ] = useState(defaultDisplay[paradigm])
+	const [ transit, setTransit ] = useState(true) // boolean
+	const [ baseLayer, setBaseLayer ] = useState(baseLayerOptions[0])
 	return (
 		<div className={`map-wrapper active-city-${city.name}`}>
 			<MapContainer
@@ -42,17 +44,18 @@ export default function(props){
 				</Pane>
 				<Pane name="overlayer" style={{zIndex:449}}>
 					<OverLayer city={city}
-						paradigm={paradigm} zoom={zoom} displayed={displayed}/>
+						paradigm={paradigm} zoom={zoom} displayed={mainLayer}/>
 				</Pane>
-				<BaseLayer city={city} layer={layer}/>
+				<BaseLayer city={city} layer={baseLayer} transit={transit}/>
 				<TileLayer url={`${carto}/light_nolabels/{z}/{x}/{y}{r}.png`}
 				attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
 				/>
 				<ScaleControl position="bottomleft" imperial={false}/>
 			</MapContainer>
 			<Legend city={city} paradigm={paradigm} zoom={zoom}
-				layer={layer} setLayer={setLayer}
-				displayed={displayed} setDisplayed={setDisplayed}/>
+				layer={baseLayer} setLayer={setBaseLayer}
+				transit={transit} setTransit={setTransit}
+				displayed={mainLayer} setDisplayed={setMainLayer}/>
 		</div>
 	)
 }

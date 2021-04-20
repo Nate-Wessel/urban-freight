@@ -4,7 +4,6 @@ import './nav.less'
 import './app.css'
 import fullscreenIconClose from './images/fullscreen-1.svg'
 import fullscreenIconOpen from './images/fullscreen-2.svg'
-import { baseLayers } from './Legend/BaseLayer'
 
 const cities = [
 	{
@@ -23,7 +22,6 @@ const cities = [
 
 export function App(props){
 	const [ city, setCity ] = useState(cities[0])
-	const [ layer, setLayer ] = useState(baseLayers[0])
 	const [ fullscreen, setFullscreen ] = useState(false)
 	const escFn = e => {
 		if (e.keyCode == 27) {
@@ -43,9 +41,7 @@ export function App(props){
 			<div className={appInnerClass}>
 				<div className="urban-freight-inner">
 					<CityNav city={city} setCity={setCity}/>
-					<Map city={city}
-						layer={layer} setLayer={setLayer}
-						paradigm={props.paradigm}/>
+					<Map city={city} paradigm={props.paradigm}/>
 					<FullscreenToggler fullscreen={fullscreen}
 						setFullscreen={setFullscreen} target={target}/>
 				</div>
