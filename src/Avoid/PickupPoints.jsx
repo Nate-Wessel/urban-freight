@@ -1,5 +1,5 @@
 import React from 'react'
-import { CircleMarker } from 'react-leaflet'
+import { CircleMarker, Tooltip } from 'react-leaflet'
 import { scaleOrdinal, scalePow } from 'd3-scale'
 import { geojson2leaflet } from '../geojson2leaflet'
 
@@ -33,7 +33,11 @@ export function PickupPoints(props){
 		return (
 			<CircleMarker key={`${feat.properties.type}/${i}`}
 				center={ll} radius={pointRadius(zoom)}
-				pathOptions={{...styleOptions,...{fillColor:clr}}}/>
+				pathOptions={{...styleOptions,...{fillColor:clr}}}>
+				<Tooltip pane="tooltipPane">
+					{`${feat.properties.serv}`}
+				</Tooltip>
+			</CircleMarker>
 		)
 	} )
 }
