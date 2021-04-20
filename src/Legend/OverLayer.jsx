@@ -80,7 +80,8 @@ const paradigms = {
 			{
 				key:'parking-lots',
 				label:'Parking Lots',
-				icon: ParkingLot
+				icon: ParkingLot,
+				description: "Surface parking lots. Darker colour indicates municipally operated"
 			}
 		]
 	},
