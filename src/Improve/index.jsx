@@ -26,7 +26,7 @@ export default function(props){
 					return (
 						<FuelingPoints key={key}
 							color={color(key)}
-							features={points.filter(f=>f.properties.fuel_type_code==key)}
+							features={points.filter(f=>f.properties.type==key)}
 							zoom={zoom}/>
 					)
 				}

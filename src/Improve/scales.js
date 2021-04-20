@@ -1,10 +1,10 @@
 import { scaleOrdinal, scalePow } from 'd3-scale'
 
-export const keys = ['ELEC','CNG','LPG']
+export const keys = ['E1','E2','E3','CNG','LPG']
 
 export const color = scaleOrdinal()
 	.domain(keys)
-	.range(['#d64a00','#a13134','#4e472f'])
+	.range(['#24b563','#2ba4e0','#5b29cf','#d64a00','#ff0084'])
 
 export const pointRadius = scalePow()
 	.exponent(2)
