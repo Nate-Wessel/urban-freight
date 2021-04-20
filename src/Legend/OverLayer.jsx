@@ -24,23 +24,28 @@ const paradigms = {
 			{
 				key: 'Purol',
 				label: 'Purolator',
-				icon: PickupPoint
+				icon: PickupPoint,
+				description: 'Includes parcel pick up and shipping locations. Hover over a point for details.'
 			},
 			{
 				key: 'Fedex',
 				label: 'Fedex',
-				icon: PickupPoint
+				icon: PickupPoint,
+				description: 'Includes parcel pick up and shipping locations.'
 			},
 			{
 				key: 'UPS',
 				label: 'UPS',
-				icon: PickupPoint
+				icon: PickupPoint,
+				description: 'UPS Store locations.'
 			},
 			{
 				key: 'Penguin',
 				label: 'Penguin',
-				icon: PickupPoint
-			},
+				icon: PickupPoint,
+				description: 'PenguinPickUp retail locations.'
+			}
+
 
 		]
 	},
