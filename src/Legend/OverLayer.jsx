@@ -13,7 +13,8 @@ const paradigms = {
 			{
 				key: 'parking',
 				label: 'Parking Time',
-				icon: ParkingTime
+				icon: ParkingTime,
+				description: 'Contours indicate a roughly one minute increase in time spent searching for parking with each step'
 			},
 			{
 				key: 'Purol',
@@ -73,7 +74,8 @@ const paradigms = {
 			{
 				key:'parking-lots',
 				label:'Parking Lots',
-				icon: ParkingLot
+				icon: ParkingLot,
+				description: "Surface parking lots. Darker colour indicates municipally operated"
 			}
 		]
 	},
