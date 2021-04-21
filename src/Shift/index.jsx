@@ -44,7 +44,7 @@ export default function(props){
 import { Polyline } from 'react-leaflet'
 import { geojson2leaflet } from '../geojson2leaflet'
 
-const basicStyle = { weight: 2 }
+const basicStyle = { weight: 2, bubblingMouseEvents: false }
 
 function BikePaths(props){
 	const { features } = props
