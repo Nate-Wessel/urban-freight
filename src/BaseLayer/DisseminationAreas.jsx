@@ -12,11 +12,11 @@ const sources = {
 
 export const empDensity = scaleThreshold()
     .domain([1000, 5000, 10000, 20000])
-    .range(['#fbede5','#f7dbcc','#f1c0a6','#eaa47f','#e48959'])
+    .range(['#eee9f0','#e3dbe6','#ccbed3','#b6a1bf','#a58bb1'])
 
 export const popDensity = scaleThreshold()
     .domain([1000, 5000, 10000, 20000])
-    .range(['#e7f6f2','#d4eeef','#c1e6dd','#a6e0d2','#8cdbc8'])
+    .range(['#fef3e1','#feeccf','#fee5be','#fedeab','#fccd80'])
 
 // ['#eff9f6','#e7f6f2','#d4eeef','#c1e6dd','#aedfd3']
 

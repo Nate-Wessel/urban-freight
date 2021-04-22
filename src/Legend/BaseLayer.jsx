@@ -4,7 +4,7 @@ import { empDensity, popDensity } from '../BaseLayer/DisseminationAreas'
 
 const landuseScale = scaleOrdinal()
 	.domain(['green','industrial','retail','residential','other'])
-	.range(['#daf8e8','#fecf92','#c7c4fe','#fbeef5','white'])
+	.range(['#d5e4cf','#a9d7ea','#bfb2d8','#ffe899','#f6f0de'])
 
 // these objects get passed around a bit but should be considered immutable
 export const baseLayers = [
@@ -49,7 +49,7 @@ export const baseLayers = [
 		items: [
 			{v:'green',label:'Green Space'},
 			{v:'industrial',label:'Industrial'},
-			{v:'retail',label:'Commercial'},
+			{v:'retail',label:'Commercial/Retail'},
 			{v:'residential',label:'Residential'},
 			{v:'other',label:'Other'}
 		],
@@ -68,7 +68,7 @@ export function BaseLayer({city,layer,setLayer,transit,setTransit}){
 			<span className="title">
 				<b>Base map layers:</b>&nbsp;
 			</span>
-			<Nav layer={layer} setLayer={setLayer} 
+			<Nav layer={layer} setLayer={setLayer}
 				transit={transit} setTransit={setTransit}/>
 			{ layer.name != 'None' && <>
 				<span className="subtitle">{opts.title}</span>&nbsp;
