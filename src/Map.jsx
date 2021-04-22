@@ -19,7 +19,7 @@ const carto = 'https://basemaps.cartocdn.com'
 
 const defaultDisplay = {
 	avoid: new Set(['parking','Purol']),
-	shift: new Set(['bike-paths','bike-lanes','bike-routes','bike-share']),
+	shift: new Set(['bike-paths','bike-lanes','bike-share']),
 	improve: new Set(['E1','E2','E3'])
 }
 
