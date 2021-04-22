@@ -54,6 +54,10 @@ export const baseLayers = [
 			{v:'other',label:'Other'}
 		],
 		scale: landuseScale
+	},
+	{
+		name: 'None',
+		tabName: 'No base layer'
 	}
 ]
 
