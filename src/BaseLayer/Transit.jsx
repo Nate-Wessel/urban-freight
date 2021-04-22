@@ -11,7 +11,7 @@ export default function(props){
 		layer.current.setUrl(url(city))
 	},[city])
 	return (
-		<Pane name="transit" style={{zIndex:430}}>
+		<Pane name="transit" style={{zIndex:431}}>
 			<TileLayer ref={layer} url={url(city)}/>
 		</Pane>
 	)
