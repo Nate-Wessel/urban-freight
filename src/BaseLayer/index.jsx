@@ -7,14 +7,13 @@ import Transit from './Transit'
 
 const DaLayers = new Set(['Employment','Population'])
 
-export default function(props){
-	const { layer, city } = props
+export default function({city,layer,transit}){
 	return (
 		<LayerGroup>
 			<Pane name="city-border" style={{zIndex:440}}>
 				<CityBoundary city={city} layer={layer}/>
 			</Pane>
-			{ layer.name == 'Transit' &&
+			{ transit &&
 				<Transit city={city}/>
 			}
 			{ layer.name == 'Landuse' &&

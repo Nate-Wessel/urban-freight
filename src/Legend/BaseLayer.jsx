@@ -6,16 +6,19 @@ const landuseScale = scaleOrdinal()
 	.domain(['green','industrial','retail','residential','other'])
 	.range(['#daf8e8','#fecf92','#c7c4fe','#fbeef5','white'])
 
+// these objects get passed around a bit but should be considered immutable
 export const baseLayers = [
 	{
-		name: 'None',
-		tabName: 'No base layer'
+		name: 'Transit',
+		tabName: 'Transit',
+		title: 'Public Transit',
+		items: []
 	},
 	{
 		name: 'Population',
 		tabName: 'Population',
 		title: 'Population Density',
-		unit: '(people per square kilometer)',
+		unit: 'people per square kilometer',
 		items: [
 			{v:12,label:' <1,000'},
 			{v:4000,label:' 1,000 to 5,000'},
@@ -29,7 +32,7 @@ export const baseLayers = [
 		name: 'Employment',
 		tabName: 'Employment',
 		title: 'Employment Density',
-		unit: '(jobs per square kilometer)',
+		unit: 'jobs per square kilometer',
 		items: [
 			{v:12,label:' <1,000'},
 			{v:4000,label:' 1,000 to 5,000'},
@@ -43,7 +46,6 @@ export const baseLayers = [
 		name: 'Landuse',
 		tabName: 'Landuse',
 		title: 'Prevailing Landuse',
-		unit: null,
 		items: [
 			{v:'green',label:'Green Space'},
 			{v:'industrial',label:'Industrial'},
@@ -54,28 +56,23 @@ export const baseLayers = [
 		scale: landuseScale
 	},
 	{
-		name: 'Transit',
-		tabName: 'Transit',
-		title: 'Transit Layer',
-		unit: null,
-		items: [
-			
-		],
-		scale: landuseScale
+		name: 'None',
+		tabName: 'No base layer'
 	}
 ]
 
-export function BaseLayer({city,layer,setLayer}){
+export function BaseLayer({city,layer,setLayer,transit,setTransit}){
 	const opts = baseLayers.find( bl => bl.name == layer.name )
 	return (
 		<div id="baselayer" className="layer">
 			<span className="title">
 				<b>Base map layers:</b>&nbsp;
 			</span>
-			<Nav layer={layer} setLayer={setLayer}/>
+			<Nav layer={layer} setLayer={setLayer} 
+				transit={transit} setTransit={setTransit}/>
 			{ layer.name != 'None' && <>
 				<span className="subtitle">{opts.title}</span>&nbsp;
-				{opts.unit && <span className="layerunits">{opts.unit}</span>}
+				{opts.unit && <span className="layerunits">({opts.unit})</span>}
 				<div className="items">{
 					opts.items.map( item => {
 						return (
@@ -93,16 +90,19 @@ export function BaseLayer({city,layer,setLayer}){
 	)
 }
 
-function Nav({layer,setLayer}){
+function Nav({layer,setLayer,transit,setTransit}){
 	return (
 		<div className="items">
-			{ baseLayers.map( (l,i) => {
-				function click(e){ setLayer(baseLayers[i]) }
+			{ baseLayers.map( lyr => {
+				const active = layer == lyr || (lyr.name == 'Transit' && transit)
+				const onClick = lyr.name == 'Transit' ?
+					(e) => setTransit(currentVal=>!currentVal) :
+					(e) => setLayer(lyr);
 				return (
-					<div key={i}
-						className={`item clickable ${layer==l?'active':'disabled'}`}
-						onClick={click}>
-						{l.tabName}
+					<div key={lyr.name}
+						className={`item clickable ${active?'active':'disabled'}`}
+						onClick={onClick}>
+						{lyr.tabName}
 					</div>
 				)
 			} ) }

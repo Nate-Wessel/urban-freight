@@ -2,7 +2,6 @@ import React from 'react'
 import PickupPoint from './PickupPoint'
 import ChargingStation from './ChargingStation'
 import BikeShare from './BikeShare'
-import Transit from './Transit'
 import ParkingLot from './ParkingLot'
 import ParkingTime from './ParkingTime'
 import { routeIcon } from '../Shift/routeStyles'
@@ -11,11 +10,6 @@ import { routeIcon } from '../Shift/routeStyles'
 const paradigms = {
 	avoid:{
 		layers:[
-			{
-				key: 'transit',
-				label: 'Public Transit',
-				icon: Transit
-			},
 			{
 				key: 'parking',
 				label: 'Parking Time',

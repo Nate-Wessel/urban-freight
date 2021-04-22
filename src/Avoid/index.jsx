@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
 import { LayerGroup } from 'react-leaflet'
-import Transit from './Transit'
 import ParkingTime from './ParkingTime'
 import { PickupPoints, operators } from './PickupPoints'
 
@@ -32,9 +31,6 @@ export default function(props){
 					)
 				}
 			} ) }
-			{displayed.has('transit') &&
-				<Transit city={city} zoom={zoom}/>
-			}
 			{displayed.has('parking') &&
 				<ParkingTime city={city}/>
 			}
