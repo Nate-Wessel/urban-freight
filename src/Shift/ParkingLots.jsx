@@ -23,6 +23,7 @@ export default function(props){
 	const { city } = props
 	const [ lots,setLots ] = useState([])
 	let styleOptions = {
+		bubblingMouseEvents: false,
 		stroke: false,
 		fillOpacity: 1
 	}

@@ -25,7 +25,8 @@ export function PickupPoints(props){
 		opacity: 1,
 		fillOpacity: 1,
 		weight: pointWeight(zoom),
-		color: 'white'
+		color: 'white',
+		bubblingMouseEvents: false
 	}
 	return features.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)

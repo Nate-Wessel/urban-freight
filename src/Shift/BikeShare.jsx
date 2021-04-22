@@ -20,7 +20,8 @@ export const style = {
 	color: "white",
 	fillColor: "#d64a00",
 	opacity: 0.9,
-	fillOpacity: 0.9
+	fillOpacity: 0.9,
+	bubblingMouseEvents: false
 }
 
 export function BikeShare(props){

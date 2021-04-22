@@ -27,7 +27,8 @@ export default function(props){
 		color: '#d90000',
 		fillOpacity: 0.09,
 		fillColor: 'grey',
-		opacity: 0.5
+		opacity: 0.5,
+		bubblingMouseEvents: false
 	}
 	return contours.map( cont => {
 		return (
