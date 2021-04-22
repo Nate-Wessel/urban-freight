@@ -57,14 +57,15 @@ export const baseLayers = [
 	}
 ]
 
-export function BaseLayer({city,layer,setLayer}){
+export function BaseLayer({city,layer,setLayer,transit,setTransit}){
 	const opts = baseLayers.find( bl => bl.name == layer.name )
 	return (
 		<div id="baselayer" className="layer">
 			<span className="title">
 				<b>Base map layers:</b>&nbsp;
 			</span>
-			<Nav layer={layer} setLayer={setLayer}/>
+			<Nav layer={layer} setLayer={setLayer} 
+				transit={transit} setTransit={setTransit}/>
 			{ layer.name != 'None' && <>
 				<span className="subtitle">{opts.title}</span>&nbsp;
 				{opts.unit && <span className="layerunits">({opts.unit})</span>}
@@ -85,16 +86,19 @@ export function BaseLayer({city,layer,setLayer}){
 	)
 }
 
-function Nav({layer,setLayer}){
+function Nav({layer,setLayer,transit,setTransit}){
 	return (
 		<div className="items">
-			{ baseLayers.map( (l,i) => {
-				function click(e){ setLayer(baseLayers[i]) }
+			{ baseLayers.map( lyr => {
+				const active = layer == lyr || (lyr.name == 'Transit' && transit)
+				const onClick = lyr.name == 'Transit' ?
+					(e) => setTransit(currentVal=>!currentVal) :
+					(e) => setLayer(lyr);
 				return (
-					<div key={i}
-						className={`item clickable ${layer==l?'active':'disabled'}`}
-						onClick={click}>
-						{l.tabName}
+					<div key={lyr.name}
+						className={`item clickable ${active?'active':'disabled'}`}
+						onClick={onClick}>
+						{lyr.tabName}
 					</div>
 				)
 			} ) }
