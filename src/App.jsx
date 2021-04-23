@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from "react"
 import Map from './Map'
 import './nav.less'
 import './app.css'
-import fullscreenIconClose from './images/fullscreen-1.svg'
-import fullscreenIconOpen from './images/fullscreen-2.svg'
 
 const cities = [
 	{
@@ -44,9 +42,7 @@ export function App(props){
 			<div className={appInnerClass}>
 				<div className="urban-freight-inner">
 					<CityNav city={city} setCity={setCity}/>
-					<Map city={city} paradigm={props.paradigm}/>
-					<FullscreenToggler fullscreen={fullscreen}
-						setFullscreen={setFullscreen} target={target}/>
+					<Map city={city} paradigm={props.paradigm} fullscreen={fullscreen} setFullscreen={setFullscreen} fullscreenTarget={target}/>					
 				</div>
 			</div>
 		</div>
@@ -66,23 +62,5 @@ function CityNav(props){
 				)
 			} ) }
 		</div>
-	)
-}
-
-function FullscreenToggler({fullscreen, setFullscreen, target}){
-	return (
-		<button
-			className="fullscreen-toggler"
-			onClick={() => {
-				if (fullscreen)
-					target.current.scrollIntoView()
-				setFullscreen(!fullscreen)
-			}
-		}>
-			<img
-				className= "fullscreen-icon"
-				src ={fullscreen ? fullscreenIconClose : fullscreenIconOpen}
-			/>
-		</button>
 	)
 }

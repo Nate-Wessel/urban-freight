@@ -1,7 +1,14 @@
 /*legend styling goes here*/
 
 #legend {
-	margin: 20px;
+	margin: 10px;
+  z-index: 400;
+  position: relative;
+  background-color: #ffffffbb;
+  max-width: 246px;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+	color: #000;
 
 	.title {
 		font-size: 1.3em;
@@ -15,8 +22,20 @@
 	.layer {
 		margin: 10px;
 	}
+	.subtitle-units {
+		margin-top: 5px;
+	}
 	.items {
 		display: flex;
+		flex-wrap: wrap;
+		margin: 0 -5px;
+
+		&.layer-swatches{			
+			.item {
+				flex: calc(100% - 15px);
+  			margin-left: 0;
+			}
+		}
 
 		.item {
 			padding: 5px;
@@ -28,12 +47,16 @@
 				color: white;
 				background-color: var(--dark-blue);
 				border: #0000 2px solid;
+
+				label {
+					color: white;
+				}
 			}
 			&.disabled {
 				color: var(--mid-blue);
 				border: var(--light-blue) 2px solid;
 			}
-			&.clickable {
+			&.clickable.disabled {
 				&:hover {
 					color: var(--dark-blue);
 					background-color: var(--light-blue);
@@ -51,7 +74,7 @@
 			.icon {
 				vertical-align: middle;
 				display: inline-block;
-				margin: 1px 5px;
+				margin: 1px 5px 1px 0;
 				&:empty {
 					height: 1em;
 					min-width: 1em;

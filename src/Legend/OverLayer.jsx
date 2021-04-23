@@ -125,7 +125,7 @@ export default function(props){
 	return (
 		<div id="overlayer" className="layer">
 			<span className="title">
-				"<b>{paradigm.toUpperCase()}" data layers:</b> {city.name}
+				"{paradigm.toUpperCase()}" data layers: {city.name}
 			</span>
 			<div className="items">{
 				paradigms[paradigm].layers.map(l=>{

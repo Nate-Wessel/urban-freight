@@ -12,6 +12,8 @@ import BaseLayer from './BaseLayer'
 import OverLayer from './OverLayer'
 import Legend from './Legend'
 import './map.css'
+import fullscreenIconClose from './images/fullscreen-1.svg'
+import fullscreenIconOpen from './images/fullscreen-2.svg'
 
 L.Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
 
@@ -24,7 +26,7 @@ const defaultDisplay = {
 }
 
 export default function(props){
-	const { city, paradigm } = props
+	const { city, paradigm, fullscreen, setFullscreen, fullscreenTarget } = props
 	const [ zoom, setZoom ] = useState(11)
 	const [ mainLayer, setMainLayer ] = useState(defaultDisplay[paradigm])
 	const [ transit, setTransit ] = useState(true) // boolean
@@ -51,11 +53,17 @@ export default function(props){
 				attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
 				/>
 				<ScaleControl position="bottomleft" imperial={false}/>
-			</MapContainer>
-			<Legend city={city} paradigm={paradigm} zoom={zoom}
+
+				<Legend city={city} paradigm={paradigm} zoom={zoom}
 				layer={baseLayer} setLayer={setBaseLayer}
 				transit={transit} setTransit={setTransit}
 				displayed={mainLayer} setDisplayed={setMainLayer}/>
+
+				<FullscreenToggler fullscreen={fullscreen}
+					setFullscreen={setFullscreen} target={fullscreenTarget}/>
+
+			</MapContainer>
+			
 		</div>
 	)
 }
@@ -69,4 +77,22 @@ function MapStateProbe(props){
 		map.setMaxBounds(bounds)
 	},[bounds])
 	return null
+}
+
+function FullscreenToggler({fullscreen, setFullscreen, target}){
+	return (
+		<button
+			className="fullscreen-toggler"
+			onClick={() => {
+				if (fullscreen)
+					target.current.scrollIntoView()
+				setFullscreen(!fullscreen)
+			}
+		}>
+			<img
+				className= "fullscreen-icon"
+				src ={fullscreen ? fullscreenIconClose : fullscreenIconOpen}
+			/>
+		</button>
+	)
 }

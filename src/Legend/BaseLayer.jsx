@@ -66,14 +66,16 @@ export function BaseLayer({city,layer,setLayer,transit,setTransit}){
 	return (
 		<div id="baselayer" className="layer">
 			<span className="title">
-				<b>Base map layers:</b>&nbsp;
+				Base map layers:&nbsp;
 			</span>
 			<Nav layer={layer} setLayer={setLayer}
 				transit={transit} setTransit={setTransit}/>
 			{ layer.name != 'None' && <>
-				<span className="subtitle">{opts.title}</span>&nbsp;
-				{opts.unit && <span className="layerunits">({opts.unit})</span>}
-				<div className="items">{
+				<div className="subtitle-units">
+					<span className="subtitle">{opts.title}</span>&nbsp;
+					{opts.unit && <span className="layerunits">({opts.unit})</span>}
+				</div>
+				<div className="items layer-swatches">{
 					opts.items.map( item => {
 						return (
 							<div key={item.v} className="item">

@@ -27,18 +27,18 @@
 
 .fullscreen-toggler {
   position: absolute;
-  top: 48px;
-  right: 10px;
-  font-family: sans-serif
+  top: 0;
+  right: 0;
+  margin: 10px;
+  font-family: sans-serif;
+  z-index: 400;
 }
 .fullscreen-icon {
   width: 20px;
   height: 20px;
 }
 
-.urban-freight-wrap .fullscreen-toggler {
-  top: 44px;
-  left: 11px;
+.urban-freight-wrap .fullscreen-toggler {  
   border: 2px solid rgba(0,0,0,0.2);
   background-color: #fff;
   border-radius: 3px;
@@ -48,6 +48,13 @@
   background-color: #f4f4f4;
 }
 
-.urban-freight-wrap .leaflet-control-zoom {
-  top: 40px;
+.urban-freight-wrap .leaflet-touch-zoom  .leaflet-top.leaflet-left {
+  right: 0px;
+  margin: 10px;
+  left: auto;
+  top: 30px;
+}
+
+.leaflet-bottom .leaflet-control-scale {
+  margin-left: 10px;
 }
