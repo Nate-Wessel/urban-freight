@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
-import { CircleMarker, LayerGroup } from 'react-leaflet'
+import { CircleMarker, Pane } from 'react-leaflet'
 import { pointRadius, pointWeight, keys, color } from './scales.js'
 import { geojson2leaflet } from '../geojson2leaflet'
 
@@ -20,7 +20,7 @@ export default function(props){
 		} )
 	},[city])
 	return (
-		<LayerGroup>
+		<Pane name="fuel-stuff" style={{zIndex:445}}>
 			{keys.map(key=>{
 				if(displayed.has(key)){
 					return (
@@ -31,7 +31,7 @@ export default function(props){
 					)
 				}
 			} ) }
-		</LayerGroup>
+		</Pane>
 	)
 }
 
