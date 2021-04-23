@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { scaleLinear } from 'd3-scale'
 import './chart.less'
 
-const margin = {t:10,b:40,l:100,r:10}
+const margin = {t:10,b:40,l:100,r:15}
 
-const [ width, height ] = [ 500, 200 ]
+const [ width, height ] = [ 800, 200 ]
+
+const barWidth = 20
 
 const cities = [
 	{
@@ -40,7 +42,7 @@ export default function(props){
 			{cities.map( (city,i) => (
 				<City key={city.label} data={city} position={i}/>
 			))}
-			<XAxis/>
+			<Axis/>
 		</svg>
 	)
 }
@@ -54,16 +56,22 @@ function City(props){
 		<g className="city" transform={`translate(0,${30+position*50})`}>
 			<text x={zero} y={0}>{data.label}&nbsp;</text>
 			<path className="diesel" 
-				d={`M${zero},-11 L${diesel},-11 L${diesel},-1 L${zero},-1 z`}/>
-			<circle className="ev HDT" cx={chartX(data.electricHDT)} cy={-6} r="5"/>
+				d={`M${zero},${-barWidth-1} L${diesel},${-barWidth-1} L${diesel},-1 L${zero},-1 z`}/>
+			<circle className="ev HDT" 
+				cx={chartX(data.electricHDT)} 
+				cy={-barWidth/2-1} 
+				r={barWidth/2}/>
 			<path className="gasoline" 
-				d={`M${zero},11 L${gas},11 L${gas},1 L${zero},1 z`}/>
-			<circle className="ev MDT" cx={chartX(data.electricMDT)} cy={6} r="5"/>
+				d={`M${zero},${barWidth+1} L${gas},${barWidth+1} L${gas},1 L${zero},1 z`}/>
+			<circle className="ev MDT" 
+				cx={chartX(data.electricMDT)} 
+				cy={barWidth/2+1} 
+				r={barWidth/2}/>
 		</g>
 	)
 }
 
-function XAxis(props){
+function Axis(props){
 	const ymin = height - margin.b
 	const ticks = chartX.ticks().map( t => {
 		return (
@@ -74,9 +82,13 @@ function XAxis(props){
 		)
 	} )
 	return (
-		<g id="x-axis" transform={`translate(0,${ymin})`}>
-			<path d={`M${chartX(0)},0 L${chartX(50)},0`}/>
-			{ticks}
-		</g>
+		<>
+			<path className="y-base-line"
+				d={`M${chartX(0)},0 L${chartX(0)},${ymin}`}/>
+			<g id="x-axis" transform={`translate(0,${ymin})`}>
+				<path d={`M${chartX(0)},0 L${chartX(50)},0`}/>
+				{ticks}
+			</g>
+		</>
 	)
 }
