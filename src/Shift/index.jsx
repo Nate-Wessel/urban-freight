@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
-import { LayerGroup } from 'react-leaflet'
+import { Pane } from 'react-leaflet'
 import ParkingLots from './ParkingLots'
 import { BikeShare } from './BikeShare'
 import { color } from './routeStyles'
@@ -31,13 +31,19 @@ export default function(props){
 		} )
 	},[city])
 	return (
-		<LayerGroup>
-			{displayed.has('bike-paths') && <BikePaths features={bikePaths}/>}
-			{displayed.has('bike-lanes') && <BikeLanes features={bikeLanes}/>}
-			{displayed.has('bike-routes') && <BikeRoutes features={bikeRoutes}/>}
-			{displayed.has('parking-lots') && <ParkingLots city={city}/>}
-			{displayed.has('bike-share') && <BikeShare city={city} zoom={zoom}/>}
-		</LayerGroup>
+		<>
+			<Pane name="bike-stuff" style={{zIndex:445}}>
+				{displayed.has('bike-paths') && <BikePaths features={bikePaths}/>}
+				{displayed.has('bike-lanes') && <BikeLanes features={bikeLanes}/>}
+				{displayed.has('bike-routes') && <BikeRoutes features={bikeRoutes}/>}
+			</Pane>
+			<Pane name="parking-lots" style={{zIndex:441}}>
+				{displayed.has('parking-lots') && <ParkingLots city={city}/>}
+			</Pane>
+			<Pane name="bike-share" style={{zIndex:449}}>
+				{displayed.has('bike-share') && <BikeShare city={city} zoom={zoom}/>}
+			</Pane>
+		</>
 	)
 }
 

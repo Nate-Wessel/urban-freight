@@ -44,10 +44,8 @@ export default function(props){
 				<Pane name="tile-labels" style={{zIndex:450}}>
 					<TileLayer url={`${carto}/light_only_labels/{z}/{x}/{y}{r}.png`}/>
 				</Pane>
-				<Pane name="overlayer" style={{zIndex:449}}>
-					<OverLayer city={city}
-						paradigm={paradigm} zoom={zoom} displayed={mainLayer}/>
-				</Pane>
+				<OverLayer city={city}
+					paradigm={paradigm} zoom={zoom} displayed={mainLayer}/>
 				<BaseLayer city={city} layer={baseLayer} transit={transit}/>
 				<TileLayer url={`${carto}/light_nolabels/{z}/{x}/{y}{r}.png`}
 				attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
