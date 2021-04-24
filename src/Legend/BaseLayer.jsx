@@ -54,10 +54,6 @@ export const baseLayers = [
 			{v:'other',label:'Other'}
 		],
 		scale: landuseScale
-	},
-	{
-		name: 'None',
-		tabName: 'No base layer'
 	}
 ]
 
@@ -99,7 +95,7 @@ function Nav({layer,setLayer,transit,setTransit}){
 				const active = layer == lyr || (lyr.name == 'Transit' && transit)
 				const onClick = lyr.name == 'Transit' ?
 					(e) => setTransit(currentVal=>!currentVal) :
-					(e) => setLayer(lyr);
+					(e) => layer == lyr ? setLayer({name:'None'}) : setLayer(lyr);
 				return (
 					<div key={lyr.name}
 						className={`item clickable ${active?'active':'disabled'}`}
