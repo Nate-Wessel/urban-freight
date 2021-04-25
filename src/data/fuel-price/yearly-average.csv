@@ -1,0 +1,43 @@
+GEO,year,fuel,avg
+"Edmonton, Alberta",2015,diesel,96.46666666666667
+"Edmonton, Alberta",2015,gasoline,101.49166666666667
+"Edmonton, Alberta",2016,diesel,87.33333333333334
+"Edmonton, Alberta",2016,gasoline,94.19583333333334
+"Edmonton, Alberta",2017,diesel,104.45
+"Edmonton, Alberta",2017,gasoline,107.06666666666666
+"Edmonton, Alberta",2018,diesel,124.175
+"Edmonton, Alberta",2018,gasoline,125.74166666666666
+"Edmonton, Alberta",2019,diesel,115.03333333333333
+"Edmonton, Alberta",2019,gasoline,112.52083333333333
+"Edmonton, Alberta",2020,diesel,97.54166666666667
+"Edmonton, Alberta",2020,gasoline,100.05
+"Edmonton, Alberta",2021,diesel,107
+"Edmonton, Alberta",2021,gasoline,115.575
+"Toronto, Ontario",2015,diesel,107.98333333333333
+"Toronto, Ontario",2015,gasoline,115.08333333333333
+"Toronto, Ontario",2016,diesel,92.95
+"Toronto, Ontario",2016,gasoline,109.3875
+"Toronto, Ontario",2017,diesel,107.65
+"Toronto, Ontario",2017,gasoline,122.59583333333333
+"Toronto, Ontario",2018,diesel,125.29166666666667
+"Toronto, Ontario",2018,gasoline,136.20416666666668
+"Toronto, Ontario",2019,diesel,117.65833333333333
+"Toronto, Ontario",2019,gasoline,127.3625
+"Toronto, Ontario",2020,diesel,100.10833333333333
+"Toronto, Ontario",2020,gasoline,111.3875
+"Toronto, Ontario",2021,diesel,111.65
+"Toronto, Ontario",2021,gasoline,126.625
+"Vancouver, British Columbia",2015,diesel,121.45
+"Vancouver, British Columbia",2015,gasoline,131.69166666666666
+"Vancouver, British Columbia",2016,diesel,110.49166666666667
+"Vancouver, British Columbia",2016,gasoline,126.98333333333333
+"Vancouver, British Columbia",2017,diesel,120.86666666666667
+"Vancouver, British Columbia",2017,gasoline,143.7875
+"Vancouver, British Columbia",2018,diesel,139.7
+"Vancouver, British Columbia",2018,gasoline,159.92083333333332
+"Vancouver, British Columbia",2019,diesel,136.93333333333334
+"Vancouver, British Columbia",2019,gasoline,159.4625
+"Vancouver, British Columbia",2020,diesel,114.49166666666666
+"Vancouver, British Columbia",2020,gasoline,136.42083333333332
+"Vancouver, British Columbia",2021,diesel,124.55000000000001
+"Vancouver, British Columbia",2021,gasoline,149
