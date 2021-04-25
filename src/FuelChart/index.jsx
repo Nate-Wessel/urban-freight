@@ -11,7 +11,7 @@ const [ width, height ] = [ 800, 200 ]
 const barWidth = 20
 
 const chartX = scaleLinear()
-	.domain( [ 0, 50 ] )
+	.domain( [ 0, 60 ] )
 	.range( [ margin.l, width-margin.r ] )
 
 // data
@@ -46,9 +46,9 @@ const price = { // cents per unit energy by time and place
 		},
 		electric: { // per kilowatt hour
 			'2020': 13,
-			'2019': 0, // TODO
-			'2018': 0,
-			'2017': 0
+			'2019': null, // TODO
+			'2018': null,
+			'2017': null
 		}
 	},
 	Edmonton: {
@@ -66,9 +66,9 @@ const price = { // cents per unit energy by time and place
 		},
 		electric: { 
 			'2020': 16.6,
-			'2019': 0, // TODO
-			'2018': 0,
-			'2017': 0
+			'2019': null, // TODO
+			'2018': null,
+			'2017': null
 		}
 	},
 	Vancouver: {
@@ -86,9 +86,9 @@ const price = { // cents per unit energy by time and place
 		},
 		electric: {
 			'2020': 12.6,
-			'2019': 0, // TODO
-			'2018': 0,
-			'2017': 0
+			'2019': null, // TODO
+			'2018': null,
+			'2017': null
 		}
 	}
 }
@@ -96,23 +96,32 @@ const price = { // cents per unit energy by time and place
 const cities = Object.keys(price)
 
 export default function(props){
-	const [ year, setYear ] = useState('2020')
+	const [ year, setYear ] = useState(2020)
 	return (
-		<svg id="fuel-chart" width={width} height={height}>
-			{cities.map( (city,i) => (
-				<City key={city} city={city} year={year} position={i}/>
-			))}
-			<Axis/>
-		</svg>
+		<>
+			<h2>{year}</h2>
+			<svg id="fuel-chart" width={width} height={height}>
+				{cities.map( (city,i) => (
+					<City key={city} city={city} year={year} position={i}/>
+				))}
+				<Axis/>
+			</svg>
+			<input type="range" min="2017" max="2020" 
+				value={year} 
+				onChange={handleYearSelect}/>
+		</>
 	)
+	function handleYearSelect(event){
+		setYear(event.target.value)
+	}
 }
 
 function City({city,position,year}){
 	let zero = chartX(0)
 	
 	// calculate prices in $/100km
-	let gasPrice = (100/KPL.MDT)*(price[city].gasoline[year]/100)
-	let dieselPrice = (100/KPL.HDT)*(price[city].diesel[year]/100)
+	let gasPrice         = (100/KPL.MDT)*(price[city].gasoline[year]/100)
+	let dieselPrice      = (100/KPL.HDT)*(price[city].diesel[year]/100)
 	let electricHDTPrice = (100/KPK.HDT)*(price[city].electric[year]/100)
 	let electricMDTPrice = (100/KPK.MDT)*(price[city].electric[year]/100)
 
@@ -153,7 +162,7 @@ function Axis(props){
 			<path className="y-base-line"
 				d={`M${chartX(0)},0 L${chartX(0)},${ymin}`}/>
 			<g id="x-axis" transform={`translate(0,${ymin})`}>
-				<path d={`M${chartX(0)},0 L${chartX(50)},0`}/>
+				<path d={`M${chartX(0)},0 L${chartX(60)},0`}/>
 				{ticks}
 			</g>
 		</>
