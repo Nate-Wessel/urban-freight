@@ -15,6 +15,7 @@ const chartX = scaleLinear()
 	.range( [ margin.l, width-margin.r ] )
 
 // data
+
 const MPG = { // miles per gallon
 	HDT: 6.74,
 	MDT: 9.87
@@ -29,7 +30,7 @@ const KPK = { // kilometers per kilowatt hour
 	MDT: 339/75
 }
 
-const cents = { // cents per unit energy by time and place
+const price = { // cents per unit energy by time and place
 	Toronto: {
 		diesel:{ // per liter
 			'2020': 100.10833,
@@ -45,7 +46,7 @@ const cents = { // cents per unit energy by time and place
 		},
 		electric: { // per kilowatt hour
 			'2020': 13,
-			'2019': 13, // TODO estimated
+			'2019': 0, // TODO
 			'2018': 0,
 			'2017': 0
 		}
@@ -65,7 +66,7 @@ const cents = { // cents per unit energy by time and place
 		},
 		electric: { 
 			'2020': 16.6,
-			'2019': 16.6, // TODO estimated
+			'2019': 0, // TODO
 			'2018': 0,
 			'2017': 0
 		}
@@ -83,16 +84,16 @@ const cents = { // cents per unit energy by time and place
 			'2018': 159.920833,
 			'2017': 143.7875
 		},
-		electric: { // per kilowatt hour
+		electric: {
 			'2020': 12.6,
-			'2019': 12.6, // TODO estimated
+			'2019': 0, // TODO
 			'2018': 0,
 			'2017': 0
 		}
 	}
 }
 
-const cities = ['Toronto','Edmonton','Vancouver']
+const cities = Object.keys(price)
 
 export default function(props){
 	const [ year, setYear ] = useState('2020')
@@ -110,14 +111,13 @@ function City({city,position,year}){
 	let zero = chartX(0)
 	
 	// calculate prices in $/100km
-	
-	let dieselPrice = (100/KPL.HDT)*(cents[city].diesel[year]/100)
-	let diesel = chartX(dieselPrice)
-	let gasPrice = (100/KPL.MDT)*(cents[city].gasoline[year]/100)
+	let gasPrice = (100/KPL.MDT)*(price[city].gasoline[year]/100)
+	let dieselPrice = (100/KPL.HDT)*(price[city].diesel[year]/100)
+	let electricHDTPrice = (100/KPK.HDT)*(price[city].electric[year]/100)
+	let electricMDTPrice = (100/KPK.MDT)*(price[city].electric[year]/100)
+
 	let gas = chartX(gasPrice)
-	
-	let electricHDTPrice = (100/KPK.HDT)*(cents[city].electric[year]/100)
-	let electricMDTPrice = (100/KPK.MDT)*(cents[city].electric[year]/100)
+	let diesel = chartX(dieselPrice)
 	
 	return (
 		<g className="city" transform={`translate(0,${30+position*50})`}>
