@@ -56,10 +56,7 @@ export default function(props){
 				layer={baseLayer} setLayer={setBaseLayer}
 				transit={transit} setTransit={setTransit}
 				displayed={mainLayer} setDisplayed={setMainLayer}/>
-
-				<FullscreenToggler fullscreen={fullscreen}
-					setFullscreen={setFullscreen} target={fullscreenTarget}/>
-
+			
 			</MapContainer>
 			
 		</div>

@@ -50,9 +50,9 @@
 
 .urban-freight-wrap .leaflet-touch-zoom  .leaflet-top.leaflet-left {
   right: 0px;
-  margin: 10px;
+  margin: 0 10px;
   left: auto;
-  top: 30px;
+  top: 0;
 }
 
 .leaflet-bottom .leaflet-control-scale {
