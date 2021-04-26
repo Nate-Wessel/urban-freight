@@ -4,7 +4,7 @@ import { geoMercator, geoDistance } from 'd3-geo'
 const size = [800,800]	
 const EarthRadius = 6360e3 //6360km
 
-const tVals = [1,2,3,4,5,6,7,8,9,10]
+const tVals = [1,3,5]
 
 // returns unprojected (EPSG:4326) d3-contours
 // from a dataset [list] with lat/lon properties on entries
