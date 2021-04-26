@@ -10,7 +10,7 @@ read_csv('18100001.csv') %>%
 		fuel = ifelse(`Type of fuel` %like% 'gasoline','gasoline','diesel')
 	) %>%
 	filter( 
-		year == 2020 & 
+		year >= 2015 & 
 		`Type of fuel` %like% 'self' &
 		GEO %like% '^Toronto|^Edmonton|^Vancouver'
 	) %>%
