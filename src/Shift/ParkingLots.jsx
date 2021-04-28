@@ -19,8 +19,7 @@ export const color = scaleOrdinal()
 	.range(['#a2a094','#4d4b40'])
 
 
-export default function(props){
-	const { city } = props
+export default function({city}){
 	const [ lots,setLots ] = useState([])
 	let styleOptions = {
 		bubblingMouseEvents: false,
