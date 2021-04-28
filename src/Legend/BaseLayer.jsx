@@ -92,7 +92,7 @@ function Nav({layer,setLayer,transit,setTransit}){
 	return (
 		<div className="items">
 			{ baseLayers.map( lyr => {
-				const active = layer == lyr || (lyr.name == 'Transit' && transit)
+				const active = lyr.name == 'Transit' ? transit : (layer == lyr)
 				const onClick = lyr.name == 'Transit' ?
 					(e) => setTransit(currentVal=>!currentVal) :
 					(e) => layer == lyr ? setLayer({name:'None'}) : setLayer(lyr);

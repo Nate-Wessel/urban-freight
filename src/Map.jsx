@@ -53,9 +53,9 @@ export default function(props){
 				<ScaleControl position="bottomleft" imperial={false}/>
 
 				<Legend city={city} paradigm={paradigm} zoom={zoom}
-				layer={baseLayer} setLayer={setBaseLayer}
-				transit={transit} setTransit={setTransit}
-				displayed={mainLayer} setDisplayed={setMainLayer}/>
+					layer={baseLayer} setLayer={setBaseLayer}
+					transit={transit} setTransit={setTransit}
+					displayed={mainLayer} setDisplayed={setMainLayer}/>
 			
 			</MapContainer>
 			
