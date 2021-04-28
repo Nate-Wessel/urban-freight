@@ -37,7 +37,7 @@ export default function(props){
 				zoom={zoom} minZoom={10} maxZoom={16}
 				maxBoundsViscosity={0.25}
 				gestureHandling={true}
-				preferCanvas={true}>
+				preferCanvas={false}>
 				<MapStateProbe
 					setZoom={setZoom}
 					bounds={city.bounds}/>
@@ -51,12 +51,10 @@ export default function(props){
 				attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
 				/>
 				<ScaleControl position="bottomleft" imperial={false}/>
-
 				<Legend city={city} paradigm={paradigm} zoom={zoom}
 					layer={baseLayer} setLayer={setBaseLayer}
 					transit={transit} setTransit={setTransit}
 					displayed={mainLayer} setDisplayed={setMainLayer}/>
-			
 			</MapContainer>
 			
 		</div>

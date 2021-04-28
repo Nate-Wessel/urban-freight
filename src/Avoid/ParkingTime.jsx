@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Polygon } from 'react-leaflet'
+import { Polygon, Tooltip } from 'react-leaflet'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
+import { svg } from 'leaflet'
 import { density } from './density.js'
 import { geojson2leaflet } from '../geojson2leaflet'
 
@@ -23,7 +24,7 @@ export default function({city}){
 	},[city])
 	const style = {
 		weight: 1.5,
-		color: '#d90000',
+		color: '#d90000bb',
 		fillOpacity: 0.09,
 		fillColor: 'grey',
 		opacity: 0.5,
@@ -34,7 +35,11 @@ export default function({city}){
 			<Polygon key={`${city}/${cont.value}`}
 				positions={cont.leafletGeom}
 				pathOptions={style}
-				smoothFactor={0.5}/>
+				smoothFactor={0}>
+				<Tooltip pane="tooltipPane" sticky={true}>
+					{`${cont.value}-${cont.value+2} minutes average time to find parking`}
+				</Tooltip>
+			</Polygon>
 		)
 	} )
 }
