@@ -14,7 +14,7 @@ const paradigms = {
 				key: 'parking',
 				label: 'Parking Time',
 				icon: ParkingTime,
-				description: 'Contours indicate a roughly one minute increase in time spent searching for parking with each step'
+				description: 'Average time trucks spend looking for parking. Hover to see the estimated time in minutes.'
 			},
 			{
 				key: 'Purol',
