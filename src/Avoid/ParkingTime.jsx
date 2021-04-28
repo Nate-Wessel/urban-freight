@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Polygon, LayerGroup } from 'react-leaflet'
+import { Polygon } from 'react-leaflet'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
 import { density } from './density.js'
@@ -11,8 +11,7 @@ const data = {
 	Vancouver: require('../data/Vancouver/ignition.topojson')
 }
 
-export default function(props){
-	const { city } = props
+export default function({city}){
 	const [ contours, setContours ] = useState([])
 	useEffect(()=>{
 		json(data[city.name]).then( resp => {
