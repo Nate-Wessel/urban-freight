@@ -106,8 +106,7 @@ const paradigms = {
 	}
 }
 
-export default function(props){
-	const { paradigm, city, zoom, displayed, setDisplayed } = props
+export default function({paradigm,city,zoom,displayed,setDisplayed}){
 	function handleClick(key){
 		if(displayed.has(key)){
 			let update = new Set([...displayed])
@@ -124,24 +123,19 @@ export default function(props){
 				"{paradigm.toUpperCase()}" data layers: {city.name}
 			</span>
 			<div className="items">{
-				paradigms[paradigm].layers.map(l=>{
-					return (
-						<Item key={l.key} layer={l} zoom={zoom}
-							active={displayed.has(l.key)}
-							handleClick={handleClick}/>
-					)
-				})
+				paradigms[paradigm].layers.map( l => (
+					<Item key={l.key} 
+						layer={l} zoom={zoom}
+						active={displayed.has(l.key)}
+						handleClick={handleClick}/>
+				) )
 			}</div>
 		</div>
 	)
 }
 
-function Item(props){
-	const { layer, active, handleClick, zoom } = props
-	let icon = null
-	if(layer.icon){
-		icon = <layer.icon layerKey={layer.key} zoom={zoom}/>
-	}
+function Item({layer,active,handleClick,zoom}){
+	let icon = layer.icon ? <layer.icon layerKey={layer.key} zoom={zoom}/> : null
 	return (
 		<div onClick={(e)=>handleClick(layer.key)}
 			title={layer.description}
