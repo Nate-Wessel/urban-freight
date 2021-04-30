@@ -3,19 +3,12 @@ import PickupPoint from './PickupPoint'
 import ChargingStation from './ChargingStation'
 import BikeShare from './BikeShare'
 import ParkingLot from './ParkingLot'
-import ParkingTime from './ParkingTime'
 import { routeIcon } from '../Shift/routeStyles'
 
 // keys should be unique across paradigms
 const paradigms = {
 	avoid:{
 		layers:[
-			{
-				key: 'parking',
-				label: 'Parking Time',
-				icon: ParkingTime,
-				description: 'Average time trucks spend looking for parking. Hover to see the estimated time in minutes.'
-			},
 			{
 				key: 'Purol',
 				label: 'Purolator',
@@ -39,9 +32,12 @@ const paradigms = {
 				label: 'Penguin',
 				icon: PickupPoint,
 				description: 'PenguinPickUp retail locations.'
+			},
+			{
+				key: 'parking',
+				label: 'Parking Search Time',
+				description: 'Average time trucks spend looking for parking. Hover to see the estimated time in minutes.'
 			}
-
-
 		]
 	},
 	shift:{

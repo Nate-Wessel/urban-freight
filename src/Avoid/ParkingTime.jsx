@@ -12,11 +12,11 @@ const data = {
 	Vancouver: require('../data/Vancouver/ignition.topojson')
 }
 
-const color = scaleOrdinal()
+export const fill = scaleOrdinal()
 	.domain([1,3,5])
 	.range(['grey','blue','red'])
 
-export default function({city}){
+export function ParkingTime({city}){
 	const [ contours, setContours ] = useState([])
 	useEffect(()=>{
 		json(data[city.name]).then( resp => {
@@ -28,7 +28,7 @@ export default function({city}){
 	},[city])
 	const style = {
 		weight: 1.5,
-		color: '#d90000bb',
+		color: '#d9000066',
 		fillOpacity: 0.09,
 		opacity: 0.5,
 		bubblingMouseEvents: false
@@ -37,7 +37,7 @@ export default function({city}){
 		return (
 			<Polygon key={`${city}/${cont.value}`}
 				positions={cont.leafletGeom}
-				pathOptions={{...style,...{fillColor:color(cont.value)}}}
+				pathOptions={{...style,...{fillColor:fill(cont.value)}}}
 				smoothFactor={0}>
 				<Tooltip pane="tooltipPane" sticky={true}>
 					{`${cont.value}-${cont.value+2} minutes average time to find parking`}

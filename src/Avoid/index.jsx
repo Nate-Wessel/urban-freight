@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
 import { Pane } from 'react-leaflet'
-import ParkingTime from './ParkingTime'
+import { ParkingTime } from './ParkingTime'
 import { PickupPoints, operators } from './PickupPoints'
 
 const data = {
@@ -11,8 +11,7 @@ const data = {
 	Vancouver: require('../data/Vancouver/pickup_pts.topojson')
 }
 
-export default function(props){
-	const { city, zoom, displayed } = props
+export default function({city,zoom,displayed}){
 	const [ points, setPoints ] = useState([])
 	useEffect(()=>{
 		json(data[city.name]).then( resp => {

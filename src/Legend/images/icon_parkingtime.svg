@@ -12,7 +12,7 @@
    viewBox="0 0 5.2916665 5.2916665"
    version="1.1"
    id="svg8"
-   inkscape:version="1.0.2 (394de47547, 2021-03-26)"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
    sodipodi:docname="icon_parkingtime.svg">
   <defs
      id="defs2" />
@@ -24,7 +24,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="31.678384"
-     inkscape:cx="9.8731246"
+     inkscape:cx="3.9069112"
      inkscape:cy="11.378038"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -33,7 +33,7 @@
      units="px"
      inkscape:window-width="1515"
      inkscape:window-height="1043"
-     inkscape:window-x="50"
+     inkscape:window-x="87"
      inkscape:window-y="0"
      inkscape:window-maximized="0" />
   <metadata
@@ -58,7 +58,7 @@
        id="path3348-6"
        sodipodi:nodetypes="csssc" />
     <path
-       style="fill:#e2e2e3;stroke:#ec979e;stroke-width:0.52916667;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
+       style="fill:#e2e2e3;stroke:#ec979e;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.88839287;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
        d="M 3.8571641,0.89757244 C 4.8701545,0.92292287 4.5502576,3.4635035 3.9036878,4.0407005 3.3529393,4.5323573 1.2007045,4.4180126 0.97568709,3.7450928 0.75066972,3.0721731 1.0338319,2.5083918 1.9341779,2.377061 3.1574031,2.1986327 2.5647593,0.78481495 3.8571641,0.89757244 Z"
        id="path3348"
        sodipodi:nodetypes="csssc" />
