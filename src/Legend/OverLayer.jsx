@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PickupPoint from './PickupPoint'
 import ChargingStation from './ChargingStation'
 import BikeShare from './BikeShare'
@@ -36,7 +36,15 @@ const paradigms = {
 			{
 				key: 'parking',
 				label: 'Parking Search Time',
-				description: 'Average time trucks spend looking for parking. Hover to see the estimated time in minutes.'
+				description: 'Average time trucks spend looking for parking. Hover to see the estimated time in minutes.',
+				subLegend:{
+					title: 'Average Parking Search Time',
+					icons: [
+						{label:'1-3 minutes',color:'#f001'},
+						{label:'3-5 minutes',color:'#0f01'},
+						{label:'> 5 minutes',color:'#00f1'}
+					]
+				}
 			}
 		]
 	},
@@ -130,6 +138,17 @@ export default function({paradigm,city,zoom,displayed,setDisplayed}){
 						handleClick={handleClick}/>
 				) )
 			}</div>
+			{paradigms[paradigm].layers
+				.filter( l => l?.subLegend )
+				.map( (l,li) => (
+					<Fragment key={li}>
+						<h3>{l.subLegend.title}</h3>
+						{l.subLegend.icons.map((icon,ii)=>(
+							<div key={ii}>{icon.label}</div>
+						))}
+					</Fragment>
+				) )
+			}
 		</div>
 	)
 }
