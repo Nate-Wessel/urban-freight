@@ -1,13 +1,14 @@
 /*legend styling goes here*/
 
 #legend {
+	padding: 5px;
 	margin: 10px;
-  z-index: 400;
-  position: relative;
-  background-color: #fffd;
-  max-width: 246px;
-  border: 2px solid rgba(0,0,0,0.2);
-  border-radius: 3px;
+	z-index: 400;
+	position: relative;
+	background-color: #fffe;
+	max-width: 246px;
+	border: 2px solid rgba(0,0,0,0.2);
+	border-radius: 3px;
 	color: #000;
 
 	.title {
@@ -38,29 +39,32 @@
 		}
 
 		.item {
-			padding: 5px;
+			padding: 2px;
 			margin: 2px;
-			border-radius: 3px;
-			cursor: pointer;
-			transition: background-color 0.3s;
+			&.clickable {
+				margin: 5px;
+				padding: 5px;
+				border-radius: 3px;
+				cursor: pointer;
+				transition: background-color 0.3s;
+				&.disabled {
+					&:hover {
+						color: var(--dark-blue);
+						background-color: var(--light-blue);
+					}
+				}
+			}
 			&.active {
 				color: white;
 				background-color: var(--dark-blue);
 				border: #0000 2px solid;
-
-				label {
+				.label {
 					color: white;
 				}
 			}
 			&.disabled {
 				color: var(--mid-blue);
 				border: var(--light-blue) 2px solid;
-			}
-			&.clickable.disabled {
-				&:hover {
-					color: var(--dark-blue);
-					background-color: var(--light-blue);
-				}
 			}
 			.swatch {
 				width: 40px;
@@ -74,7 +78,7 @@
 			.icon {
 				vertical-align: middle;
 				display: inline-block;
-				margin: 1px 5px 1px 0;
+				margin: 1px 5px 3px 1px;
 				/*&:empty {
 					height: 1em;
 					min-width: 1em;
@@ -96,7 +100,7 @@
 		border-top: 2px solid;
 		border-color: var(--light-blue);
 		padding-top: 8px;
-		 .item .label {
+		.item .label {
 			text-align: center;
 			margin-top: 3px;
 		}

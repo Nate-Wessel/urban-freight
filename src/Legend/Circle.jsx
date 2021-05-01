@@ -1,7 +1,6 @@
 import React from 'react'
 
-export function CircleSvg(props){
-	const { color, stroke, fillOpacity, radius, strokeWidth } = props
+export function CircleSvg({color,stroke,fillOpacity,radius,strokeWidth}){
 	const styleOptions = {
 		fill: color ? color : 'grey',
 		stroke: stroke ? stroke : 'white',
@@ -9,7 +8,7 @@ export function CircleSvg(props){
 		fillOpacity: fillOpacity? fillOpacity : 1
 	}
 	return (
-		<svg width={2*radius+strokeWidth} height={2*radius+strokeWidth}>
+		<svg width={2*radius+strokeWidth+1} height={2*radius+strokeWidth+1}>
 			<circle
 				cx={radius+strokeWidth/2}
 				cy={radius+strokeWidth/2}
