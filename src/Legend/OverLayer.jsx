@@ -4,6 +4,7 @@ import ChargingStation from './ChargingStation'
 import BikeShare from './BikeShare'
 import ParkingLot from './ParkingLot'
 import { routeIcon } from '../Shift/routeStyles'
+import { fill as parkingFill } from '../Avoid/ParkingTime'
 
 // keys should be unique across paradigms
 const paradigms = {
@@ -39,10 +40,11 @@ const paradigms = {
 				description: 'Average time trucks spend looking for parking. Hover to see the estimated time in minutes.',
 				subLegend:{
 					title: 'Average Parking Search Time',
+					scale: parkingFill,
 					icons: [
-						{label:'1-3 minutes',color:'#f001'},
-						{label:'3-5 minutes',color:'#0f01'},
-						{label:'> 5 minutes',color:'#00f1'}
+						{v:1,label:'1-3 minutes',color:'#f001'},
+						{v:3,label:'3-5 minutes',color:'#0f01'},
+						{v:5,label:'> 5 minutes',color:'#00f1'}
 					]
 				}
 			}
@@ -139,13 +141,20 @@ export default function({paradigm,city,zoom,displayed,setDisplayed}){
 				) )
 			}</div>
 			{paradigms[paradigm].layers
-				.filter( l => l?.subLegend )
+				.filter( l => l?.subLegend && displayed.has(l.key) )
 				.map( (l,li) => (
 					<Fragment key={li}>
-						<h3>{l.subLegend.title}</h3>
+						<span className="subtitle">{l.subLegend.title}</span>
+						<div className="items">
 						{l.subLegend.icons.map((icon,ii)=>(
-							<div key={ii}>{icon.label}</div>
+							<div key={ii} className="item">
+								<div className="swatch"
+									style={ { backgroundColor: l.subLegend.scale(icon.v) } }>
+								</div>
+								<div className="baselabel">{icon.label}</div>
+							</div>
 						))}
+						</div>
 					</Fragment>
 				) )
 			}

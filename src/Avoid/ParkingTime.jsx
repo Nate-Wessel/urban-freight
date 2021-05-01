@@ -14,7 +14,7 @@ const data = {
 
 export const fill = scaleOrdinal()
 	.domain([1,3,5])
-	.range(['grey','blue','red'])
+	.range(['#0001','#00F2','#F004'])
 
 export function ParkingTime({city}){
 	const [ contours, setContours ] = useState([])
@@ -29,7 +29,7 @@ export function ParkingTime({city}){
 	const style = {
 		weight: 1.5,
 		color: '#d9000066',
-		fillOpacity: 0.09,
+		fillOpacity: 1,
 		opacity: 0.5,
 		bubblingMouseEvents: false
 	}
