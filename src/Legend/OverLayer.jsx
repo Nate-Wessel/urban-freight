@@ -54,32 +54,32 @@ const paradigms = {
 		layers:[
 			{
 				key:'bike-paths',
-				label:'Bike Paths',
+				label:'Bike Path',
 				icon: routeIcon,
 				description: 'Bike paths are fully separate from cars, though generally shared with pedestrians and other modes like skateboards.'
 
 			},
 			{
 				key:'bike-lanes',
-				label:'Bike Lanes',
+				label:'Bike Lane',
 				icon: routeIcon,
 				description: 'Bike lanes are bike-only infrastructure generally running parallel to other modes between a primarily automotive lane and the sidewalk.'
 			},
 			{
 				key:'bike-routes',
-				label:'Bike Routes',
+				label:'Bike Route',
 				icon: routeIcon,
 				description: 'Bike "routes" include non-segregated infrastucture that is explicitly signed/designated for use by cyclists. E.g. "sharrows".'
 			},
 			{
 				key:'bike-share',
-				label:'Bike-share Stations',
+				label:'Bike-share Station',
 				icon: BikeShare,
 				description: "Hover over a bikeshare station to see its name and designated capacity"
 			},
 			{
 				key:'parking-lots',
-				label:'Parking Lots',
+				label:'Parking Lot',
 				icon: ParkingLot,
 				description: "Surface parking lots. Darker colour indicates municipally operated"
 			}

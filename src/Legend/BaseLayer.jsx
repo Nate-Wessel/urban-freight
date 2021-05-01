@@ -10,9 +10,9 @@ const landuseScale = scaleOrdinal()
 export const baseLayers = [
 	{
 		name: 'Transit',
-		tabName: 'Transit',
-		title: 'Public Transit',
-		items: []
+		tabName: 'Transit'
+		//title: 'Public Transit',
+		//items: []
 	},
 	{
 		name: 'Population',
@@ -62,11 +62,11 @@ export function BaseLayer({city,layer,setLayer,transit,setTransit}){
 	return (
 		<div id="baselayer" className="layer">
 			<span className="title">
-				Base map layers:&nbsp;
+				Base map layers:
 			</span>
 			<Nav layer={layer} setLayer={setLayer}
 				transit={transit} setTransit={setTransit}/>
-			{ layer.name != 'None' && <>
+			{ opts?.title && <>
 				<div className="subtitle-units">
 					<span className="subtitle">{opts.title}</span>&nbsp;
 					{opts.unit && <span className="layerunits">({opts.unit})</span>}

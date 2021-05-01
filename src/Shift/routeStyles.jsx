@@ -7,8 +7,8 @@ export const color = scaleOrdinal()
 	
 export function routeIcon({layerKey,zoom}){
 	return (
-		<svg width="30" height="10">
-			<path d={`M0,5 L 30,5`} strokeWidth="2" stroke={color(layerKey)} />
+		<svg width="25" height="10">
+			<path d={`M0,5 L 25,5`} strokeWidth="2" stroke={color(layerKey)} />
 		</svg>
 	)
 }
