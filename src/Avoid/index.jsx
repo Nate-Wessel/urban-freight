@@ -14,6 +14,10 @@ const data = {
 export default function({city,zoom,displayed}){
 	const [ points, setPoints ] = useState([])
 	useEffect(()=>{
+		if(!data.hasOwnProperty(city.name)){
+			setPoints([])
+			return console.warn(`pickup points not yet defined for ${city.name}`)
+		}
 		json(data[city.name]).then( resp => {
 			setPoints( topo2geo(resp,'pickup_pts').features )
 		} )

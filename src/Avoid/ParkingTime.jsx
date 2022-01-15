@@ -19,6 +19,10 @@ export const fill = scaleOrdinal()
 export function ParkingTime({city}){
 	const [ contours, setContours ] = useState([])
 	useEffect(()=>{
+		if(!data.hasOwnProperty(city.name)){
+			setContours([])
+			return console.warn(`parking times not yet defined for ${city.name}`)
+		}
 		json(data[city.name]).then( resp => {
 			let feats = topo2geo(resp,'ignition').features
 			let conts = density(feats,city)

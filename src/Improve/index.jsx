@@ -11,10 +11,13 @@ const data = {
 	Vancouver: require('../data/Vancouver/alt_fuel_stations.topojson')
 }
 
-export default function(props){
-	const { city, zoom, displayed } = props
+export default function({city,zoom,displayed}){
 	const [ points, setPoints ] = useState([])
 	useEffect(()=>{
+		if(!data.hasOwnProperty(city.name)){
+			setPoints([])
+			return console.warn(`charging stations not defined for ${city.name}`)
+		}
 		json(data[city.name]).then( resp => {
 			setPoints( topo2geo(resp,'alt_fuel_stations').features )
 		} )

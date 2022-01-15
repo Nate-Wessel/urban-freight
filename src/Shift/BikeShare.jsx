@@ -24,8 +24,7 @@ export const style = {
 	bubblingMouseEvents: false
 }
 
-export function BikeShare(props){
-	const { city, zoom } = props
+export function BikeShare({city,zoom}){
 	const [ stations, setStations ] = useState([])
 	useEffect(()=>{
 		if(city.name in data){
@@ -36,6 +35,7 @@ export function BikeShare(props){
 			}
 		}else{
 			setStations([])
+			console.warn(`no known bike share stations for city: ${city.name}`)
 		}
 	},[city])
 	return stations.map( station => {

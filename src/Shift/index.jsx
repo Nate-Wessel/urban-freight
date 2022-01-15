@@ -12,8 +12,7 @@ const data = {
 	Vancouver: require('../data/Vancouver/bike.topojson')
 }
 
-export default function(props){
-	const { city, displayed, zoom } = props
+export default function({city,displayed,zoom}){
 	const [ bikePaths, setBikePaths ] = useState([])
 	const [ bikeLanes, setBikeLanes ] = useState([])
 	const [ bikeRoutes, setBikeRoutes ] = useState([])
@@ -22,6 +21,12 @@ export default function(props){
 		let pathTypes = new Set(['P','O'])
 		let routeTypes = new Set(['S'])
 		let laneTypes = new Set(['L','T'])
+		if(!data.hasOwnProperty(city.name)){
+			setBikePaths([])
+			setBikeLanes([])
+			setBikeRoutes([])
+			return console.warn(`bike features not yet defined for ${city.name}`)
+		}
 		json(data[city.name]).then( resp => {
 			let features = topo2geo(resp,'bike').features
 				.filter(feat=>feat.geometry) // necessary because one feature is null

@@ -11,22 +11,25 @@ const data = {
 	Vancouver: require('../data/Vancouver/lu_parking.topojson')
 }
 
-
 export const ownership = ['P','M']
 
 export const color = scaleOrdinal()
 	.domain(ownership)
 	.range(['#a2a094','#4d4b40'])
 
-
+let styleOptions = {
+	bubblingMouseEvents: false,
+	stroke: false,
+	fillOpacity: 1
+}
+	
 export default function({city}){
 	const [ lots,setLots ] = useState([])
-	let styleOptions = {
-		bubblingMouseEvents: false,
-		stroke: false,
-		fillOpacity: 1
-	}
 	useEffect(()=>{
+		if(!data.hasOwnProperty(city.name)){
+			setLots([])
+			return console.warn(`parking lots not yet defined for ${city.name}`)
+		}
 		json(data[city.name]).then( resp => {
 			setLots( topo2geo(resp,'lu_parking').features )
 		} )
