@@ -6,9 +6,9 @@ import { ParkingTime } from './ParkingTime'
 import { PickupPoints, operators } from './PickupPoints'
 
 const data = {
-	Toronto: require('../data/Toronto/pickup_pts.topojson'),
-	Edmonton: require('../data/Edmonton/pickup_pts.topojson'),
-	Vancouver: require('../data/Vancouver/pickup_pts.topojson')
+	Toronto: require('../data/Toronto/avoid/pickup_pts.topojson'),
+	Edmonton: require('../data/Edmonton/avoid/pickup_pts.topojson'),
+	Vancouver: require('../data/Vancouver/avoid/pickup_pts.topojson')
 }
 
 export default function({city,zoom,displayed}){

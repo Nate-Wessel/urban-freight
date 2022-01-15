@@ -6,9 +6,9 @@ import { pointRadius, pointWeight, keys, color } from './scales.js'
 import { geojson2leaflet } from '../geojson2leaflet'
 
 const data = {
-	Toronto: require('../data/Toronto/alt_fuel_stations.topojson'),
-	Edmonton: require('../data/Edmonton/alt_fuel_stations.topojson'),
-	Vancouver: require('../data/Vancouver/alt_fuel_stations.topojson')
+	Toronto: require('../data/Toronto/improve/alt_fuel_stations.topojson'),
+	Edmonton: require('../data/Edmonton/improve/alt_fuel_stations.topojson'),
+	Vancouver: require('../data/Vancouver/improve/alt_fuel_stations.topojson')
 }
 
 export default function({city,zoom,displayed}){

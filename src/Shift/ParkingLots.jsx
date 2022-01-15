@@ -6,9 +6,9 @@ import { feature as topo2geo } from 'topojson-client'
 import { geojson2leaflet } from '../geojson2leaflet'
 
 const data = {
-	Toronto: require('../data/Toronto/lu_parking.topojson'),
-	Edmonton: require('../data/Edmonton/lu_parking.topojson'),
-	Vancouver: require('../data/Vancouver/lu_parking.topojson')
+	Toronto: require('../data/Toronto/shift/lu_parking.topojson'),
+	Edmonton: require('../data/Edmonton/shift/lu_parking.topojson'),
+	Vancouver: require('../data/Vancouver/shift/lu_parking.topojson')
 }
 
 export const ownership = ['P','M']
