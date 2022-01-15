@@ -3,28 +3,7 @@ import Map from './Map'
 import './nav.less'
 import './app.css'
 
-const cities = [
-	{
-		name: 'Toronto',
-		bounds: [[43.8588,-79.6495],[43.5774,-79.1098]],
-		geohashSqM: 16890.339665499243
-	},
-	{
-		name: 'Vancouver',
-		bounds: [[49.31,-123.2247],[49.19,-122.9782]],
-		geohashSqM: 15267.902190214854
-	},
-	{
-		name: 'Edmonton',
-		bounds: [[53.6914,-113.7373],[53.3948,-113.2787]],
-		geohashSqM: 13919.639948047059
-	},
-	{
-		name: 'Ottawa',
-		bounds: [[45.619,-76.434],[44.9,-75.154]],
-		geohashSqM: 16890 // TODO what is this variable??
-	}
-]
+import { cities } from './data/cities.js'
 
 export function App(props){
 	const [ city, setCity ] = useState(cities[0])

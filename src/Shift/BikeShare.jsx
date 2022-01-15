@@ -3,11 +3,6 @@ import { CircleMarker, Tooltip } from 'react-leaflet'
 import { json } from 'd3-fetch'
 import { scalePow } from 'd3-scale'
 
-const data = {
-	Toronto: 'https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information',
-	Vancouver: require('../data/Vancouver/station_information.json')
-}
-
 // area ~= to capacity
 const defaultRadius = scalePow().exponent(0.5).domain([1,50]).range([1,5])
 const zoomFactor = scalePow().exponent(1).domain([10,16]).range([0.5,3])
@@ -27,16 +22,13 @@ export const style = {
 export function BikeShare({city,zoom}){
 	const [ stations, setStations ] = useState([])
 	useEffect(()=>{
-		if(city.name in data){
-			if(typeof data[city.name] == 'string'){
-				json(data[city.name]).then(resp=>setStations(resp.data.stations))
-			}else{
-				setStations(data[city.name].data.stations)
-			}
-		}else{
+		if(!city.data?.shift?.bikeShare){
 			setStations([])
-			console.warn(`no known bike share stations for city: ${city.name}`)
+			return console.warn(`no known bike share stations for city: ${city.name}`)
 		}
+		json(city.data.shift.bikeShare).then( response => {
+			setStations(response.data.stations)
+		} )
 	},[city])
 	return stations.map( station => {
 		return (

@@ -6,12 +6,6 @@ import { scaleOrdinal } from 'd3-scale'
 import { density } from './density.js'
 import { geojson2leaflet } from '../geojson2leaflet'
 
-const data = {
-	Toronto: require('../data/Toronto/avoid/parking-search-time.topojson'),
-	Edmonton: require('../data/Edmonton/avoid/parking-search-time.topojson'),
-	Vancouver: require('../data/Vancouver/avoid/parking-search-time.topojson')
-}
-
 export const fill = scaleOrdinal()
 	.domain([1,3,5])
 	.range(['#0001','#00F2','#F004'])
@@ -19,11 +13,11 @@ export const fill = scaleOrdinal()
 export function ParkingTime({city}){
 	const [ contours, setContours ] = useState([])
 	useEffect(()=>{
-		if(!data.hasOwnProperty(city.name)){
+		if(!city.data?.avoid?.parkingSearchTime){
 			setContours([])
 			return console.warn(`parking times not yet defined for ${city.name}`)
 		}
-		json(data[city.name]).then( resp => {
+		json(city.data.avoid.parkingSearchTime).then( resp => {
 			let feats = topo2geo(resp,'ignition').features
 			let conts = density(feats,city)
 			conts.map( cont => cont.leafletGeom = geojson2leaflet(cont) )

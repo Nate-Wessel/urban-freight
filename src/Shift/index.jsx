@@ -6,12 +6,6 @@ import ParkingLots from './ParkingLots'
 import { BikeShare } from './BikeShare'
 import { color } from './routeStyles'
 
-const data = {
-	Toronto: require('../data/Toronto/shift/bike.topojson'),
-	Edmonton: require('../data/Edmonton/shift/bike.topojson'),
-	Vancouver: require('../data/Vancouver/shift/bike.topojson')
-}
-
 export default function({city,displayed,zoom}){
 	const [ bikePaths, setBikePaths ] = useState([])
 	const [ bikeLanes, setBikeLanes ] = useState([])
@@ -21,13 +15,13 @@ export default function({city,displayed,zoom}){
 		let pathTypes = new Set(['P','O'])
 		let routeTypes = new Set(['S'])
 		let laneTypes = new Set(['L','T'])
-		if(!data.hasOwnProperty(city.name)){
+		if(!city.data?.shift?.bikePaths){
 			setBikePaths([])
 			setBikeLanes([])
 			setBikeRoutes([])
 			return console.warn(`bike features not yet defined for ${city.name}`)
 		}
-		json(data[city.name]).then( resp => {
+		json(city.data.shift.bikePaths).then( resp => {
 			let features = topo2geo(resp,'bike').features
 				.filter(feat=>feat.geometry) // necessary because one feature is null
 			setBikePaths(features.filter(f=>pathTypes.has(f.properties.type)))

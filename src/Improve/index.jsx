@@ -5,21 +5,15 @@ import { CircleMarker, Pane } from 'react-leaflet'
 import { pointRadius, pointWeight, keys, color } from './scales.js'
 import { geojson2leaflet } from '../geojson2leaflet'
 
-const data = {
-	Toronto: require('../data/Toronto/improve/alt_fuel_stations.topojson'),
-	Edmonton: require('../data/Edmonton/improve/alt_fuel_stations.topojson'),
-	Vancouver: require('../data/Vancouver/improve/alt_fuel_stations.topojson')
-}
-
 export default function({city,zoom,displayed}){
 	const [ points, setPoints ] = useState([])
 	useEffect(()=>{
-		if(!data.hasOwnProperty(city.name)){
+		if(!city.data?.improve?.fuelStations){
 			setPoints([])
 			return console.warn(`charging stations not defined for ${city.name}`)
 		}
-		json(data[city.name]).then( resp => {
-			setPoints( topo2geo(resp,'alt_fuel_stations').features )
+		json(city.data.improve.fuelStations).then( response => {
+			setPoints( topo2geo(response,'alt_fuel_stations').features )
 		} )
 	},[city])
 	return (
