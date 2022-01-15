@@ -8,7 +8,7 @@ import { fill as parkingFill } from '../Avoid/ParkingTime'
 
 // data availability lookup functions
 const pickupPoints = (city)=>Boolean(city.data?.avoid?.pickupPoints)
-const parkingSearchTime = (city)=>Boolean(city.data?.avoid?.parkingSearchTime)
+const bikePaths = (city)=>Boolean(city.data?.shift?.bikePaths)
 
 // keys should be unique across paradigms
 const paradigms = {
@@ -55,7 +55,7 @@ const paradigms = {
 						{v:5,label:'> 5 minutes',color:'#00f1'}
 					]
 				},
-				dataAvailable: parkingSearchTime
+				dataAvailable: (city)=>Boolean(city.data?.avoid?.parkingSearchTime)
 			}
 		]
 	},
@@ -65,26 +65,29 @@ const paradigms = {
 				key:'bike-paths',
 				label:'Bike Path',
 				icon: routeIcon,
-				description: 'Bike paths are fully separate from cars, though generally shared with pedestrians and other modes like skateboards.'
-
+				description: 'Bike paths are fully separate from cars, though generally shared with pedestrians and other modes like skateboards.',
+				dataAvailable: bikePaths
 			},
 			{
 				key:'bike-lanes',
 				label:'Bike Lane',
 				icon: routeIcon,
-				description: 'Bike lanes are bike-only infrastructure generally running parallel to other modes between a primarily automotive lane and the sidewalk.'
+				description: 'Bike lanes are bike-only infrastructure generally running parallel to other modes between a primarily automotive lane and the sidewalk.',
+				dataAvailable: bikePaths
 			},
 			{
 				key:'bike-routes',
 				label:'Bike Route',
 				icon: routeIcon,
-				description: 'Bike "routes" include non-segregated infrastucture that is explicitly signed/designated for use by cyclists. E.g. "sharrows".'
+				description: 'Bike "routes" include non-segregated infrastucture that is explicitly signed/designated for use by cyclists. E.g. "sharrows".',
+				dataAvailable: bikePaths
 			},
 			{
 				key:'bike-share',
 				label:'Bike-share Station',
 				icon: BikeShare,
-				description: "Hover over a bikeshare station to see its name and designated capacity"
+				description: "Hover over a bikeshare station to see its name and designated capacity",
+				dataAvailable: (city)=>Boolean(city.data?.shift?.bikeShare)
 			},
 			{
 				key:'parking-lots',
@@ -146,7 +149,7 @@ export default function({paradigm,city,zoom,displayed,setDisplayed}){
 					<Item key={layer.key} 
 						layer={layer} zoom={zoom}
 						active={displayed.has(layer.key)}
-						available={layer?.dataAvailable(city)}
+						available={layer?.dataAvailable?layer?.dataAvailable(city):true}
 						handleClick={handleClick}/>
 				) )
 			}</div>
