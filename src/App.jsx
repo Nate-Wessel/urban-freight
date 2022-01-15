@@ -5,7 +5,7 @@ import './app.css'
 
 import { cities } from './data/cities.js'
 
-export function App(props){
+export function App({paradigm}){
 	const [ city, setCity ] = useState(cities[0])
 	const [ fullscreen, setFullscreen ] = useState(false)
 	const escFn = e => {
@@ -25,9 +25,9 @@ export function App(props){
 		<div id="app" ref={target}>
 			<div className={appInnerClass}>
 				<div className="urban-freight-inner">
-					<CityNav city={city} setCity={setCity}/>
+					<CityNav city={city} paradigm={paradigm} setCity={setCity}/>
 					<Map city={city} 
-						paradigm={props.paradigm} 
+						paradigm={paradigm} 
 						fullscreen={fullscreen} 
 						setFullscreen={setFullscreen} 
 						fullscreenTarget={target}
@@ -38,10 +38,10 @@ export function App(props){
 	)
 }
 
-function CityNav({city,setCity}){
+function CityNav({city,paradigm,setCity}){
 	return (
 		<div id="city-nav-tabs" className="tab-container city-nav">
-			{ cities.map( (c,i) => {
+			{ cities.filter(c=>c.data.hasOwnProperty(paradigm)).map( (c,i) => {
 				let cls = 'tab' + (city == c ? ' active' : '') + ' city-' + c.name;
 				const click = (e) => setCity(cities[i]);
 				return (
