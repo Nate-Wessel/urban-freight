@@ -7,8 +7,7 @@ import { json } from 'd3-fetch'
 const sources = {
 	Toronto: require('../data/Toronto/boundary.topojson'),
 	Vancouver: require('../data/Vancouver/boundary.topojson'),
-	Edmonton: require('../data/Edmonton/boundary.topojson'),
-	Ottawa: require('../data/Ottawa/boundary.topojson')
+	Edmonton: require('../data/Edmonton/boundary.topojson')
 }
 
 const style = {
