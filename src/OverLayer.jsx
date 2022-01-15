@@ -3,8 +3,7 @@ const Avoid = lazy(()=>import('./Avoid'))
 const Shift = lazy(()=>import('./Shift'))
 const Improve = lazy(()=>import('./Improve'))
 
-export default function (props){
-	const { city, paradigm, zoom, displayed } = props
+export default function ({city,paradigm,zoom,displayed}){
 	switch(paradigm){
 		case 'avoid':
 			return (

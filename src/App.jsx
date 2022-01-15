@@ -47,19 +47,24 @@ export function App(props){
 			<div className={appInnerClass}>
 				<div className="urban-freight-inner">
 					<CityNav city={city} setCity={setCity}/>
-					<Map city={city} paradigm={props.paradigm} fullscreen={fullscreen} setFullscreen={setFullscreen} fullscreenTarget={target}/>					
+					<Map city={city} 
+						paradigm={props.paradigm} 
+						fullscreen={fullscreen} 
+						setFullscreen={setFullscreen} 
+						fullscreenTarget={target}
+					/>					
 				</div>
 			</div>
 		</div>
 	)
 }
 
-function CityNav(props){
+function CityNav({city,setCity}){
 	return (
 		<div id="city-nav-tabs" className="tab-container city-nav">
 			{ cities.map( (c,i) => {
-				let cls = 'tab' + (props.city == c ? ' active' : '') + ' city-' + c.name
-				function click(e){ props.setCity(cities[i]) }
+				let cls = 'tab' + (city == c ? ' active' : '') + ' city-' + c.name;
+				const click = (e) => setCity(cities[i]);
 				return (
 					<div key={i} className={cls} onClick={click}>
 						{c.name}
