@@ -7,9 +7,9 @@ import { density } from './density.js'
 import { geojson2leaflet } from '../geojson2leaflet'
 
 const data = {
-	Toronto: require('../data/Toronto/ignition.topojson'),
-	Edmonton: require('../data/Edmonton/ignition.topojson'),
-	Vancouver: require('../data/Vancouver/ignition.topojson')
+	Toronto: require('../data/Toronto/avoid/parking-search-time.topojson'),
+	Edmonton: require('../data/Edmonton/avoid/parking-search-time.topojson'),
+	Vancouver: require('../data/Vancouver/avoid/parking-search-time.topojson')
 }
 
 export const fill = scaleOrdinal()
