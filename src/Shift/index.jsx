@@ -7,9 +7,9 @@ import { BikeShare } from './BikeShare'
 import { color } from './routeStyles'
 
 const data = {
-	Toronto: require('../data/Toronto/bike.topojson'),
-	Edmonton: require('../data/Edmonton/bike.topojson'),
-	Vancouver: require('../data/Vancouver/bike.topojson')
+	Toronto: require('../data/Toronto/shift/bike.topojson'),
+	Edmonton: require('../data/Edmonton/shift/bike.topojson'),
+	Vancouver: require('../data/Vancouver/shift/bike.topojson')
 }
 
 export default function(props){
