@@ -1,3 +1,5 @@
 export default {
-	boundary: require('./boundary.topojson')
+	base: {
+		boundary: require('./boundary.topojson')
+	}
 }

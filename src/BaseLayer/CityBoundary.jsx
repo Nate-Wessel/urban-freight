@@ -14,11 +14,11 @@ const style = {
 export default function({city}){
 	const [ boundaryFeature, setBoundaryFeature ] = useState(null)
 	useEffect(()=>{
-		if(!city.data?.boundary){
+		if(!city.data?.base?.boundary){
 			setBoundaryFeature(null)
 			return console.warn(`boundary not yet defined for ${city.name}`)
 		}
-		json(city.data.boundary).then( data => {
+		json(city.data.base.boundary).then( data => {
 			setBoundaryFeature( topo2geo(data,'boundary').features[0] )
 		} )
 	},[city])
