@@ -18,6 +18,11 @@ const cities = [
 		name: 'Edmonton',
 		bounds: [[53.6914,-113.7373],[53.3948,-113.2787]],
 		geohashSqM: 13919.639948047059
+	},
+	{
+		name: 'Ottawa',
+		bounds: [[45.619,-76.434],[44.9,-75.154]],
+		geohashSqM: 16890 // TODO what is this variable??
 	}
 ]
 
