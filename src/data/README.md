@@ -13,7 +13,7 @@ https://nabsa.net/resources/gbfs/
 
 Data is from GeoTab Ignition https://ignition.geotab.com
 
-```
+```sql
 SELECT 
 	geohash,city,avgtimetopark
 FROM `geotab-public-intelligence.UrbanInfrastructure.SearchingForParking`
@@ -27,7 +27,7 @@ WHERE
 
 export as CSV then split up by city, e.g.
 
-```
+```r
 library('tidyverse')
 
 read_csv('~/ignition.csv') %>%
