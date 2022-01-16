@@ -5,16 +5,14 @@ import { Pane } from 'react-leaflet'
 import { ParkingTime } from './ParkingTime'
 import { PickupPoints, operators } from './PickupPoints'
 
-const data = {
-	Toronto: require('../data/Toronto/avoid/pickup_pts.topojson'),
-	Edmonton: require('../data/Edmonton/avoid/pickup_pts.topojson'),
-	Vancouver: require('../data/Vancouver/avoid/pickup_pts.topojson')
-}
-
 export default function({city,zoom,displayed}){
 	const [ points, setPoints ] = useState([])
 	useEffect(()=>{
-		json(data[city.name]).then( resp => {
+		if(!city.data?.avoid?.pickupPoints){
+			setPoints([])
+			return console.warn(`pickup points not yet defined for ${city.name}`)
+		}
+		json(city.data.avoid.pickupPoints).then( resp => {
 			setPoints( topo2geo(resp,'pickup_pts').features )
 		} )
 	},[city])

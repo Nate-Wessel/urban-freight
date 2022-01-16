@@ -38,9 +38,7 @@ export default function(props){
 				maxBoundsViscosity={0.25}
 				gestureHandling={true}
 				preferCanvas={false}>
-				<MapStateProbe
-					setZoom={setZoom}
-					bounds={city.bounds}/>
+				<MapStateProbe setZoom={setZoom} bounds={city.bounds}/>
 				<Pane name="tile-labels" style={{zIndex:450}}>
 					<TileLayer url={`${carto}/light_only_labels/{z}/{x}/{y}{r}.png`}/>
 				</Pane>

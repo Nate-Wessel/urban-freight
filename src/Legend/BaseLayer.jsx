@@ -10,9 +10,8 @@ const landuseScale = scaleOrdinal()
 export const baseLayers = [
 	{
 		name: 'Transit',
-		tabName: 'Transit'
-		//title: 'Public Transit',
-		//items: []
+		tabName: 'Transit',
+		dataAvailable: (city)=>Boolean(city.data?.base?.tiles?.transit)
 	},
 	{
 		name: 'Population',
@@ -26,7 +25,8 @@ export const baseLayers = [
 			{v:12000,label:' 10,000 to 20,000'},
 			{v:22000,label:' 20,000+'}
 		],
-		scale: popDensity
+		scale: popDensity,
+		dataAvailable: (city)=>Boolean(city.data?.base?.DAs)
 	},
 	{
 		name: 'Employment',
@@ -40,7 +40,8 @@ export const baseLayers = [
 			{v:12000,label:' 10,000 to 20,000'},
 			{v:22000,label:' 20,000+'}
 		],
-		scale: empDensity
+		scale: empDensity,
+		dataAvailable: (city)=>Boolean(city.data?.base?.DAs)
 	},
 	{
 		name: 'Landuse',
@@ -53,7 +54,8 @@ export const baseLayers = [
 			{v:'residential',label:'Residential'},
 			{v:'other',label:'Other'}
 		],
-		scale: landuseScale
+		scale: landuseScale,
+		dataAvailable: (city)=>Boolean(city.data?.base?.tiles?.landuse)
 	}
 ]
 
@@ -64,7 +66,7 @@ export function BaseLayer({city,layer,setLayer,transit,setTransit}){
 			<span className="title">
 				Base map layers:
 			</span>
-			<Nav layer={layer} setLayer={setLayer}
+			<Nav layer={layer} setLayer={setLayer} city={city}
 				transit={transit} setTransit={setTransit}/>
 			{ opts?.title && <>
 				<div className="subtitle-units">
@@ -88,17 +90,21 @@ export function BaseLayer({city,layer,setLayer,transit,setTransit}){
 	)
 }
 
-function Nav({layer,setLayer,transit,setTransit}){
+function Nav({city,layer,setLayer,transit,setTransit}){
 	return (
 		<div className="items">
 			{ baseLayers.map( lyr => {
+				const classes = ['item','clickable']
+				const available = lyr.dataAvailable(city)
 				const active = lyr.name == 'Transit' ? transit : (layer == lyr)
+				classes.push( active ? 'active' : 'disabled' )
+				if(!available) classes.push('unavailable');
 				const onClick = lyr.name == 'Transit' ?
 					(e) => setTransit(currentVal=>!currentVal) :
 					(e) => layer == lyr ? setLayer({name:'None'}) : setLayer(lyr);
 				return (
 					<div key={lyr.name}
-						className={`item clickable ${active?'active':'disabled'}`}
+						className={classes.join(' ')}
 						onClick={onClick}>
 						{lyr.tabName}
 					</div>

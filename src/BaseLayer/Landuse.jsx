@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { TileLayer, Pane } from 'react-leaflet'
 
-export default function(props){
-	const { city } = props
+export default function({city}){
 	const layer = useRef(null)
 	useEffect(()=>{
 		// url is immutable in react-leaflet
@@ -10,6 +9,7 @@ export default function(props){
 		if(!layer.current) return;
 		layer.current.setUrl(url(city))
 	},[city])
+	if(!city.data?.base?.tiles?.landuse) return null;
 	return (
 		<Pane name="landuse" style={{zIndex:430}}>
 			<TileLayer ref={layer} url={url(city)}/>

@@ -6,6 +6,10 @@ import ParkingLot from './ParkingLot'
 import { routeIcon } from '../Shift/routeStyles'
 import { fill as parkingFill } from '../Avoid/ParkingTime'
 
+// data availability lookup functions
+const pickupPoints = (city)=>Boolean(city.data?.avoid?.pickupPoints)
+const bikePaths = (city)=>Boolean(city.data?.shift?.bikePaths)
+
 // keys should be unique across paradigms
 const paradigms = {
 	avoid:{
@@ -14,25 +18,29 @@ const paradigms = {
 				key: 'Purol',
 				label: 'Purolator',
 				icon: PickupPoint,
-				description: 'Includes parcel pick up and shipping locations. Hover over a point for details.'
+				description: 'Includes parcel pick up and shipping locations. Hover over a point for details.',
+				dataAvailable: pickupPoints
 			},
 			{
 				key: 'Fedex',
 				label: 'Fedex',
 				icon: PickupPoint,
-				description: 'Includes parcel pick up and shipping locations.'
+				description: 'Includes parcel pick up and shipping locations.',
+				dataAvailable: pickupPoints
 			},
 			{
 				key: 'UPS',
 				label: 'UPS',
 				icon: PickupPoint,
-				description: 'UPS Store locations.'
+				description: 'UPS Store locations.',
+				dataAvailable: pickupPoints
 			},
 			{
 				key: 'Penguin',
 				label: 'Penguin',
 				icon: PickupPoint,
-				description: 'PenguinPickUp retail locations.'
+				description: 'PenguinPickUp retail locations.',
+				dataAvailable: pickupPoints
 			},
 			{
 				key: 'parking',
@@ -46,7 +54,8 @@ const paradigms = {
 						{v:3,label:'3-5 minutes',color:'#0f01'},
 						{v:5,label:'> 5 minutes',color:'#00f1'}
 					]
-				}
+				},
+				dataAvailable: (city)=>Boolean(city.data?.avoid?.parkingSearchTime)
 			}
 		]
 	},
@@ -56,26 +65,29 @@ const paradigms = {
 				key:'bike-paths',
 				label:'Bike Path',
 				icon: routeIcon,
-				description: 'Bike paths are fully separate from cars, though generally shared with pedestrians and other modes like skateboards.'
-
+				description: 'Bike paths are fully separate from cars, though generally shared with pedestrians and other modes like skateboards.',
+				dataAvailable: bikePaths
 			},
 			{
 				key:'bike-lanes',
 				label:'Bike Lane',
 				icon: routeIcon,
-				description: 'Bike lanes are bike-only infrastructure generally running parallel to other modes between a primarily automotive lane and the sidewalk.'
+				description: 'Bike lanes are bike-only infrastructure generally running parallel to other modes between a primarily automotive lane and the sidewalk.',
+				dataAvailable: bikePaths
 			},
 			{
 				key:'bike-routes',
 				label:'Bike Route',
 				icon: routeIcon,
-				description: 'Bike "routes" include non-segregated infrastucture that is explicitly signed/designated for use by cyclists. E.g. "sharrows".'
+				description: 'Bike "routes" include non-segregated infrastucture that is explicitly signed/designated for use by cyclists. E.g. "sharrows".',
+				dataAvailable: bikePaths
 			},
 			{
 				key:'bike-share',
 				label:'Bike-share Station',
 				icon: BikeShare,
-				description: "Hover over a bikeshare station to see its name and designated capacity"
+				description: "Hover over a bikeshare station to see its name and designated capacity",
+				dataAvailable: (city)=>Boolean(city.data?.shift?.bikeShare)
 			},
 			{
 				key:'parking-lots',
@@ -133,15 +145,20 @@ export default function({paradigm,city,zoom,displayed,setDisplayed}){
 				"{paradigm.toUpperCase()}" data layers: {city.name}
 			</span>
 			<div className="items">{
-				paradigms[paradigm].layers.map( l => (
-					<Item key={l.key} 
-						layer={l} zoom={zoom}
-						active={displayed.has(l.key)}
+				paradigms[paradigm].layers.map( layer => (
+					<Item key={layer.key} 
+						layer={layer} zoom={zoom}
+						active={displayed.has(layer.key)}
+						available={layer?.dataAvailable?layer?.dataAvailable(city):true}
 						handleClick={handleClick}/>
 				) )
 			}</div>
 			{paradigms[paradigm].layers
-				.filter( l => l?.subLegend && displayed.has(l.key) )
+				.filter( layer => (
+					layer?.subLegend 
+					&& displayed.has(layer.key)
+					&& layer?.dataAvailable(city)
+				) )
 				.map( (l,li) => (
 					<Fragment key={li}>
 						<span className="subtitle">{l.subLegend.title}</span>
@@ -162,12 +179,15 @@ export default function({paradigm,city,zoom,displayed,setDisplayed}){
 	)
 }
 
-function Item({layer,active,handleClick,zoom}){
+function Item({layer,active,available,handleClick,zoom}){
 	let icon = layer.icon ? <layer.icon layerKey={layer.key} zoom={zoom}/> : null
+	const classes = ['item','clickable']
+	classes.push( active ? 'active' : 'disabled' )
+	if(!available) classes.push('unavailable');
 	return (
 		<div onClick={(e)=>handleClick(layer.key)}
 			title={layer.description}
-			className={`item clickable ${active ? 'active' : 'disabled'}`}>
+			className={classes.join(' ')}>
 			<span className="icon">{icon}</span>
 			<span className="label">{layer.label}</span>
 		</div>

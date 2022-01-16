@@ -4,12 +4,6 @@ import { Polygon } from 'react-leaflet'
 import { geojson2leaflet } from '../geojson2leaflet'
 import { json } from 'd3-fetch'
 
-const sources = {
-	Toronto: require('../data/Toronto/boundary.topojson'),
-	Vancouver: require('../data/Vancouver/boundary.topojson'),
-	Edmonton: require('../data/Edmonton/boundary.topojson')
-}
-
 const style = {
 	color: '#0005', 
 	fill: false, 
@@ -20,7 +14,11 @@ const style = {
 export default function({city}){
 	const [ boundaryFeature, setBoundaryFeature ] = useState(null)
 	useEffect(()=>{
-		json(sources[city.name]).then( data => {
+		if(!city.data?.base?.boundary){
+			setBoundaryFeature(null)
+			return console.warn(`boundary not yet defined for ${city.name}`)
+		}
+		json(city.data.base.boundary).then( data => {
 			setBoundaryFeature( topo2geo(data,'boundary').features[0] )
 		} )
 	},[city])
