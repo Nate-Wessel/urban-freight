@@ -41,11 +41,12 @@ export function App({paradigm}){
 function CityNav({city,paradigm,setCity}){
 	return (
 		<div id="city-nav-tabs" className="tab-container city-nav">
-			{ cities.filter(c=>c.data.hasOwnProperty(paradigm)).map( (c,i) => {
-				let cls = 'tab' + (city == c ? ' active' : '') + ' city-' + c.name;
-				const click = (e) => setCity(cities[i]);
+			{ cities.filter(c=>c.data.hasOwnProperty(paradigm)).map( c => {
+				const classes = ['tab',`city-${c.name}`]
+				if(c==city) classes.push('active')
+				const click = (e) => setCity(c);
 				return (
-					<div key={i} className={cls} onClick={click}>
+					<div key={c.name} className={classes.join(' ')} onClick={click}>
 						{c.name}
 					</div>
 				)

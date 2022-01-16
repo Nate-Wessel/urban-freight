@@ -10,48 +10,40 @@ import Winnipeg from './Winnipeg/data.js'
 
 export const cities = [
 	{
-		name: 'Toronto',
-		bounds: [[43.8588,-79.6495],[43.5774,-79.1098]],
-		data: Toronto
+		name: 'Toronto', data: Toronto,
+		bounds: [[43.8588,-79.6495],[43.5774,-79.1098]]
 	},
 	{
-		name: 'Vancouver',
-		bounds: [[49.31,-123.2247],[49.19,-122.9782]],
-		data: Vancouver
+		name: 'Vancouver', data: Vancouver,
+		bounds: [[49.31,-123.2247],[49.19,-122.9782]]
 	},
 	{
-		name: 'Edmonton',
-		bounds: [[53.6914,-113.7373],[53.3948,-113.2787]],
-		data: Edmonton
+		name: 'Edmonton', data: Edmonton,
+		bounds: [[53.6914,-113.7373],[53.3948,-113.2787]]
+		
 	},
 	{
-		name: 'Ottawa',
-		bounds: [[45.619,-76.434],[44.9,-75.154]],
-		data: Ottawa
+		name: 'Ottawa', data: Ottawa,
+		bounds: [[45.619,-76.434],[44.9,-75.154]]
 	},
 	{
-		name: 'Calgary',
-		bounds: [[51.2230,-114.3538],[50.84257,-113.81025]],
-		data: Calgary
+		name: 'Calgary', data: Calgary,
+		bounds: [[51.2230,-114.3538],[50.84257,-113.81025]]
 	},
 	{
-		name: 'Halifax',
-		bounds: [[44.5811,-63.72265],[44.71121,-63.54319]],
-		data: Halifax
+		name: 'Halifax', data: Halifax,
+		bounds: [[44.5811,-63.72265],[44.71121,-63.54319]]
 	},
 	{
-		name: 'Hamilton',
-		bounds: [[43.0505,-80.2485],[43.4706,-79.6221]],
-		data: Hamilton
+		name: 'Hamilton', data: Hamilton,
+		bounds: [[43.0505,-80.2485],[43.4706,-79.6221]]
 	},
 	{
-		name: 'Victoria',
-		bounds: [[48.4028,-123.398],[48.4504,-123.3224]],
-		data: Victoria
+		name: 'Victoria', data: Victoria,
+		bounds: [[48.4028,-123.398],[48.4504,-123.3224]]
 	},
 	{
-		name: 'Winnipeg',
-		bounds: [[49.713,-97.349],[49.994,-96.956]],
-		data: Winnipeg
+		name: 'Winnipeg', data: Winnipeg,
+		bounds: [[49.713,-97.349],[49.994,-96.956]]
 	},
 ]

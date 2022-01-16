@@ -30,7 +30,7 @@ export function density(data,city){
 	let px_per_m = pxLen/mLen
 	let m_per_px = mLen/pxLen
 	let sq_m_per_px = m_per_px**2
-	//area conversion for a sample bounding box
+	//area conversion for a sample geohash bounding box
 	let bb = geohash.bbox(data[0].geohash)
 	let geohashSqM = (
 		geoDistanceMeters([bb.e,bb.n],[bb.w,bb.n]) * // E/W distance 
