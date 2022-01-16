@@ -5,7 +5,7 @@ export default {
 		tiles: { transit: true, landuse: true }
 	},
 	avoid: {
-		parkingSearchTime: require('./avoid/parking-search-time.topojson'),
+		parkingSearchTime: require('./avoid/avg-time-to-park.csv'),
 		pickupPoints: require('./avoid/pickup_pts.topojson')
 	},
 	shift: {
