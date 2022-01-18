@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Polygon, Tooltip } from 'react-leaflet'
-import { json } from 'd3-fetch'
-import { feature as topo2geo } from 'topojson-client'
+import { csv } from 'd3-fetch'
 import { scaleOrdinal } from 'd3-scale'
 import { density } from './density.js'
 import { geojson2leaflet } from '../geojson2leaflet'
@@ -17,9 +16,8 @@ export function ParkingTime({city}){
 			setContours([])
 			return console.warn(`parking times not yet defined for ${city.name}`)
 		}
-		json(city.data.avoid.parkingSearchTime).then( resp => {
-			let feats = topo2geo(resp,'ignition').features
-			let conts = density(feats,city)
+		csv(city.data.avoid.parkingSearchTime).then( response => {
+			let conts = density(response,city)
 			conts.map( cont => cont.leafletGeom = geojson2leaflet(cont) )
 			setContours( conts )
 		} )
