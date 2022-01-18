@@ -1,14 +1,18 @@
 import { contourDensity } from 'd3-contour'
 import { geoMercator, geoDistance } from 'd3-geo'
+import { geohash } from './geohash.js'
 
 const size = [800,800]	
 const EarthRadius = 6360e3 //6360km
+
+// e.g. A = [lon,lat]
+const geoDistanceMeters = (A,B) => geoDistance(A,B) * EarthRadius;
 
 const tVals = [1,3,5]
 
 // returns unprojected (EPSG:4326) d3-contours
 // from a dataset [list] with lat/lon properties on entries
-export function density(points,city){
+export function density(data,city){
 	let bndFeature = { 
 		type: 'MultiPoint', 
 		coordinates: [ // Leaflet uses [y,x] coordinates because ???
@@ -21,23 +25,32 @@ export function density(points,city){
 	// determine the scale factor to convert between pixels and meters
 	let pxLen = Math.sqrt(size[0]**2+size[1]**2)
 	let [ A, B ] = [ proj.invert([0,0]), proj.invert(size) ]
-	let mLen = geoDistance(A,B)*EarthRadius
+	let mLen = geoDistanceMeters(A,B)
 	// distance conversion
 	let px_per_m = pxLen/mLen
 	let m_per_px = mLen/pxLen
 	let sq_m_per_px = m_per_px**2
-	//area conversion
-	let one_min = sq_m_per_px / city.geohashSqM
+	//area conversion for a sample geohash bounding box
+	let bb = geohash.bbox(data[0].geohash)
+	let geohashSqM = (
+		geoDistanceMeters([bb.e,bb.n],[bb.w,bb.n]) * // E/W distance 
+		geoDistanceMeters([bb.e,bb.n],[bb.e,bb.s]) // N/S distance
+	)
+	let one_min = sq_m_per_px / geohashSqM
 	
-	points.map( f => [ f.x, f.y ] = proj(f.geometry.coordinates) )
+	data.map( d => {
+		d.avgtimetopark = Number(d.avgtimetopark);
+		[ d.lat, d.lon ] = geohash.decode(d.geohash);
+		[ d.x, d.y ] = proj([d.lon,d.lat]) 
+	} )
 	const contours = contourDensity()
 		.x(f=>f.x).y(f=>f.y)
-		.weight( f => f.properties.AvgTimeToPark )
+		.weight( f => f.avgtimetopark )
 		.size(size)
 		.thresholds(tVals.map(v=>v*one_min))
 		.cellSize(1)
 		.bandwidth(200*px_per_m) // convert meters to pixels
-		( points )
+		( data )
 	contours.map( (cont,i) => {
 		cont.coordinates = unproject(cont.coordinates,proj)
 		cont.value = tVals[i] // assign value in minutes
