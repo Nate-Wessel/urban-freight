@@ -7,12 +7,16 @@ import os
 # CSD code of cities needed for querying census data
 
 city_csd = {
-    "Toronto": "3520005",
+    "Calgary": "4806016",
     "Edmonton": "4811061",
+    "Halifax": "1209034", # might have to update to ccsd for smaller region
+    "Hamilton": "3525005",
+    "Ottawa": "3506008",
+    "Toronto": "3520005",
     "Vancouver": "5915022",
-    "Calgary": "4806016"
+    "Victoria": "5917034",
+    "Winnipeg": "4611040"
 }
-
 
 
 # get DA boundaries with data (population and employment density)
@@ -119,23 +123,9 @@ def get_blockres(csdin,cityin):
 
 
 
+for city in ["Calgary", "Edmonton", "Halfiax", " Hamilton", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
 
-# city = "Edmonton"
-# csd = "4811061"
-
-# # get_csd(csd,city)
-# # get_da(csd,city)
-# get_blockres(csd,city)
+    get_da(city)
 
 
 
-# get_csd(csd,city)
-# get_da(csd,city)
-get_da("Calgary")
-
-# city = "Vancouver"
-# csd = "5915022"
-
-# # get_csd(csd,city)
-# # get_da(csd,city)
-# get_blockres(csd,city)
