@@ -123,7 +123,7 @@ def get_blockres(csdin,cityin):
 
 
 
-for city in ["Calgary", "Edmonton", "Halfiax", " Hamilton", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
+for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
 
     get_da(city)
 
