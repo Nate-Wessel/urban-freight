@@ -77,11 +77,14 @@ def get_da(cityin):
 
     del gdf["total_emp"], gdf["dbpop"], gdf["dbarea"], gdf["csduid"]
 
-    gdf.to_file("../data-sources/" + cityin + "/da_polygons.geojson", driver='GeoJSON')
 
-    os.system("geo2topo ../data-sources/" + cityin + "/da_polygons.geojson > ../data-sources/" + cityin + "/da_polygons.topojson -q 1e4")
+    # # output to topojson
 
+    gdf.to_file("../" + cityin + "/da_polygons.geojson", driver='GeoJSON')
 
+    os.system("geo2topo ../" + cityin + "/da_polygons.geojson > ../" + cityin + "/da_polygons.topojson -q 1e4")
+
+    os.system("rm ../" + cityin + "/da_polygons.geojson")
 
 
 
@@ -112,6 +115,7 @@ def get_blockres(csdin,cityin):
     dfb.to_file(cityin + "/census/blocks_residential.geojson", driver='GeoJSON')
 
     os.system("geo2topo " + cityin + "/census/blocks_residential.geojson > " + cityin + "/census/blocks_residential.topojson -q 1e4")
+
 
 
 
