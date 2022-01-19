@@ -5,5 +5,8 @@ export default {
 	},
 	avoid: {
 		parkingSearchTime: require('./avoid/avg-time-to-park.csv')
+	},
+	improve: {
+		fuelStations: require('./improve/alt_fuel_stations.topojson')
 	}
 }

@@ -92,9 +92,8 @@ def get_da(cityin):
 
 
 
-###################
 # block level residential land use
-###################
+# NEED TO UPDATE STILL
 
 def get_blockres(csdin,cityin):
 
