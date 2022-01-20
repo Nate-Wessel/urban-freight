@@ -15,6 +15,7 @@ def dl_all_fuel():
     urllib.request.urlretrieve(urlstring, filename="../data-sources/national-data/alt_fuel_stations.geojson")
 
     
+    
 # subsetting spatially and converting to topojson by city
 
 def get_fuel(city):

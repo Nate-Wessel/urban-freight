@@ -1,12 +1,12 @@
 import pandas as pd
 import geopandas as gpd
 from shapely.geometry import Point
-from shapely.geometry import shape
 import urllib.request
 import requests
 import json
 import os
-import csv
+
+
 
 
 def dl_ups():
@@ -23,6 +23,8 @@ def dl_ups():
 
     with open("../data-sources/national-data/ups_json_raw.json", "w") as outfile:
         outfile.write(json_object)
+
+
 
 
 def get_ups(city):
@@ -68,10 +70,6 @@ def get_ups(city):
 
 
 
-
-
-
-
 def get_fedex(city):
 
     print("Getting FEDEX pick-up points for", city)
@@ -110,6 +108,7 @@ def get_fedex(city):
         os.system("geo2topo ../" + city + "/avoid/pts_fedex.geojson > ../" + city + "/avoid/pts_fedex.topojson -q 1e4")
 
         os.system("rm ../" + city + "/avoid/pts_fedex.geojson")
+
 
 
 
@@ -154,7 +153,6 @@ def get_purolator(city):
     for i in data["locations"]:
 
         type = "Purol"
-        # i["locationType"]
 
         y = i["latitude"]
         x = i["longitude"]
@@ -203,8 +201,6 @@ def get_purolator(city):
 
 
 
-# get_purolator("Victoria")
-# get_purolator("Vancouver")
 
 
 # dl_ups()
@@ -212,3 +208,6 @@ def get_purolator(city):
 for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
 
     get_purolator(city)
+    get_ups(city)
+    get_penguin(city)
+    get_fedex(city)
