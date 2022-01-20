@@ -11,7 +11,7 @@ import csv
 
 def dl_ups():
 
-    print("Downloading the electric charging and alternative fuelling station data")
+    print("Downloading UPS data")
 
     urlstring = "https://app-tupssca.herokuapp.com/index.php/stores/near.jsonp?limit=10000&lat=43.712648528677285&lng=-79.36206579586438&n=43.83617338720931&e=-79.09950399916566&s=43.58912367014526&w=-79.6246275925631&_=1613410958291"
 
@@ -25,11 +25,12 @@ def dl_ups():
         outfile.write(json_object)
 
 
-def get_pickup(city):
+def get_ups(city):
+
+    print("Getting UPS pick-up points for", city)
 
     gdf = gpd.read_file("../" + city + "/boundary.topojson")
     poly = gdf["geometry"][0]
-
 
     # UPS locations:
 
@@ -54,11 +55,29 @@ def get_pickup(city):
         df = gpd.GeoDataFrame(df, crs="EPSG:4326", geometry=geometry)
 
         df = df[df.within(poly)]
-   
-        df_ups = df
 
-    print(df_ups)
+        n = df.shape[0]
+        if n > 0:
 
+            df.to_file("../" + city + "/avoid/pts_ups.geojson", driver='GeoJSON')
+
+            os.system("geo2topo ../" + city + "/avoid/pts_ups.geojson > ../" + city + "/avoid/pts_ups.topojson -q 1e4")
+
+            os.system("rm ../" + city + "/avoid/pts_ups.geojson")
+
+
+
+
+
+
+
+
+def get_fedex(city):
+
+    print("Getting FEDEX pick-up points for", city)
+
+    gdf = gpd.read_file("../" + city + "/boundary.topojson")
+    poly = gdf["geometry"][0]
 
     # FEDEX locations
 
@@ -83,13 +102,25 @@ def get_pickup(city):
 
     df_fedex["serv"] = ""
 
-    print(df_fedex)
+    n = df_fedex.shape[0]
+    if n > 0:
+
+        df_fedex.to_file("../" + city + "/avoid/pts_fedex.geojson", driver='GeoJSON')
+
+        os.system("geo2topo ../" + city + "/avoid/pts_fedex.geojson > ../" + city + "/avoid/pts_fedex.topojson -q 1e4")
+
+        os.system("rm ../" + city + "/avoid/pts_fedex.geojson")
 
 
 
 
-    
 
+dl_ups()
+
+for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
+
+    get_ups(city)
+    get_fedex(city)
 
 
 
@@ -141,4 +172,3 @@ def get_pickup(city):
 
 
 
-get_pickup("Calgary")
