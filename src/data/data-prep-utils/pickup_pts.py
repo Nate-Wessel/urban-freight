@@ -115,7 +115,7 @@ def get_fedex(city):
 
 def get_penguin(city):
 
-    print("Getting UPS pick-up points for", city)
+    print("Getting Penguin pick-up points for", city)
 
     gdf = gpd.read_file("../" + city + "/boundary.topojson")
     poly = gdf["geometry"][0]
@@ -131,67 +131,84 @@ def get_penguin(city):
 
         os.system("geo2topo ../" + city + "/avoid/pts_penguin.geojson > ../" + city + "/avoid/pts_penguin.topojson -q 1e4")
 
-        os.system("rm ../" + city + "/avoid/pts_penguin.geojson")    
+        os.system("rm ../" + city + "/avoid/pts_penguin.geojson")
 
 
+
+
+def get_purolator(city):
+
+    # need to manually download from their sit, a wget or whatever doesnt work, IP blocking probably
+    # https://api.purolator.com/locator/puro/json/location/byCoordinates/44.62457/-63.57300?radialDistanceInKM=200&maxNumberofLocations=1000
+
+    print("Getting Purolator pick-up points for", city)
+
+    gdf = gpd.read_file("../" + city + "/boundary.topojson")
+    poly = gdf["geometry"][0]
+
+    with open("../" + city + "/avoid/purolator_raw.json") as json_file:# get_ups(city)
+        data = json.load(json_file)
+
+    out = []
+
+    for i in data["locations"]:
+
+        type = "Purol"
+        # i["locationType"]
+
+        y = i["latitude"]
+        x = i["longitude"]
+
+        if i['locationType'] == "QuickStopAgent":
+
+            serv = "Services: Prepaid shipping, missed delivery pickup"
+
+        elif i['locationType'] == "QuickStopKiosk":
+
+            serv = "Services: Outbound shipping and pickup"
+
+        elif i['locationType'] == "Staples":
+
+            serv = "Services: Outbound shipping only"
+
+        elif i['locationType'] == "ShippingAgent":
+
+            serv = "Services: Outbound shipping and pickup"
+
+        else:
+
+            serv = "Services: Prepaid outbound shipping"
+
+        out.append([x,y,type,serv])
+
+
+    df = pd.DataFrame(out,columns=["x","y","type","serv"])
+
+    geometry = [Point(xy) for xy in zip(df.x, df.y)]
+    df = df.drop(['x', 'y'], axis=1)
+    df = gpd.GeoDataFrame(df, crs="EPSG:4326", geometry=geometry)
+
+    df = df[df.within(poly)]
+
+
+    n = df.shape[0]
+    if n > 0:
+
+        df.to_file("../" + city + "/avoid/pts_purolator.geojson", driver='GeoJSON')
+
+        os.system("geo2topo ../" + city + "/avoid/pts_purolator.geojson > ../" + city + "/avoid/pts_purolator.topojson -q 1e4")
+
+        os.system("rm ../" + city + "/avoid/pts_purolator.geojson")
+
+
+
+
+# get_purolator("Victoria")
+# get_purolator("Vancouver")
 
 
 # dl_ups()
 
 for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
 
-    get_penguin(city)
-
-#     get_ups(city)
-#     get_fedex(city)
-
-
-
-    # Purolator: # needs an overhaul - I don't remember how this was gathered
-
-    # with open(city + "/pts/puralator_raw.json") as json_file:# get_ups(city)
-    #     data = json.load(json_file)
-
-    # out = []
-
-    # for i in data["locations"]:
-
-    #     type = "Purol"
-    #     # i["locationType"]
-
-    #     y = i["latitude"]
-    #     x = i["longitude"]
-
-    #     if i['locationType'] == "QuickStopAgent":
-
-    #         serv = "Services: Prepaid shipping, missed delivery pickup"
-
-    #     elif i['locationType'] == "QuickStopKiosk":
-
-    #         serv = "Services: Outbound shipping and pickup"
-
-    #     elif i['locationType'] == "Staples":
-
-    #         serv = "Services: Outbound shipping only"
-
-    #     elif i['locationType'] == "ShippingAgent":
-
-    #         serv = "Services: Outbound shipping and pickup"
-
-    #     else:
-
-    #          serv = "Services: Prepaid outbound shipping"
-
-    #     out.append([x,y,type,serv])
-
-
-    # df = pd.DataFrame(out,columns=["x","y","type","serv"])
-
-    # geometry = [Point(xy) for xy in zip(df.x, df.y)]
-    # df = df.drop(['x', 'y'], axis=1)
-    # df = gpd.GeoDataFrame(df, crs="EPSG:4326", geometry=geometry)
-
-    # df = df[df.within(poly)]
-
-
-
+    get_purolator(city)

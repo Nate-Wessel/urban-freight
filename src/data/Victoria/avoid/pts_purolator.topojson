@@ -1,0 +1,1 @@
+{"type":"Topology","objects":{"pts_purolator":{"type":"GeometryCollection","geometries":[{"type":"Point","coordinates":[0,0],"properties":{"type":"Purol","serv":"Services: Outbound shipping and pickup"}}]}},"arcs":[],"bbox":[-123.34372,48.42425,-123.34372,48.42425],"transform":{"scale":[1,1],"translate":[-123.34372,48.42425]}}
