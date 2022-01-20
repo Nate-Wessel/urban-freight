@@ -113,14 +113,37 @@ def get_fedex(city):
 
 
 
+def get_penguin(city):
+
+    print("Getting UPS pick-up points for", city)
+
+    gdf = gpd.read_file("../" + city + "/boundary.topojson")
+    poly = gdf["geometry"][0]
+
+    df = gpd.read_file("../data-sources/national-data/penguin.geojson")
+    
+    df = df[df.within(poly)]
+
+    n = df.shape[0]
+    if n > 0:
+
+        df.to_file("../" + city + "/avoid/pts_penguin.geojson", driver='GeoJSON')
+
+        os.system("geo2topo ../" + city + "/avoid/pts_penguin.geojson > ../" + city + "/avoid/pts_penguin.topojson -q 1e4")
+
+        os.system("rm ../" + city + "/avoid/pts_penguin.geojson")    
 
 
-dl_ups()
+
+
+# dl_ups()
 
 for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
 
-    get_ups(city)
-    get_fedex(city)
+    get_penguin(city)
+
+#     get_ups(city)
+#     get_fedex(city)
 
 
 

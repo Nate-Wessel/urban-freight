@@ -1,0 +1,1 @@
+{"type":"Topology","objects":{"pts_penguin":{"type":"GeometryCollection","geometries":[{"type":"Point","coordinates":[0,0],"properties":{"type":"Penguin"}}]}},"arcs":[],"bbox":[-123.14022201949435,49.263464526032735,-123.14022201949435,49.263464526032735],"transform":{"scale":[1,1],"translate":[-123.14022201949435,49.263464526032735]}}
