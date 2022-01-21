@@ -7,7 +7,6 @@ import { routeIcon } from '../Shift/routeStyles'
 import { fill as parkingFill } from '../Avoid/ParkingTime'
 
 // data availability lookup functions
-const pickupPoints = (city)=>Boolean(city.data?.avoid?.pickupPoints)
 const bikePaths = (city)=>Boolean(city.data?.shift?.bikePaths)
 
 // keys should be unique across paradigms
@@ -19,28 +18,28 @@ const paradigms = {
 				label: 'Purolator',
 				icon: PickupPoint,
 				description: 'Includes parcel pick up and shipping locations. Hover over a point for details.',
-				dataAvailable: pickupPoints
+				dataAvailable: (city)=>Boolean(city.data?.avoid?.pickupPoints?.purolator)
 			},
 			{
 				key: 'Fedex',
 				label: 'Fedex',
 				icon: PickupPoint,
 				description: 'Includes parcel pick up and shipping locations.',
-				dataAvailable: pickupPoints
+				dataAvailable: (city)=>Boolean(city.data?.avoid?.pickupPoints?.fedex)
 			},
 			{
 				key: 'UPS',
 				label: 'UPS',
 				icon: PickupPoint,
 				description: 'UPS Store locations.',
-				dataAvailable: pickupPoints
+				dataAvailable: (city)=>Boolean(city.data?.avoid?.pickupPoints?.ups)
 			},
 			{
 				key: 'Penguin',
 				label: 'Penguin',
 				icon: PickupPoint,
 				description: 'PenguinPickUp retail locations.',
-				dataAvailable: pickupPoints
+				dataAvailable: (city)=>Boolean(city.data?.avoid?.pickupPoints?.penguin)
 			},
 			{
 				key: 'parking',
