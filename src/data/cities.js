@@ -2,6 +2,7 @@ import Calgary from './Calgary/data.js'
 import Edmonton from './Edmonton/data.js'
 import Halifax from './Halifax/data.js'
 import Hamilton from './Hamilton/data.js'
+import Montreal from './Montreal/data.js'
 import Ottawa from './Ottawa/data.js'
 import Toronto from './Toronto/data.js'
 import Vancouver from './Vancouver/data.js'
@@ -12,6 +13,10 @@ export const cities = [
 	{
 		name: 'Toronto', data: Toronto,
 		bounds: [[43.8588,-79.6495],[43.5774,-79.1098]]
+	},
+	{
+		name: 'Montreal', data: Montreal,
+		bounds: [[45.712,-74.014],[45.376,-73.455]]
 	},
 	{
 		name: 'Vancouver', data: Vancouver,
