@@ -6,7 +6,11 @@ export default {
 	},
 	avoid: {
 		parkingSearchTime: require('./avoid/avg-time-to-park.csv'),
-		pickupPoints: require('./avoid/pickup_pts.topojson')
+		pickupPoints: {
+			fedex: require('./avoid/pts_fedex.topojson'),
+			purolator: require('./avoid/pts_purolator.topojson'),
+			ups: require('./avoid/pts_ups.topojson')
+		}
 	},
 	shift: {
 		bikePaths: require('./shift/bike.topojson'),

@@ -4,7 +4,13 @@ export default {
 		DAs: require('./da_polygons.topojson')
 	},
 	avoid: {
-		parkingSearchTime: require('./avoid/avg-time-to-park.csv')
+		parkingSearchTime: require('./avoid/avg-time-to-park.csv'),
+		pickupPoints: {
+			fedex: require('./avoid/pts_fedex.topojson'),
+			penguin: require('./avoid/pts_penguin.topojson'),
+			purolator: require('./avoid/pts_purolator.topojson'),
+			ups: require('./avoid/pts_ups.topojson')
+		}
 	},
 	shift: {
 		bikeShare: require('./shift/station_information.json')

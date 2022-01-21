@@ -19,8 +19,7 @@ export const pointWeight = scalePow()
 		.domain([10,16])
 		.range([1,3])
 
-export function PickupPoints(props){
-	const { features, zoom } = props
+export function PickupPoints({features,zoom}){
 	let styleOptions = {
 		opacity: 1,
 		fillOpacity: 1,

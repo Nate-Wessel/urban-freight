@@ -3,6 +3,13 @@ export default {
 		boundary: require('./boundary.topojson'),
 		DAs: require('./da_polygons.topojson')
 	},
+	avoid: {
+	pickupPoints: {
+			fedex: require('./avoid/pts_fedex.topojson'),
+			purolator: require('./avoid/pts_purolator.topojson'),
+			ups: require('./avoid/pts_ups.topojson')
+		}
+	},
 	improve: {
 		fuelStations: require('./improve/alt_fuel_stations.topojson')
 	}

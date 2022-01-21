@@ -6,22 +6,42 @@ import { ParkingTime } from './ParkingTime'
 import { PickupPoints, operators } from './PickupPoints'
 
 export default function({city,zoom,displayed}){
-	const [ points, setPoints ] = useState([])
+	const [ fedex, setFedex ] = useState([])
+	const [ purolator, setPurolator ] = useState([])
+	const [ ups, setUps ] = useState([])
+	const [ penguin, setPenguin ] = useState([])
+	
 	useEffect(()=>{
-		if(!city.data?.avoid?.pickupPoints){
-			setPoints([])
+		// reset when city changes
+		if( fedex.length > 0 ) setFedex([]);
+		if( purolator.length > 0) setPurolator([]); 
+		if( ups.length > 0 ) setUps([]); 
+		if( penguin.length > 0) setPenguin([]);
+		// check for data and fetch if it's to be got
+		const PuP = city.data?.avoid?.pickupPoints
+		if(!PuP){
 			return console.warn(`pickup points not yet defined for ${city.name}`)
 		}
-		json(city.data.avoid.pickupPoints).then( resp => {
-			setPoints( topo2geo(resp,'pickup_pts').features )
-		} )
+		if(PuP?.purolator) json(PuP.purolator).then( resp => {
+			setPurolator( topo2geo(resp,'pts_purolator').features )
+		} );
+		if(PuP.fedex) json(PuP.fedex).then( resp => {
+			setFedex( topo2geo(resp,'pts_fedex').features )
+		} );
+		if(PuP.ups) json(PuP.ups).then( resp => {
+			setUps( topo2geo(resp,'pts_ups').features )
+		} );
+		if(PuP.penguin) json(PuP.penguin).then( resp => {
+			setPenguin( topo2geo(resp,'pts_penguin').features )
+		} );
 	},[city])
+	const points = { Purol: purolator, Fedex: fedex, UPS: ups, Penguin: penguin }
 	return (
 		<>
 			<Pane name="pick-up-locations" style={{zIndex:445}}>
 				{operators.map( operatorKey => {
 					if(displayed.has(operatorKey)){
-						let features = points.filter(f=>f.properties.type==operatorKey)
+						let features = points[operatorKey]
 						return (
 							<PickupPoints key={operatorKey}
 								zoom={zoom}
