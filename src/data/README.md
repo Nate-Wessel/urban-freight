@@ -13,6 +13,8 @@ https://nabsa.net/resources/gbfs/
 
 Data is from GeoTab Ignition https://ignition.geotab.com
 
+As of 2022-01 there is no data available for Victoria or Montreal.
+
 ```sql
 SELECT 
 	geohash,city,avgtimetopark
@@ -20,8 +22,8 @@ FROM `geotab-public-intelligence.UrbanInfrastructure.SearchingForParking`
 WHERE 
 	country = 'Canada' AND
 	city IN (
-		'Edmonton','Toronto','Vancouver','Calgary',
-		'Halifax','Hamilton','Ottawa','Victoria','Winnipeg'
+		'Edmonton','Toronto','Vancouver','Calgary'
+		'Halifax','Hamilton','Ottawa','Winnipeg'
 	)
 ```
 
