@@ -93,7 +93,8 @@ const paradigms = {
 				key:'parking-lots',
 				label:'Parking Lot',
 				icon: ParkingLot,
-				description: "Surface parking lots. Darker colour indicates municipally operated"
+				description: "Surface parking lots. Darker colour indicates municipally operated",
+				dataAvailable: (city)=>Boolean(city.data?.shift?.parking)
 			}
 		]
 	},
