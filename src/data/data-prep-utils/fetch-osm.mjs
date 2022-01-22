@@ -16,15 +16,26 @@ const cityRelations = [
 ]
 
 for ( const osm_id of cityRelations ){
-	console.log(osm_id)
+	console.log(`fetching data for ${osm_id}`)
 	await getData(osm_id);
 }
 
 async function getData(osm_rel_id){
 	const query = `
-		[out:json];
-		rel(${osm_rel_id});
+		[out:json][timeout:100];
+		rel(${osm_rel_id}); map_to_area->.bnd;
+		(
+		  way[highway=cycleway](area.bnd);
+		  way[bicycle=designated](area.bnd);
+		  way[~"cycleway"~"crossing|lane|share|shoulder|track|yes"](area.bnd);
+		  nwr[landuse](area.bnd);
+		  nwr[natural~"wood|forest|beach|scrub|fell|heath|moor|grassland"](area.bnd);
+		  nwr[leisure~"park|nature|playground|garden|grass|pitch|common"](area.bnd);
+		  nwr[amenity=parking][parking!~"underground|multi|rooftop"](area.bnd);
+		);
 		out body;
+		>;
+		out skel qt;
 	`
 	const options = { 
 		method: 'post',
