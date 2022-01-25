@@ -47,7 +47,7 @@ async function getData(osm_rel_id){
 	await fetch('https://overpass-api.de/api/interpreter',options)
 		.then( response => response.json() )
 		.then(data => {
-			writeFileSync(`temp/${osm_rel_id}.json`,JSON.stringify(data))
+			writeFileSync(`../data-sources/osm-data/${osm_rel_id}.json`,JSON.stringify(data))
 		} )
 }
 
