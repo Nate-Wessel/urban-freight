@@ -18,6 +18,8 @@ const cityRelations = [
 for ( const osm_id of cityRelations ){
 	console.log(`fetching data for ${osm_id}`)
 	await getData(osm_id);
+	console.log('waiting 60s before next request')
+	await new Promise(resolve => setTimeout(resolve, 60000));
 }
 
 async function getData(osm_rel_id){
