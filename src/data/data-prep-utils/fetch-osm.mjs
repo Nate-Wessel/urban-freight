@@ -22,7 +22,7 @@ for ( const osm_id of cityRelations ){
 
 async function getData(osm_rel_id){
 	const query = `
-		[out:json][timeout:100];
+		[out:xml][timeout:100];
 		rel(${osm_rel_id}); map_to_area->.bnd;
 		(
 		  way[highway=cycleway](area.bnd);
@@ -45,9 +45,9 @@ async function getData(osm_rel_id){
 		body: new URLSearchParams({ data: query }).toString()
 	};
 	await fetch('https://overpass-api.de/api/interpreter',options)
-		.then( response => response.json() )
-		.then(data => {
-			writeFileSync(`../data-sources/osm-data/${osm_rel_id}.json`,JSON.stringify(data))
+		.then( response => response.text() )
+		.then( data => {
+			writeFileSync( `../data-sources/osm-data/${osm_rel_id}.osm`,data )
 		} )
 }
 
