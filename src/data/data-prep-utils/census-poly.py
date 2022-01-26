@@ -11,6 +11,7 @@ city_csd = {
     "Edmonton": "4811061",
     "Halifax": "1209034", # might have to update to ccsd for smaller region
     "Hamilton": "3525005",
+    "Montreal": "2466",
     "Ottawa": "3506008",
     "Toronto": "3520005",
     "Vancouver": "5915022",
@@ -25,25 +26,32 @@ def get_da(cityin):
 
     print("Generating DA polygon data for", cityin)
 
-    csdin = city_csd[cityin]
+    cen_id = city_csd[cityin]
 
     # load gaf, get the DAs we need
 
-    dfg = pd.read_csv("../data-sources/national-data/gaf_2016.csv", dtype = "str")
-    dfg = dfg[dfg["csduid"] == csdin]
-    dfg = dfg[["csduid","dauid"]]
-    dfg = dfg.drop_duplicates()
+    if len(cen_id) == 8:
+
+        dfg = pd.read_csv("../data-sources/national-data/gaf_2016.csv", dtype = "str")
+        dfg = dfg[dfg["csduid"] == cen_id]
+
+    elif len(cen_id) == 4:
+
+        dfg = pd.read_csv("../data-sources/national-data/gaf_2016.csv", dtype = "str")
+        dfg = dfg[dfg["cduid"] == cen_id]
+    
+    dfda = dfg[["csduid","dauid","cduid"]]
+    dfda = dfda.drop_duplicates()
+
 
     # get the spatial boundaries
 
     gdf = gpd.read_file("../data-sources/national-data/da_2016/da_2016.shp", dtype = "str")
-    gdf = gdf.merge(dfg, how = "inner", left_on = "DAUID", right_on = "dauid")
+    gdf = gdf.merge(dfda, how = "inner", left_on = "DAUID", right_on = "dauid")
     del gdf["DAUID"], gdf["CDUID"], gdf["CSDUID"]
 
-    # get population, join to the spatial data
 
-    dfg = pd.read_csv("../data-sources/national-data/gaf_2016.csv", dtype = "str")
-    dfg = dfg[dfg["csduid"] == csdin]
+    # get population, join to the spatial data
 
     dfg["dbpop"] = dfg["dbpop"].astype(int)
     dfg["dbarea"] = dfg["dbarea"].astype(float)
@@ -54,20 +62,14 @@ def get_da(cityin):
 
     # get employment, join to the spatial data
 
-    dfg = pd.read_csv("../data-sources/national-data/gaf_2016.csv", dtype = "str")
-    dfg = dfg[dfg["csduid"] == csdin]
-    dfg = dfg[["csduid","dauid"]]
-    dfg = dfg.drop_duplicates()
-
     dfe = pd.read_csv("../data-sources/national-data/employment_total_2016.csv")
-    dfe = dfg.merge(dfe, how = "inner", left_on = "dauid", right_on = "geoid")
+    dfe = dfda.merge(dfe, how = "inner", left_on = "dauid", right_on = "geoid")
     del dfe["geoid"]
     dfe["total_emp"] = dfe["total_emp"].astype(int)
 
     dfe = dfe.groupby(['dauid']).sum()
 
     gdf = gdf.merge(dfe, how = "left", left_on = "dauid", right_on = "dauid")
-
 
     # # calc densities and output
 
@@ -79,10 +81,11 @@ def get_da(cityin):
     gdf["dp"] = gdf["dp"].astype(int)
     gdf["de"] = gdf["de"].astype(int)
 
-    del gdf["total_emp"], gdf["dbpop"], gdf["dbarea"], gdf["csduid"]
+    
 
+    del gdf["total_emp"], gdf["dbpop"], gdf["dbarea"], gdf["csduid"], gdf["cduid"]
 
-    # # output to topojson
+    # output to topojson
 
     gdf.to_file("../" + cityin + "/da_polygons.geojson", driver='GeoJSON')
 
@@ -122,9 +125,11 @@ def get_blockres(csdin,cityin):
 
 
 
-for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
+get_da("Montreal")
 
-    get_da(city)
+# for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
+
+#     get_da(city)
 
 
 
