@@ -1,5 +1,6 @@
 import fetch from 'node-fetch'
 import { writeFileSync } from 'fs'
+import { execSync } from 'child_process'
 
 // osm_id's
 const cityRelations = [
@@ -49,7 +50,15 @@ async function getData(osm_rel_id){
 	await fetch('https://overpass-api.de/api/interpreter',options)
 		.then( response => response.text() )
 		.then( data => {
-			writeFileSync( `../data-sources/osm-data/${osm_rel_id}.osm`,data )
+			const dir = '../data-sources/osm-data'
+			const xmlFilePath = `${dir}/${osm_rel_id}.osm`
+			const pbfFilePath = `${dir}/${osm_rel_id}.pbf`
+			writeFileSync( xmlFilePath, data )
+			try {
+				execSync(`osmconvert ${xmlFilePath} -o=${pbfFilePath}`)
+			} catch {
+				console.log('there may have been an error converting to pbf')
+			}
 		} )
 }
 
