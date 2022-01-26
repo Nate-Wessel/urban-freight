@@ -45,7 +45,7 @@ Manually download from their site https://www.purolator.com/en/shipping/find-shi
 
 Can use this API, but has to be done in-browser
 
-https://api.purolator.com/locator/puro/json/location/byCoordinates/44.62457/-63.57300?radialDistanceInKM=200&maxNumberofLocations=1000
+https://api.purolator.com/locator/puro/json/location/byCoordinates/45.4938/-73.6287?radialDistanceInKM=200&maxNumberofLocations=1000
 
 
 
