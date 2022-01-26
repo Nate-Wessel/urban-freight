@@ -1,5 +1,6 @@
 import fetch from 'node-fetch'
 import { writeFileSync } from 'fs'
+import { execSync } from 'child_process'
 
 // osm_id's
 const cityRelations = [
@@ -18,11 +19,13 @@ const cityRelations = [
 for ( const osm_id of cityRelations ){
 	console.log(`fetching data for ${osm_id}`)
 	await getData(osm_id);
+	console.log('waiting 60s before next request')
+	await new Promise(resolve => setTimeout(resolve, 60000));
 }
 
 async function getData(osm_rel_id){
 	const query = `
-		[out:json][timeout:100];
+		[out:xml][timeout:100];
 		rel(${osm_rel_id}); map_to_area->.bnd;
 		(
 		  way[highway=cycleway](area.bnd);
@@ -45,9 +48,17 @@ async function getData(osm_rel_id){
 		body: new URLSearchParams({ data: query }).toString()
 	};
 	await fetch('https://overpass-api.de/api/interpreter',options)
-		.then( response => response.json() )
-		.then(data => {
-			writeFileSync(`../data-sources/osm-data/${osm_rel_id}.json`,JSON.stringify(data))
+		.then( response => response.text() )
+		.then( data => {
+			const dir = '../data-sources/osm-data'
+			const xmlFilePath = `${dir}/${osm_rel_id}.osm`
+			const pbfFilePath = `${dir}/${osm_rel_id}.pbf`
+			writeFileSync( xmlFilePath, data )
+			try {
+				execSync(`osmconvert ${xmlFilePath} -o=${pbfFilePath}`)
+			} catch {
+				console.log('there may have been an error converting to pbf')
+			}
 		} )
 }
 
