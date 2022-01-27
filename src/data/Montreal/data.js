@@ -14,6 +14,8 @@ export default {
 	},
 	shift: {
 		bikeShare: 'https://gbfs.velobixi.com/gbfs/en/station_information.json',
+		bikePaths: require('./shift/bike.topojson')
+		
 	},
 	improve: {
 		fuelStations: require('./improve/alt_fuel_stations.topojson')

@@ -21,6 +21,8 @@ city_osm = {
 
 def osm_cycling(city):
 
+    print("Creating cycling layer for", city)
+
     gdf = gpd.read_file("../" + city + "/boundary.topojson")
 
     osm_id = city_osm[city]
@@ -115,13 +117,14 @@ def osm_cycling(city):
 
     edges = gpd.clip(edges,gdf)
 
-    print(edges)
+    edges.to_file("../" + city + "/shift/bike.geojson", driver='GeoJSON')
 
-    # edges.to_file(city + "/osm/bike.geojson", driver='GeoJSON')
+    os.system("geo2topo ../" + city + "/shift/bike.geojson > ../" + city + "/shift/bike.topojson -q 1e4")
 
-    # os.system("geo2topo " + city + "/osm/bike.geojson > " + city + "/osm/bike.topojson")
-
-    del edges
+    os.system("rm ../" + city + "/shift/bike.geojson")
 
 
-osm_cycling("Winnipeg")
+
+for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Montreal", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
+
+    osm_cycling(city)
