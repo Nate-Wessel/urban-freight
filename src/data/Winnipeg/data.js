@@ -16,6 +16,7 @@ export default {
 		fuelStations: require('./improve/alt_fuel_stations.topojson')
 	},
 	shift: {
-		bikePaths: require('./shift/bike.topojson')
+		bikePaths: require('./shift/bike.topojson'),
+		parking: require('./shift/lu_parking.topojson')
 	}
 }

@@ -8,7 +8,14 @@ import { geojson2leaflet } from '../geojson2leaflet'
 const data = {
 	Toronto: require('../data/Toronto/shift/lu_parking.topojson'),
 	Edmonton: require('../data/Edmonton/shift/lu_parking.topojson'),
-	Vancouver: require('../data/Vancouver/shift/lu_parking.topojson')
+	Vancouver: require('../data/Vancouver/shift/lu_parking.topojson'),
+	Winnipeg: require('../data/Winnipeg/shift/lu_parking.topojson'),
+	Calgary: require('../data/Calgary/shift/lu_parking.topojson'),
+	Victoria: require('../data/Victoria/shift/lu_parking.topojson'),
+	Hamilton: require('../data/Hamilton/shift/lu_parking.topojson'),
+	Ottawa: require('../data/Ottawa/shift/lu_parking.topojson'),
+	Halifax: require('../data/Halifax/shift/lu_parking.topojson'),
+	Montreal: require('../data/Montreal/shift/lu_parking.topojson')
 }
 
 export const ownership = ['P','M']
