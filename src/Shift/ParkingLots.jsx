@@ -5,12 +5,6 @@ import { scaleOrdinal, scalePow } from 'd3-scale'
 import { feature as topo2geo } from 'topojson-client'
 import { geojson2leaflet } from '../geojson2leaflet'
 
-const data = {
-	Toronto: require('../data/Toronto/shift/lu_parking.topojson'),
-	Edmonton: require('../data/Edmonton/shift/lu_parking.topojson'),
-	Vancouver: require('../data/Vancouver/shift/lu_parking.topojson')
-}
-
 export const ownership = ['P','M']
 
 export const color = scaleOrdinal()
@@ -26,11 +20,11 @@ let styleOptions = {
 export default function({city}){
 	const [ lots,setLots ] = useState([])
 	useEffect(()=>{
-		if(!data.hasOwnProperty(city.name)){
+		if(!city.data?.shift?.parking){
 			setLots([])
 			return console.warn(`parking lots not yet defined for ${city.name}`)
 		}
-		json(data[city.name]).then( resp => {
+		json(city.data.shift.parking).then( resp => {
 			setLots( topo2geo(resp,'lu_parking').features )
 		} )
 	},[city])
