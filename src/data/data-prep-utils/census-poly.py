@@ -30,7 +30,7 @@ def get_da(cityin):
 
     # load gaf, get the DAs we need
 
-    if len(cen_id) == 8:
+    if len(cen_id) == 7:
 
         dfg = pd.read_csv("../data-sources/national-data/gaf_2016.csv", dtype = "str")
         dfg = dfg[dfg["csduid"] == cen_id]
@@ -95,32 +95,7 @@ def get_da(cityin):
 
 
 
-# block level residential land use
-# NEED TO UPDATE STILL
 
-def get_blockres(csdin,cityin):
-
-    dfg = pd.read_csv("national-data/census/gaf_2016.csv", dtype = "str")
-    dfg = dfg[dfg["csduid"] == csdin]
-    dfg = dfg[["csduid","dbuid","dbpop","dauid"]]
-    dfg["dbpop"] = dfg["dbpop"].astype(int)
-
-    dfb = gpd.read_file("national-data/census/blocks_2016/census_blocks_2016.shp")
-    dfb = dfb.merge(dfg, how = "right", left_on = "DBUID", right_on = "dbuid")
-
-    dfb= dfb.to_crs({'init': 'epsg:3857'})
-    dfb["area"] = dfb['geometry'].area/ 10**6
-    dfb= dfb.to_crs({'init': 'epsg:4326'})
-
-    dfb["popdens"] = dfb["dbpop"] / dfb["area"]
-
-    dfb = dfb[dfb["popdens"] > 100]
-
-    dfb = dfb.dissolve(by='csduid')
-
-    dfb.to_file(cityin + "/census/blocks_residential.geojson", driver='GeoJSON')
-
-    os.system("geo2topo " + cityin + "/census/blocks_residential.geojson > " + cityin + "/census/blocks_residential.topojson -q 1e4")
 
 
 
