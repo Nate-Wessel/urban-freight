@@ -17,6 +17,7 @@ export default {
 		parking: require('./shift/lu_parking.topojson')
 	},
 	improve: {
-		fuelStations: require('./improve/alt_fuel_stations.topojson')
+		fuelStations: require('./improve/alt_fuel_stations.topojson'),
+		missing: ['e1']
 	}
 }
