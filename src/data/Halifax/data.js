@@ -12,7 +12,8 @@ export default {
 		}
 	},
 	improve: {
-		fuelStations: require('./improve/alt_fuel_stations.topojson')
+		fuelStations: require('./improve/alt_fuel_stations.topojson'),
+		missing: ['e1','cng','propane']
 	},
 	shift: {
 		bikePaths: require('./shift/bike.topojson'),
