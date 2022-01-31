@@ -179,7 +179,7 @@ def osm_parking(city):
 
 for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Montreal", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
 
-    # osm_cycling(city)
+    osm_cycling(city)
     osm_parking(city)
 
 
