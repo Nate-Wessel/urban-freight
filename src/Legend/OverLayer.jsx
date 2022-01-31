@@ -102,27 +102,32 @@ const paradigms = {
 			{
 				key: 'E1',
 				label: 'Electric (E1)',
-				icon: ChargingStation
+				icon: ChargingStation,
+				dataAvailable: (city)=>!city.data?.improve?.missing?.includes('e1')
 			},
 			{
 				key: 'E2',
 				label: 'Electric (E2)',
-				icon: ChargingStation
+				icon: ChargingStation,
+				dataAvailable: (city)=>!city.data?.improve?.missing?.includes('e2')
 			},
 			{
 				key: 'E3',
 				label: 'Electric (E3/DC)',
-				icon: ChargingStation
+				icon: ChargingStation,
+				dataAvailable: (city)=>!city.data?.improve?.missing?.includes('e3')
 			},
 			{
 				key: 'CNG',
 				label: 'Compressed Natural Gas',
-				icon: ChargingStation
+				icon: ChargingStation,
+				dataAvailable: (city)=>!city.data?.improve?.missing?.includes('cng')
 			},
 			{
 				key: 'LPG',
 				label: 'Propane',
-				icon: ChargingStation
+				icon: ChargingStation,
+				dataAvailable: (city)=>!city.data?.improve?.missing?.includes('propane')
 			}
 		]
 	}
