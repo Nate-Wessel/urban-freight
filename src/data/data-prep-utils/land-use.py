@@ -23,8 +23,8 @@ def osm_land_use(city):
     print("Generating land-use layers for", city)
 
     gdf = gpd.read_file("../" + city + "/boundary.topojson")
-    gdf.crs = "epsg:4326"
-    gdf.to_file("../" + city + "/land-use/lu_boundary.geojson", driver='GeoJSON')
+    gdf.crs = "epsg:4326"   
+    gdf.to_file("../data-sources/osm-data/" + city + "/lu_boundary.geojson", driver='GeoJSON')
 
 
     osm_id = city_osm[city]
@@ -45,15 +45,10 @@ def osm_land_use(city):
 
     industrial.crs = "epsg:4326"
 
-    # x = 0
-    # while x < industrial.shape[0]:       
-    #     industrial["geometry"][x] = make_valid(industrial["geometry"][x])
-    #     x += 1
-
     industrial = industrial.buffer(0.00005)
     industrial = gpd.clip(industrial,gdf)
 
-    industrial.to_file("../" + city + "/land-use/lu_industrial.geojson", driver='GeoJSON')
+    industrial.to_file("../data-sources/osm-data/" + city + "/lu_industrial.geojson", driver='GeoJSON')
 
 
     # retail / commercial
@@ -70,15 +65,10 @@ def osm_land_use(city):
 
     retail.crs = "epsg:4326"
 
-    # x = 0
-    # while x < retail.shape[0]:       
-    #     retail["geometry"][x] = make_valid(retail["geometry"][x])
-    #     x += 1
-
     retail = retail.buffer(0.00005)
     retail = gpd.clip(retail,gdf)
 
-    retail.to_file("../" + city + "/land-use/lu_retail.geojson", driver='GeoJSON')
+    retail.to_file("../data-sources/osm-data/" + city + "/lu_retail.geojson", driver='GeoJSON')
 
 
     # green-space
@@ -99,15 +89,10 @@ def osm_land_use(city):
 
     green.crs = "epsg:4326"
 
-    # x = 0
-    # while x < green.shape[0]:       
-    #     green["geometry"][x] = make_valid(green["geometry"][x])
-    #     x += 1
-
     green = green.buffer(0.00005)
     green = gpd.clip(green,gdf)
 
-    green.to_file("../" + city + "/land-use/lu_green.geojson", driver='GeoJSON')
+    green.to_file("../data-sources/osm-data/" + city + "/lu_green.geojson", driver='GeoJSON')
 
     
 
@@ -119,7 +104,7 @@ def osm_land_use(city):
 
     edges = gpd.clip(edges,gdf)    
 
-    edges.to_file("../" + city + "/land-use/lu_roads.geojson", driver='GeoJSON')
+    edges.to_file("../data-sources/osm-data/" + city + "/lu_roads.geojson", driver='GeoJSON')
 
 
 
@@ -143,7 +128,7 @@ def osm_land_use(city):
 
     water_line = gpd.clip(water_line,gdf)    
 
-    water_line.to_file("../" + city + "/land-use/lu_water_line.geojson", driver='GeoJSON')
+    water_line.to_file("../data-sources/osm-data/" + city + "/lu_water_line.geojson", driver='GeoJSON')
 
 
     water_poly = water[water["geom_type"].isin(["Polygon","MultiPolygon"])]
@@ -154,7 +139,7 @@ def osm_land_use(city):
     water_poly = water_poly.buffer(0.00005)
     water_poly = gpd.clip(water_poly,gdf)
 
-    water_poly.to_file("../" + city + "/land-use/lu_water_poly.geojson", driver='GeoJSON')
+    water_poly.to_file("../data-sources/osm-data/" + city + "/lu_water_poly.geojson", driver='GeoJSON')
 
 
     
@@ -170,7 +155,7 @@ def get_blockres(city):
     city_csd = {
         "Calgary": "4806016",
         "Edmonton": "4811061",
-        "Halifax": "1209034", # might have to update to ccsd for smaller region
+        "Halifax": "1209034",
         "Hamilton": "3525005",
         "Montreal": "2466",
         "Ottawa": "3506008",
@@ -209,11 +194,12 @@ def get_blockres(city):
 
     dfb = dfb.dissolve(by='csduid')
 
-    dfb.to_file("../" + city + "/land-use/lu_res.geojson", driver='GeoJSON')
+    dfb.to_file("../data-sources/osm-data/" + city + "/lu_res.geojson", driver='GeoJSON')
 
 
 
-
+# osm_land_use("Hamilton")
+# get_blockres("Hamilton")
 
 for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Montreal", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
 
