@@ -13,7 +13,8 @@ export default {
 		}
 	},
 	improve: {
-		fuelStations: require('./improve/alt_fuel_stations.topojson')
+		fuelStations: require('./improve/alt_fuel_stations.topojson'),
+		missing: ['cng']
 	},
 	shift: {
 		bikePaths: require('./shift/bike.topojson'),

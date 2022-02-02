@@ -37,7 +37,7 @@ export const cities = [
 	},
 	{
 		name: 'Halifax', data: Halifax,
-		bounds: [[44.5811,-63.72265],[44.71121,-63.54319]]
+		bounds: [[44.89738,-64.09508],[44.41868,-62.69731]]
 	},
 	{
 		name: 'Hamilton', data: Hamilton,

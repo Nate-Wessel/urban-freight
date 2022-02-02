@@ -205,7 +205,9 @@ def get_purolator(city):
 
 # dl_ups()
 
-for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Montreal", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
+# for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Montreal", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
+
+for city in ["Halifax"]:
 
     get_purolator(city)
     get_ups(city)
