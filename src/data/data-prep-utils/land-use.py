@@ -1,11 +1,9 @@
 import pandas as pd
 import geopandas as gpd
-import pyrosm
 from shapely.validation import make_valid
 from requests import get
 import codecs
 import osm2geojson
-import json
 
 city_osm = {
 	"Calgary": 3227127,
@@ -142,12 +140,18 @@ def osm_land_use(city):
 	except:
 		None
 
-	# boundary
 
-	gdf = gpd.read_file("../" + city + "/da_polygons.topojson")
-	gdf.crs = "epsg:4326"
-	gdf = gdf[["geometry"]]
-	gdf.to_file("../data-sources/osm-data/" + city + "/lu_boundary.geojson", driver='GeoJSON')
+	# base layer
+
+	base = gpd.read_file("../" + city + "/da_polygons.topojson")
+	
+	base.crs = "epsg:4326"
+	
+	base = base[["geometry"]]
+	base.geometry = base.geometry.buffer(0.00005)
+	base = gpd.clip(base,gdf)
+	
+	base.to_file("../data-sources/osm-data/" + city + "/lu_boundary.geojson", driver='GeoJSON')
 
 
 
@@ -206,10 +210,10 @@ def get_blockres(city):
 
 
 
-# osm_land_use("Victoria")
+osm_land_use("Ottawa")
 # get_blockres("Victoria")
 
-for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Montreal", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
+# for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Montreal", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
 
-	osm_land_use(city)
-	get_blockres(city)
+# 	osm_land_use(city)
+# 	get_blockres(city)
