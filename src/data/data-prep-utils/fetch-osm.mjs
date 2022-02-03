@@ -4,17 +4,16 @@ import { execSync } from 'child_process'
 
 // osm_id's
 const cityRelations = [
-	// 3227127, // calgary
-	// 2564500, // edmonton
-	// 9344588, // halifax regional municipality
-	// 7034910, // hamilton
-	// 8508277, // montreal urban agglomeration
-	// 4136816, // ottawa
-	
-	// 324211,  // toronto
-	// 1852574, // vancouver
-	2221062 // victoria
-	// 1790696  // winnipeg
+	3227127, // calgary
+	2564500, // edmonton
+	9344588, // halifax regional municipality
+	7034910, // hamilton
+	8508277, // montreal urban agglomeration
+	4136816, // ottawa
+	324211,  // toronto
+	1852574, // vancouver
+	2221062, // victoria
+	1790696  // winnipeg
 ]
 
 for ( const osm_id of cityRelations ){
