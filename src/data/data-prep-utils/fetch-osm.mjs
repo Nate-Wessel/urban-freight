@@ -25,22 +25,19 @@ for ( const osm_id of cityRelations ){
 
 async function getData(osm_rel_id){
 	const query = `
-		[out:xml][timeout:100];
+		[out:json][timeout:200];
 		rel(${osm_rel_id}); map_to_area->.bnd;
 		(
 		  way[highway~"motorway|motorway_link|primary|primary_link|secondary|secondary_link|tertiary|tertiary_link|trunk|trunk_link|residential|unclassified"](area.bnd);
 		  way[highway=cycleway](area.bnd);
 		  way[bicycle=designated](area.bnd);
 		  way[~"cycleway"~"crossing|lane|share|shoulder|track|yes"](area.bnd);
-		  relation[landuse~"industrial|retail|commercial|grass|grassland|allotments|cemetery|meadow|orchard|greenfield|vineyard|village_green|forest"](area.bnd);
-		  relation[natural~"wood|forest|beach|scrub|fell|heath|moor|grassland|water|bay|wetland"](area.bnd);
-		  relation[leisure~"park|nature|playground|garden|grass|pitch|common|golf_course"](area.bnd);
-		  relation[amenity=parking][parking!~"underground|multi|rooftop"](area.bnd);
-		  relation[water~"river|lake|pond"](area.bnd);
-		  relation[waterway~"riverbank|river|stream"](area.bnd);
-		  way[water~"river|lake|pond"](area.bnd);
-		  way[waterway~"riverbank|river|stream"](area.bnd);
-		  
+		  nwr[landuse~"industrial|retail|commercial|grass|grassland|allotments|cemetery|meadow|orchard|greenfield|vineyard|village_green|forest|landfill"](area.bnd);
+		  nwr[natural~"wood|forest|beach|scrub|fell|heath|moor|grassland|water|bay|wetland"](area.bnd);
+		  nwr[leisure~"park|nature|playground|garden|grass|pitch|common|golf_course|dog_park"](area.bnd);
+		  nwr[amenity=parking][parking!~"underground|multi|rooftop"](area.bnd);
+		  nwr[water~"river|lake|pond"](area.bnd);
+		  nwr[waterway~"riverbank|river|stream"](area.bnd);
 		);
 		(._;>;);
 		out body qt;

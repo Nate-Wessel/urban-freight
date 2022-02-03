@@ -23,33 +23,39 @@ city_osm = {
 
 def osm_land_use(city):
 
+	print("Generating OSM land-use layers for", city)
+
 	gdf = gpd.read_file("../" + city + "/boundary.topojson")
 	gdf.crs = "epsg:4326"   
 
 	osm_id = city_osm[city]
 
 	with codecs.open("../data-sources/osm-data/" + str(osm_id) + ".osm", 'r', encoding='utf-8') as data:
-		xml = data.read()
+		json = data.read()
 
-	geojson = osm2geojson.xml2geojson(xml, filter_used_refs=False, log_level='INFO')
-
-
+	geojson = osm2geojson.json2geojson(json, filter_used_refs=False, log_level='INFO')
 
 	osm = gpd.GeoDataFrame.from_features(geojson)
 
-	osm.crs = "epsg:4326"
-
-	osm = gpd.clip(osm,gdf)
+	osm = osm[(osm.geometry.geometry.type!='Point')]
 
 	osm = osm[(osm["type"] == "relation") | (osm["type"] == "way")]
 
 	osm["tags"] = osm["tags"].astype('string')
 
-	
+	osm.crs = "epsg:4326"
+
+	osm = osm[["geometry","tags","type"]]
+
+	osm = gpd.clip(osm,gdf)
+
+
 
 	# industrial
 
-	industrial = osm[(osm["type"] == "relation") & (osm["tags"].str.contains("industrial"))]	
+	print("industrial")	
+
+	industrial = osm[(osm["tags"].str.contains("industrial|landfill"))]	
 	
 	industrial = industrial[["geometry"]]
 
@@ -57,7 +63,9 @@ def osm_land_use(city):
 
 	# retail / commercial
 
-	retail = osm[(osm["type"] == "relation") & (osm["tags"].str.contains("retail|commercial"))]	
+	print("retail")
+
+	retail = osm[(osm["tags"].str.contains("retail|commercial"))]	
 	
 	retail = retail[["geometry"]]
 
@@ -65,9 +73,11 @@ def osm_land_use(city):
 
 	# green
 
-	filter = "park|nature_reserve|playground|garden|grass|pitch|dogpark|common|wood|beach|scrub|fell|heath|moor|grassland|allotments|cemetery|meadow|orchard|greenfield|vineyard|village_green|forest"
+	print("green space")
 
-	green = osm[(osm["type"] == "relation") & (osm["tags"].str.contains(filter))]	
+	filter = "leisure|wood|forest|beach|scrub|fell|heath|moor|grass|allotments|cemetery|meadow|orchard|greenfield|vineyard|village_green|forest"
+
+	green = osm[(osm["tags"].str.contains(filter))]	
 	
 	green = green[["geometry"]]
 
@@ -77,11 +87,11 @@ def osm_land_use(city):
 
 	# roads
 
+	print("roads")
+
 	filter = "residential|unclassified"
 
 	roads = osm[(osm["type"] == "way") & (osm["tags"].str.contains(filter))]
-
-	print(roads	)
 	
 	roads = roads[["geometry"]]
 
@@ -93,7 +103,10 @@ def osm_land_use(city):
 	
 	roads = roads[["geometry"]]
 
-	# roads.to_file("../data-sources/osm-data/" + city + "/lu_roads_highway.geojson", driver='GeoJSON')
+	try:
+		roads.to_file("../data-sources/osm-data/" + city + "/lu_roads_highway.geojson", driver='GeoJSON')
+	except:
+		None
 
 	filter = "primary|primary_link|secondary|secondary_link|tertiary|tertiary_link"
 
@@ -107,27 +120,33 @@ def osm_land_use(city):
 	
 	# water
 
+	print("water")
+
 	filter = "river|lake|pond|riverbank|stream"
 
-	water = osm[(osm["type"] == "way") & (osm["tags"].str.contains(filter))]
+	water = osm[((osm.geometry.geometry.type=='LineString') | (osm.geometry.geometry.type=='MultiLineString')) & (osm["tags"].str.contains(filter)) & (osm["tags"].str.contains("water|natural"))]
 
 	water = water[["geometry"]]
 
-	water.to_file("../data-sources/osm-data/" + city + "/lu_water_line.geojson", driver='GeoJSON')
+	try:
+		water.to_file("../data-sources/osm-data/" + city + "/lu_water_line.geojson", driver='GeoJSON')
+	except:
+		None
 
-	water = osm[(osm["type"] == "relation") & (osm["tags"].str.contains(filter))]
+	water = osm[((osm.geometry.geometry.type=='Polygon') | (osm.geometry.geometry.type=='MultiPolygon')) & (osm["tags"].str.contains(filter)) & (osm["tags"].str.contains("water|natural"))]
 
 	water = water[["geometry"]]
 
-	water.to_file("../data-sources/osm-data/" + city + "/lu_water_poly.geojson", driver='GeoJSON')
-
+	try:
+		water.to_file("../data-sources/osm-data/" + city + "/lu_water_poly.geojson", driver='GeoJSON')
+	except:
+		None
 
 	# boundary
 
 	gdf = gpd.read_file("../" + city + "/da_polygons.topojson")
 	gdf.crs = "epsg:4326"
 	gdf = gdf[["geometry"]]
-	print(gdf)
 	gdf.to_file("../data-sources/osm-data/" + city + "/lu_boundary.geojson", driver='GeoJSON')
 
 
