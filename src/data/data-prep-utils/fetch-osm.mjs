@@ -36,9 +36,8 @@ async function getData(osm_rel_id){
 		  nwr[leisure~"park|nature|playground|garden|grass|pitch|common"](area.bnd);
 		  nwr[amenity=parking][parking!~"underground|multi|rooftop"](area.bnd);
 		);
-		out body;
-		>;
-		out skel qt;
+		(._;>;);
+		out body qt;
 	`
 	const options = { 
 		method: 'post',
