@@ -23,148 +23,6 @@ city_osm = {
 
 def osm_land_use(city):
 
-	print("Generating land-use layers for", city)
-
-	gdf = gpd.read_file("../" + city + "/boundary.topojson")
-	gdf.crs = "epsg:4326"   
-	gdf.to_file("../data-sources/osm-data/" + city + "/lu_boundary.geojson", driver='GeoJSON')
-
-
-	osm_id = city_osm[city]
-
-	osm = pyrosm.OSM("../data-sources/osm-data/" + str(osm_id) + ".pbf")
-
-
-	# industrial
-
-	print("industrial")
-
-	filter = {"landuse": ["industrial"]}
-
-	industrial = osm.get_data_by_custom_criteria(custom_filter=filter)
-
-	industrial = industrial[["landuse","geometry"]]
-
-	industrial["geom_type"] = industrial.geom_type
-	industrial = industrial[industrial["geom_type"].isin(["Polygon","MultiPolygon"])]
-	del industrial["geom_type"]
-
-	industrial.crs = "epsg:4326"
-
-	# industrial = industrial.buffer(0.00005)
-	# industrial = gpd.clip(industrial,gdf)
-
-	industrial.to_file("../data-sources/osm-data/" + city + "/lu_industrial.geojson", driver='GeoJSON')
-
-
-
-	# retail / commercial
-
-	print("retail / commercial")
-	 
-	filter = {"landuse": ["retail","commercial"]}
-
-	retail = osm.get_data_by_custom_criteria(custom_filter=filter)
-
-	retail = retail[["landuse","geometry"]]
-
-	retail["geom_type"] = retail.geom_type
-	retail = retail[retail["geom_type"].isin(["Polygon","MultiPolygon"])]
-	del retail["geom_type"]
-
-	retail.crs = "epsg:4326"
-
-	# retail = retail.buffer(0.00005)
-	# retail = gpd.clip(retail,gdf)
-
-	retail.to_file("../data-sources/osm-data/" + city + "/lu_retail.geojson", driver='GeoJSON')
-
-
-
-	# green-space
-
-	print("green")
-
-	filter = {
-		"leisure": ["park","nature_reserve","playground","garden","grass","pitch","dogpark","common"],
-		"natural": ["wood","beach","scrub","fell","heath","moor","grassland"],
-		"landuse": ["grass","grassland","allotments","cemetery","meadow","orchard","greenfield","vineyard","village_green","forest"]
-	}
-
-	green = osm.get_data_by_custom_criteria(custom_filter=filter, keep_nodes=False, keep_relations=True)
-
-	green = green[["landuse","leisure","natural","geometry"]]
-
-	green["geom_type"] = green.geom_type
-	green = green[green["geom_type"].isin(["Polygon","MultiPolygon"])]
-	del green["geom_type"]
-
-	green.crs = "epsg:4326"
-
-	# green = green.buffer(0.00005)
-	green = gpd.clip(green,gdf)
-
-	green.to_file("../data-sources/osm-data/" + city + "/lu_green.geojson", driver='GeoJSON')
-
-	
-
-	# roads
-
-	print("roads")
-
-	edges = osm.get_network(network_type="driving" , nodes=False)
-
-	edges = edges[["highway","geometry"]]
-
-	edges = gpd.clip(edges,gdf)	
-
-	edges.to_file("../data-sources/osm-data/" + city + "/lu_roads.geojson", driver='GeoJSON')
-
-
-
-	# water
-
-	print("Water lines")
-
-	filter = {
-		"natural": ["water","bay","wetland"],
-		"water": ["river","lake","pond"],
-		"waterway": ["riverbank", "river","stream"]
-	}
-
-	water = osm.get_data_by_custom_criteria(custom_filter=filter)
-
-	water = water[["geometry"]]
-
-	water["geom_type"] = water.geom_type
-
-
-	water_line = water[water["geom_type"].isin(["LineString","MultiLineString"])]
-	del water_line["geom_type"]
-
-	water_line = gpd.clip(water_line,gdf)	
-
-	water_line.to_file("../data-sources/osm-data/" + city + "/lu_water_line.geojson", driver='GeoJSON')
-
-
-	print("Water poly")
-
-	water_poly = water[water["geom_type"].isin(["Polygon","MultiPolygon"])]
-	del water_poly["geom_type"]
-
-	water_poly.crs = "epsg:4326"
-
-	water_poly = water_poly.buffer(0.000005)
-	water_poly = gpd.clip(water_poly,gdf)
-
-	water_poly.to_file("../data-sources/osm-data/" + city + "/lu_water_poly.geojson", driver='GeoJSON')
-
-
-	
-
-
-def osm_land_use_o(city):
-
 	gdf = gpd.read_file("../" + city + "/boundary.topojson")
 	gdf.crs = "epsg:4326"   
 
@@ -272,24 +130,7 @@ def osm_land_use_o(city):
 	print(gdf)
 	gdf.to_file("../data-sources/osm-data/" + city + "/lu_boundary.geojson", driver='GeoJSON')
 
-	# overpassQuery = """
-	# 	[out:json][timeout:100];
-	# 	rel(%s); map_to_area->.bnd;
-	# 	(
-	# 		nwr[landuse](area.bnd);
-	# 	);
-	# 	out body;
-	# 	>;
-	# 	out skel qt;
-	# """ %osm_id
 
-	# response = get(
-	# 	'http://overpass-api.de/api/interpreter',
-	# 	headers = { 'User-Agent': 'Python3'},
-	# 	params = { 'data': overpassQuery }
-	# ).json()
-
-	# print(response)
 
 
 
@@ -344,12 +185,12 @@ def get_blockres(city):
 	dfb.to_file("../data-sources/osm-data/" + city + "/lu_res.geojson", driver='GeoJSON')
 
 
-osm_land_use_o("Victoria")
+
 
 # osm_land_use("Victoria")
 # get_blockres("Victoria")
 
-# for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Montreal", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
+for city in ["Calgary", "Edmonton", "Halifax", "Hamilton", "Montreal", "Ottawa", "Toronto", "Vancouver", "Victoria", "Winnipeg"]:
 
-#	  osm_land_use(city)
-#	  get_blockres(city)
+	osm_land_use(city)
+	get_blockres(city)
