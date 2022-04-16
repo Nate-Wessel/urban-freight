@@ -69,6 +69,10 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template:'src/entrypoints/fuel.html',
 			filename:'fuel/index.html'
+		}),
+		new HtmlWebpackPlugin({
+			template:'src/entrypoints/bike-lanes-timeline.html',
+			filename:'bike-lanes/index.html'
 		})
 	],
 	resolve: {
