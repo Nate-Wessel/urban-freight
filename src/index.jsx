@@ -1,7 +1,9 @@
 import React, { lazy, Suspense } from 'react'
 import { render } from 'react-dom'
 import { App } from './App'
+
 const FuelChart = lazy(()=>import('./FuelChart'))
+const BikeLaneTimeline = lazy(()=>import('./BikeLaneTimeline'))
 
 
 var mapElem, chartElem
@@ -16,4 +18,7 @@ if (mapElem = document.querySelector('#avoid-container')){
 
 if (chartElem = document.querySelector('#fuel-container')){
 	render(<Suspense fallback={null}><FuelChart/></Suspense>, chartElem)
+}
+if (chartElem = document.querySelector('#bike-lane-container')){
+	render(<Suspense fallback={null}><BikeLaneTimeline/></Suspense>, chartElem)
 }
