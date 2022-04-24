@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { writeFileSync } from 'fs'
+import { writeFileSync, readFileSync } from 'fs'
 import { execSync } from 'child_process'
 import { queryOverpass } from './queryOverpass.mjs'
 import osmtogeojson from 'osmtogeojson'
@@ -7,37 +7,61 @@ import { topology } from 'topojson-server'
 import { quantize } from 'topojson-client'
 
 // osm_id's
-const cities = {
-	Toronto: 324211,
-	Calgary: 3227127,
-	Edmonton: 2564500,
-	Halifax: 9344588, // regional municipality
-	Hamilton: 7034910,
-	Montreal: 8508277, // urban agglomeration
-	Ottawa: 4136816,
-	Vancouver: 1852574,
-	Victoria: 2221062,
-	Winnipeg: 1790696
-}
+const cities = [
+	{ name: 'Toronto', osm_rel: 324211 },
+	{ name: 'Calgary', osm_rel: 3227127 },
+	{ name: 'Edmonton', osm_rel: 2564500 },
+	{ name: 'Halifax', osm_rel: 9344588 }, // regional municipality
+	{ name: 'Hamilton', osm_rel: 7034910 },
+	{ name: 'Montreal', osm_rel: 8508277 }, // urban agglomeration
+	{ name: 'Ottawa', osm_rel: 4136816 },
+	{ name: 'Vancouver', osm_rel: 1852574 },
+	{ name: 'Victoria', osm_rel: 2221062 },
+	{ name: 'Winnipeg', osm_rel: 1790696 }
+]
 
-for ( const [name,osm_id] of Object.entries(cities) ){
-	console.log(`fetching data for ${name} (OSM relation/${osm_id})`)
-	await getBoundary(osm_id,name);
+function boundaryFile(city){ return `../${city.name}/boundary.topojson` }
+function bikeLaneFile(city){ return `../${city.name}/shift/bike2.topojson` }
+
+for ( const city of cities ){
+	console.log(`fetching data for ${city.name} (OSM relation/${city.osm_rel})`)
+	await getBoundary(city)
+	await getCurrentBikeFeatures(city)
 	console.log('waiting 10s before next request')
 	await new Promise(resolve => setTimeout(resolve, 10000));
 }
 
-async function getBoundary(osm_rel_id,name){
+async function getBoundary(city){
 	const query = `
 		[out:json][timeout:10];
-		( rel(${osm_rel_id}); >; );
-		out body qt;
-	`
+		( rel(${city.osm_rel}); >; );
+		out body qt;`
 	const response = await queryOverpass(query).then(r=>r.json())
 	const geojson = osmtogeojson(response)
 	const boundary = geojson.features.find(feat=>/relation/.test(feat.id))
 	const topojson = quantize(topology({boundary}),999)
-	writeFileSync( `../${name}/boundary.topojson`, JSON.stringify(topojson) )
+	writeFileSync( boundaryFile(city), JSON.stringify(topojson) )
+}
+
+async function getCurrentBikeFeatures(city){
+	const [W,S,E,N] = JSON.parse(readFileSync(boundaryFile(city))).bbox
+	const query = `
+		[out:json][timeout:60][bbox:${S},${W},${N},${E}];
+		(
+			way[highway=cycleway];
+			way[bicycle=designated];
+		  	way[~"cycleway"~"crossing|lane|share|shoulder|track|yes"];
+		);
+		(._;>;);
+		out body qt;`
+	const response = await queryOverpass(query).then(r=>r.json())
+	const geojson = osmtogeojson(response)
+	geojson.features = geojson.features.filter(feat=>/way/.test(feat.id))
+	const topojson = topology({bike:geojson})
+	writeFileSync( 
+		bikeLaneFile(city), 
+		JSON.stringify(quantize(topojson,9999)) 
+	)
 }
 
 async function getData(osm_rel_id){
