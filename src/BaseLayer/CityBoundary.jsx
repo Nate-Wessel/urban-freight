@@ -19,7 +19,7 @@ export default function({city}){
 			return console.warn(`boundary not yet defined for ${city.name}`)
 		}
 		json(city.data.base.boundary).then( data => {
-			setBoundaryFeature( topo2geo(data,'boundary').features[0] )
+			setBoundaryFeature( topo2geo(data,'boundary') )
 		} )
 	},[city])
 	if( ! boundaryFeature ) return null;
