@@ -56,13 +56,26 @@ async function getCurrentBikeFeatures(city){
 		out body qt;`
 	const response = await queryOverpass(query).then(r=>r.json())
 	const geojson = osmtogeojson(response)
-	geojson.features = geojson.features.filter(feat=>/way/.test(feat.id))
+	geojson.features = geojson.features.filter( feat => /way/.test(feat.id) )
+	geojson.features.map( feat => {
+		let props = feat.properties
+		const segregated = Object.entries(props)
+			.filter( ([key,val]) => /cycleway/.test(key) )
+			.some( ([key,val]) => /yes|track|^lane|opposite_lane/.test(val) )
+		if(segregated){ return feat.properties = {type:'L'} }
+		const route = Object.entries(props)
+			.filter( ([key,val]) => /cycleway/.test(key) )
+			.some( ([key,val]) => /shoulder|share/.test(val) )
+		if(route){ return feat.properties = {type:'S'} } 
+		feat.properties = {type:'O'}
+	} )
 	const topojson = topology({bike:geojson})
 	writeFileSync( 
 		bikeLaneFile(city), 
 		JSON.stringify(quantize(topojson,9999)) 
 	)
 }
+
 
 async function getData(osm_rel_id){
 	const query = `
