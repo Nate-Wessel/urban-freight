@@ -1,26 +1,38 @@
 import fetch from 'node-fetch'
 import { writeFileSync } from 'fs'
 import { execSync } from 'child_process'
+import { queryOverpass } from './queryOverpass.mjs'
+import osmtogeojson from 'osmtogeojson'
 
 // osm_id's
-const cityRelations = [
-	3227127, // calgary
-	2564500, // edmonton
-	9344588, // halifax regional municipality
-	7034910, // hamilton
-	8508277, // montreal urban agglomeration
-	4136816, // ottawa
-	324211,  // toronto
-	1852574, // vancouver
-	2221062, // victoria
-	1790696  // winnipeg
-]
+const cities = {
+	Calgary: 3227127,
+	Edmonton: 2564500,
+	Halifax: 9344588, // regional municipality
+	Hamilton: 7034910,
+	Montreal: 8508277, // urban agglomeration
+	Ottawa: 4136816,
+	Toronto: 324211,
+	Vancouver: 1852574,
+	Victoria: 2221062,
+	Winnipeg: 1790696
+}
 
-for ( const osm_id of cityRelations ){
-	console.log(`fetching data for ${osm_id}`)
-	await getData(osm_id);
+for ( const [name,osm_id] of Object.entries(cities) ){
+	console.log(`fetching data for ${name} (OSM relation/${osm_id})`)
+	await getBoundary(osm_id);
 	console.log('waiting 60s before next request')
 	await new Promise(resolve => setTimeout(resolve, 60000));
+}
+
+async function getBoundary(osm_rel_id){
+	const query = `
+		[out:json][timeout:10];
+		( rel(${osm_rel_id}); >; );
+		out body qt;
+	`
+	let d = await queryOverpass(query).then(r=>r.json())
+	console.log(osmtogeojson(d))
 }
 
 async function getData(osm_rel_id){

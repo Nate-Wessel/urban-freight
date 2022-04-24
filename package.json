@@ -30,6 +30,7 @@
     "less": "^4.1.1",
     "less-loader": "^8.0.0",
     "node-fetch": "^3.2.0",
+    "osmtogeojson": "^3.0.0-beta.4",
     "style-loader": "^2.0.0",
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0",

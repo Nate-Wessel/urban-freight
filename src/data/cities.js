@@ -25,7 +25,6 @@ export const cities = [
 	{
 		name: 'Edmonton', data: Edmonton,
 		bounds: [[53.6914,-113.7373],[53.3948,-113.2787]]
-		
 	},
 	{
 		name: 'Ottawa', data: Ottawa,
