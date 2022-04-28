@@ -13,7 +13,6 @@ export default {
 		}
 	},
 	shift: {
-		bikePaths: require('./shift/bike.topojson'),
 		parking: require('./shift/lu_parking.topojson')
 	},
 	improve: {

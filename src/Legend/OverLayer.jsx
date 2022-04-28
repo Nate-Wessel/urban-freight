@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import PickupPoint from './PickupPoint'
 import ChargingStation from './ChargingStation'
 import BikeShare from './BikeShare'
@@ -7,7 +7,8 @@ import { routeIcon } from '../Shift/routeStyles'
 import { fill as parkingFill } from '../Avoid/ParkingTime'
 
 // data availability lookup functions
-const bikePaths = (city)=>Boolean(city.data?.shift?.bikePaths)
+const bikePaths = (city) => import(`../data/${city.name}/shift/bike.topojson`)
+	.then( module => true ).catch( err => false )
 
 // keys should be unique across paradigms
 const paradigms = {
@@ -86,14 +87,17 @@ const paradigms = {
 				label:'Bike-share Station',
 				icon: BikeShare,
 				description: "Hover over a bikeshare station to see its name and designated capacity",
-				dataAvailable: (city)=>Boolean(city.data?.shift?.bikeShare)
+				dataAvailable: (city) => {
+					return Promise.resolve( Boolean(city.data?.shift?.bikeShare) )
+				}
 			},
 			{
 				key:'parking-lots',
 				label:'Parking Lot',
 				icon: ParkingLot,
 				description: "Surface parking lots. Darker colour indicates municipally operated",
-				dataAvailable: (city)=>Boolean(city.data?.shift?.parking)
+				dataAvailable: (city)=>import(`../data/${city.name}/shift/lu_parking.topojson`).then(mod=>true).catch(err=>false)
+					
 			}
 		]
 	},
@@ -154,7 +158,8 @@ export default function({paradigm,city,zoom,displayed,setDisplayed}){
 					<Item key={layer.key} 
 						layer={layer} zoom={zoom}
 						active={displayed.has(layer.key)}
-						available={layer?.dataAvailable?layer?.dataAvailable(city):true}
+						available={layer.dataAvailable}
+						city={city}
 						handleClick={handleClick}/>
 				) )
 			}</div>
@@ -184,11 +189,15 @@ export default function({paradigm,city,zoom,displayed,setDisplayed}){
 	)
 }
 
-function Item({layer,active,available,handleClick,zoom}){
+function Item({layer,active,available,city,handleClick,zoom}){
+	const [ isAvailable, setIsAvailable ] = useState(false)
+	useEffect(()=>{
+		available(city).then( setIsAvailable )
+	},[available,city])
 	let icon = layer.icon ? <layer.icon layerKey={layer.key} zoom={zoom}/> : null
 	const classes = ['item','clickable']
 	classes.push( active ? 'active' : 'disabled' )
-	if(!available) classes.push('unavailable');
+	if(!isAvailable) classes.push('unavailable');
 	return (
 		<div onClick={(e)=>handleClick(layer.key)}
 			title={layer.description}

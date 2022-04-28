@@ -14,7 +14,6 @@ export default {
 	},
 	shift: {
 		bikeShare: 'https://gbfs.velobixi.com/gbfs/en/station_information.json',
-		bikePaths: require('./shift/bike.topojson'),
 		parking: require('./shift/lu_parking.topojson')	
 	},
 	improve: {

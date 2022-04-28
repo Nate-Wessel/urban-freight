@@ -15,7 +15,6 @@ export default {
 	},
 	shift: {
 		bikeShare: require('./shift/station_information.json'),
-		bikePaths: require('./shift/bike.topojson'),
 		parking: require('./shift/lu_parking.topojson')
 	},
 	improve: {

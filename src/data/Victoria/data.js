@@ -16,7 +16,6 @@ export default {
 		missing: ['e1','e3']
 	},
 	shift: {
-		bikePaths: require('./shift/bike.topojson'),
 		parking: require('./shift/lu_parking.topojson')
 	}
 }

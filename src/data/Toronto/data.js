@@ -14,7 +14,6 @@ export default {
 		}
 	},
 	shift: {
-		bikePaths: require('./shift/bike.topojson'),
 		bikeShare: 'https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information',
 		parking: require('./shift/lu_parking.topojson')
 	},

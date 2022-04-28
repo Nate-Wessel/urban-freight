@@ -6,28 +6,29 @@ import ParkingLots from './ParkingLots'
 import { BikeShare } from './BikeShare'
 import { color } from './routeStyles'
 
+//types: [ "L", "P", "S", "T", "O" ]
+const pathTypes = new Set(['P','O'])
+const routeTypes = new Set(['S'])
+const laneTypes = new Set(['L','T'])
+
 export default function({city,displayed,zoom}){
 	const [ bikePaths, setBikePaths ] = useState([])
 	const [ bikeLanes, setBikeLanes ] = useState([])
 	const [ bikeRoutes, setBikeRoutes ] = useState([])
 	useEffect(()=>{
-		//types: [ "L", "P", "S", "T", "O" ]
-		let pathTypes = new Set(['P','O'])
-		let routeTypes = new Set(['S'])
-		let laneTypes = new Set(['L','T'])
-		if(!city.data?.shift?.bikePaths){
-			setBikePaths([])
-			setBikeLanes([])
-			setBikeRoutes([])
-			return console.warn(`bike features not yet defined for ${city.name}`)
-		}
-		json(city.data.shift.bikePaths).then( resp => {
-			let features = topo2geo(resp,'bike').features
-				.filter(feat=>feat.geometry) // necessary because one feature is null
-			setBikePaths(features.filter(f=>pathTypes.has(f.properties.type)))
-			setBikeLanes(features.filter(f=>laneTypes.has(f.properties.type)))
-			setBikeRoutes(features.filter(f=>routeTypes.has(f.properties.type)))
-		} )
+		import(`../data/${city.name}/shift/bike.topojson`)
+			.then( module => json(module.default) )
+			.then( resp => {
+				let features = topo2geo(resp,'bike').features
+					.filter(feat=>feat.geometry) // necessary because one feature is null
+				setBikePaths(features.filter(f=>pathTypes.has(f.properties.type)))
+				setBikeLanes(features.filter(f=>laneTypes.has(f.properties.type)))
+				setBikeRoutes(features.filter(f=>routeTypes.has(f.properties.type)))
+			} )
+			.catch( err => {
+				setBikePaths([]); setBikeLanes([]); setBikeRoutes([])
+				console.warn(`bike features not yet defined for ${city.name}`)
+			} )
 	},[city])
 	return (
 		<>
