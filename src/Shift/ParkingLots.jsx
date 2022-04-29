@@ -20,19 +20,19 @@ let styleOptions = {
 export default function({city}){
 	const [ lots,setLots ] = useState([])
 	useEffect(()=>{
-		if(!city.data?.shift?.parking){
-			setLots([])
-			return console.warn(`parking lots not yet defined for ${city.name}`)
-		}
-		json(city.data.shift.parking).then( resp => {
-			setLots( topo2geo(resp,'lu_parking').features )
-		} )
+		import(`../data/${city.name}/shift/lu_parking.topojson`)
+			.then( module => json(module.default) )
+			.then( resp => setLots( topo2geo(resp,'lu_parking').features ) )
+			.catch( err => {
+				setLots([])
+				return console.warn(`parking lots not yet defined for ${city.name}`)
+			} )
 	},[city])
 	return lots.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)
 		let clr = color(feat.properties.T)
 		return <Polygon key={i} positions={ll}
-		pathOptions={{...styleOptions,...{fillColor:clr}}}
+			pathOptions={{...styleOptions,...{fillColor:clr}}}
 		/>
 	} )
 }

@@ -15,7 +15,5 @@ export default {
 	improve: {
 		fuelStations: require('./improve/alt_fuel_stations.topojson')
 	},
-	shift: {
-		parking: require('./shift/lu_parking.topojson')
-	}
+	shift: {}
 }
