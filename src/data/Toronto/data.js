@@ -16,8 +16,5 @@ export default {
 	shift: {
 		bikeShare: 'https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information'
 	},
-	improve: {
-		fuelStations: require('./improve/alt_fuel_stations.topojson'),
-		missing: ['e1']
-	}
+	improve: {}
 }

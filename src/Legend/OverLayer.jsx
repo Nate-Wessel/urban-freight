@@ -107,31 +107,51 @@ const paradigms = {
 				key: 'E1',
 				label: 'Electric (E1)',
 				icon: ChargingStation,
-				dataAvailable: (city)=>!city.data?.improve?.missing?.includes('e1')
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
+					.then( module => fetch(module.default) )
+					.then( resp => resp.json() )
+					.then( data => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E1') )
+					.catch( err => false )
 			},
 			{
 				key: 'E2',
 				label: 'Electric (E2)',
 				icon: ChargingStation,
-				dataAvailable: (city)=>!city.data?.improve?.missing?.includes('e2')
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
+					.then( module => fetch(module.default) )
+					.then( resp => resp.json() )
+					.then( data => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E2') )
+					.catch( err => false )
 			},
 			{
 				key: 'E3',
 				label: 'Electric (E3/DC)',
 				icon: ChargingStation,
-				dataAvailable: (city)=>!city.data?.improve?.missing?.includes('e3')
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
+					.then( module => fetch(module.default) )
+					.then( resp => resp.json() )
+					.then( data => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E3') )
+					.catch( err => false )
 			},
 			{
 				key: 'CNG',
 				label: 'Compressed Natural Gas',
 				icon: ChargingStation,
-				dataAvailable: (city)=>!city.data?.improve?.missing?.includes('cng')
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
+					.then( module => fetch(module.default) )
+					.then( resp => resp.json() )
+					.then( data => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='CNG') )
+					.catch( err => false )
 			},
 			{
 				key: 'LPG',
 				label: 'Propane',
 				icon: ChargingStation,
-				dataAvailable: (city)=>!city.data?.improve?.missing?.includes('propane')
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
+					.then( module => fetch(module.default) )
+					.then( resp => resp.json() )
+					.then( data => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='LPG') )
+					.catch( err => false )
 			}
 		]
 	}

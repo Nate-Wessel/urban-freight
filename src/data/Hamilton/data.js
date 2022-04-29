@@ -16,8 +16,5 @@ export default {
 	shift: {
 		bikeShare: require('./shift/station_information.json')
 	},
-	improve: {
-		fuelStations: require('./improve/alt_fuel_stations.topojson'),
-		missing: ['e1']
-	}
+	improve: {}
 }

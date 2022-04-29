@@ -8,13 +8,11 @@ import { geojson2leaflet } from '../geojson2leaflet'
 export default function({city,zoom,displayed}){
 	const [ points, setPoints ] = useState([])
 	useEffect(()=>{
-		if(!city.data?.improve?.fuelStations){
-			setPoints([])
-			return console.warn(`charging stations not defined for ${city.name}`)
-		}
-		json(city.data.improve.fuelStations).then( response => {
-			setPoints( topo2geo(response,'alt_fuel_stations').features )
-		} )
+		import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
+			.then( module => fetch(module.default) )
+			.then( resp => resp.json() )
+			.then( resp => setPoints( topo2geo(resp,'alt_fuel_stations').features ) )
+			.catch( err => setPoints([]) )
 	},[city])
 	return (
 		<Pane name="fuel-stuff" style={{zIndex:445}}>

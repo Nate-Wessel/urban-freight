@@ -12,8 +12,6 @@ export default {
 			ups: require('./avoid/pts_ups.topojson')
 		}
 	},
-	improve: {
-		fuelStations: require('./improve/alt_fuel_stations.topojson')
-	},
+	improve: {},
 	shift: {}
 }
