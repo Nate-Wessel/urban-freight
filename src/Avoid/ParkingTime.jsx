@@ -12,15 +12,14 @@ export const fill = scaleOrdinal()
 export function ParkingTime({city}){
 	const [ contours, setContours ] = useState([])
 	useEffect(()=>{
-		if(!city.data?.avoid?.parkingSearchTime){
-			setContours([])
-			return console.warn(`parking times not yet defined for ${city.name}`)
-		}
-		csv(city.data.avoid.parkingSearchTime).then( response => {
-			let conts = density(response,city)
-			conts.map( cont => cont.leafletGeom = geojson2leaflet(cont) )
-			setContours( conts )
-		} )
+		import(`../data/${city.name}/avoid/avg-time-to-park.csv`)
+			.then( module => csv(module.default) )
+			.then( response => {
+				let conts = density(response,city)
+				conts.map( cont => cont.leafletGeom = geojson2leaflet(cont) )
+				setContours( conts )
+			} )
+			.catch( err => setContours([]) )
 	},[city])
 	const style = {
 		weight: 1.5,

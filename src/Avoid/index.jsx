@@ -12,28 +12,22 @@ export default function({city,zoom,displayed}){
 	const [ penguin, setPenguin ] = useState([])
 	
 	useEffect(()=>{
-		// reset when city changes
-		if( fedex.length > 0 ) setFedex([]);
-		if( purolator.length > 0) setPurolator([]); 
-		if( ups.length > 0 ) setUps([]); 
-		if( penguin.length > 0) setPenguin([]);
-		// check for data and fetch if it's to be got
-		const PuP = city.data?.avoid?.pickupPoints
-		if(!PuP){
-			return console.warn(`pickup points not yet defined for ${city.name}`)
-		}
-		if(PuP?.purolator) json(PuP.purolator).then( resp => {
-			setPurolator( topo2geo(resp,'pts_purolator').features )
-		} );
-		if(PuP.fedex) json(PuP.fedex).then( resp => {
-			setFedex( topo2geo(resp,'pts_fedex').features )
-		} );
-		if(PuP.ups) json(PuP.ups).then( resp => {
-			setUps( topo2geo(resp,'pts_ups').features )
-		} );
-		if(PuP.penguin) json(PuP.penguin).then( resp => {
-			setPenguin( topo2geo(resp,'pts_penguin').features )
-		} );
+		import(`../data/${city.name}/avoid/pts_purolator.topojson`)
+			.then( module => json(module.default) )
+			.then( data => setPurolator( topo2geo(data,'pts_purolator').features ) )
+			.catch( err => setPurolator([]) )
+		import(`../data/${city.name}/avoid/pts_fedex.topojson`)
+			.then( module => json(module.default) )
+			.then( data => setFedex( topo2geo(data,'pts_fedex').features ) )
+			.catch( err => setFedex([]) )
+		import(`../data/${city.name}/avoid/pts_penguin.topojson`)
+			.then( module => json(module.default) )
+			.then( data => setPenguin( topo2geo(data,'pts_penguin').features ) )
+			.catch( err => setPenguin([]) )
+		import(`../data/${city.name}/avoid/pts_ups.topojson`)
+			.then( module => json(module.default) )
+			.then( data => setUps( topo2geo(data,'pts_ups').features ) )
+			.catch( err => setUps([]) )
 	},[city])
 	const points = { Purol: purolator, Fedex: fedex, UPS: ups, Penguin: penguin }
 	return (

@@ -19,28 +19,28 @@ const paradigms = {
 				label: 'Purolator',
 				icon: PickupPoint,
 				description: 'Includes parcel pick up and shipping locations. Hover over a point for details.',
-				dataAvailable: (city)=>Boolean(city.data?.avoid?.pickupPoints?.purolator)
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_purolator.topojson`).then( module => true ).catch( err => false )
 			},
 			{
 				key: 'Fedex',
 				label: 'Fedex',
 				icon: PickupPoint,
 				description: 'Includes parcel pick up and shipping locations.',
-				dataAvailable: (city)=>Boolean(city.data?.avoid?.pickupPoints?.fedex)
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_fedex.topojson`).then( module => true ).catch( err => false )
 			},
 			{
 				key: 'UPS',
 				label: 'UPS',
 				icon: PickupPoint,
 				description: 'UPS Store locations.',
-				dataAvailable: (city)=>Boolean(city.data?.avoid?.pickupPoints?.ups)
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_ups.topojson`).then( module => true ).catch( err => false )
 			},
 			{
 				key: 'Penguin',
 				label: 'Penguin',
 				icon: PickupPoint,
 				description: 'PenguinPickUp retail locations.',
-				dataAvailable: (city)=>Boolean(city.data?.avoid?.pickupPoints?.penguin)
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_penguin.topojson`).then( module => true ).catch( err => false )
 			},
 			{
 				key: 'parking',
@@ -55,7 +55,7 @@ const paradigms = {
 						{v:5,label:'> 5 minutes',color:'#00f1'}
 					]
 				},
-				dataAvailable: (city)=>Boolean(city.data?.avoid?.parkingSearchTime)
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/avg-time-to-park.csv`).then( module => true ).catch( err => false )
 			}
 		]
 	},

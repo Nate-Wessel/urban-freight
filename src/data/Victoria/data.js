@@ -4,13 +4,7 @@ export default {
 		DAs: require('./da_polygons.topojson'),
 		tiles: { transit: true, landuse: true }
 	},
-	avoid: {
-	pickupPoints: {
-			fedex: require('./avoid/pts_fedex.topojson'),
-			purolator: require('./avoid/pts_purolator.topojson'),
-			ups: require('./avoid/pts_ups.topojson')
-		}
-	},
+	avoid: {},
 	improve: {},
 	shift: {}
 }
