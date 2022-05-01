@@ -8,10 +8,8 @@ import { geojson2leaflet } from '../geojson2leaflet'
 export default function({city,zoom,displayed}){
 	const [ points, setPoints ] = useState([])
 	useEffect(()=>{
-		import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
-			.then( module => fetch(module.default) )
-			.then( resp => resp.json() )
-			.then( resp => setPoints( topo2geo(resp,'alt_fuel_stations').features ) )
+		import(`../data/${city.name}/improve/alt_fuel_stations.topo.json`)
+			.then( ({default:data}) => setPoints( topo2geo(data,'alt_fuel_stations').features ) )
 			.catch( err => setPoints([]) )
 	},[city])
 	return (

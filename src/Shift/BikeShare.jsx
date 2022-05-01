@@ -22,13 +22,13 @@ export const style = {
 export function BikeShare({city,zoom}){
 	const [ stations, setStations ] = useState([])
 	useEffect(()=>{
-		if(!city.data?.shift?.bikeShare){
-			setStations([])
-			return console.warn(`no known bike share stations for city: ${city.name}`)
+		const bikeshare = city.data?.shift?.bikeShare
+		if(!bikeshare) return setStations([]);
+		if(typeof bikeshare == 'string'){
+			json(bikeshare).then( response => setStations(response.data.stations) )
+		}else{
+			setStations(bikeshare.data.stations)
 		}
-		json(city.data.shift.bikeShare).then( response => {
-			setStations(response.data.stations)
-		} )
 	},[city])
 	return stations.map( station => {
 		return (

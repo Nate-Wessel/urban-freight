@@ -16,10 +16,9 @@ export default function({city,displayed,zoom}){
 	const [ bikeLanes, setBikeLanes ] = useState([])
 	const [ bikeRoutes, setBikeRoutes ] = useState([])
 	useEffect(()=>{
-		import(`../data/${city.name}/shift/bike.topojson`)
-			.then( module => json(module.default) )
-			.then( resp => {
-				let features = topo2geo(resp,'bike').features
+		import(`../data/${city.name}/shift/bike.topo.json`)
+			.then( ({default:data}) => {
+				let features = topo2geo(data,'bike').features
 					.filter(feat=>feat.geometry) // necessary because one feature is null
 				setBikePaths(features.filter(f=>pathTypes.has(f.properties.type)))
 				setBikeLanes(features.filter(f=>laneTypes.has(f.properties.type)))

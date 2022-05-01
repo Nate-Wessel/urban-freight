@@ -20,13 +20,9 @@ let styleOptions = {
 export default function({city}){
 	const [ lots,setLots ] = useState([])
 	useEffect(()=>{
-		import(`../data/${city.name}/shift/lu_parking.topojson`)
-			.then( module => json(module.default) )
-			.then( resp => setLots( topo2geo(resp,'lu_parking').features ) )
-			.catch( err => {
-				setLots([])
-				return console.warn(`parking lots not yet defined for ${city.name}`)
-			} )
+		import(`../data/${city.name}/shift/lu_parking.topo.json`)
+			.then( ({default:data}) => setLots( topo2geo(data,'lu_parking').features ) )
+			.catch( err => setLots([]) )
 	},[city])
 	return lots.map( (feat,i) => {
 		let ll = geojson2leaflet(feat.geometry)

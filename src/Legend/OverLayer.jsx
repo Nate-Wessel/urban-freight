@@ -7,7 +7,7 @@ import { routeIcon } from '../Shift/routeStyles'
 import { fill as parkingFill } from '../Avoid/ParkingTime'
 
 // data availability lookup functions
-const bikePaths = (city) => import(`../data/${city.name}/shift/bike.topojson`)
+const bikePaths = (city) => import(`../data/${city.name}/shift/bike.topo.json`)
 	.then( module => true ).catch( err => false )
 
 // keys should be unique across paradigms
@@ -96,7 +96,7 @@ const paradigms = {
 				label:'Parking Lot',
 				icon: ParkingLot,
 				description: "Surface parking lots. Darker colour indicates municipally operated",
-				dataAvailable: (city)=>import(`../data/${city.name}/shift/lu_parking.topojson`).then(mod=>true).catch(err=>false)
+				dataAvailable: (city)=>import(`../data/${city.name}/shift/lu_parking.topo.json`).then(mod=>true).catch(err=>false)
 					
 			}
 		]
@@ -107,50 +107,40 @@ const paradigms = {
 				key: 'E1',
 				label: 'Electric (E1)',
 				icon: ChargingStation,
-				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
-					.then( module => fetch(module.default) )
-					.then( resp => resp.json() )
-					.then( data => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E1') )
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topo.json`)
+					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E1') )
 					.catch( err => false )
 			},
 			{
 				key: 'E2',
 				label: 'Electric (E2)',
 				icon: ChargingStation,
-				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
-					.then( module => fetch(module.default) )
-					.then( resp => resp.json() )
-					.then( data => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E2') )
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topo.json`)
+					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E2') )
 					.catch( err => false )
 			},
 			{
 				key: 'E3',
 				label: 'Electric (E3/DC)',
 				icon: ChargingStation,
-				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
-					.then( module => fetch(module.default) )
-					.then( resp => resp.json() )
-					.then( data => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E3') )
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topo.json`)
+					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E3') )
 					.catch( err => false )
 			},
 			{
 				key: 'CNG',
 				label: 'Compressed Natural Gas',
 				icon: ChargingStation,
-				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
-					.then( module => fetch(module.default) )
-					.then( resp => resp.json() )
-					.then( data => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='CNG') )
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topo.json`)
+					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='CNG') )
 					.catch( err => false )
 			},
 			{
 				key: 'LPG',
 				label: 'Propane',
 				icon: ChargingStation,
-				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
-					.then( module => fetch(module.default) )
-					.then( resp => resp.json() )
-					.then( data => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='LPG') )
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topo.json`)
+					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='LPG') )
 					.catch( err => false )
 			}
 		]
