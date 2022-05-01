@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { scaleOrdinal } from 'd3-scale'
 import { empDensity, popDensity } from '../BaseLayer/DisseminationAreas'
 
@@ -6,12 +6,19 @@ const landuseScale = scaleOrdinal()
 	.domain(['green','industrial','retail','residential','other'])
 	.range(['#d5e4cf','#a9d7ea','#bfb2d8','#ffe899','#f6f0de'])
 
+function hasDAs(city){
+	return import(`../data/${city.name}/da_polygons.topojson`)
+		.then( module => true )
+		.catch( err => false );
+}
+
 // these objects get passed around a bit but should be considered immutable
 export const baseLayers = [
 	{
 		name: 'Transit',
 		tabName: 'Transit',
-		dataAvailable: (city)=>Boolean(city.data?.base?.tiles?.transit)
+		dataAvailable: (city)=>Promise.resolve(city.data?.base?.tiles?.transit)
+			.then(mod=>true).catch(err=>false)
 	},
 	{
 		name: 'Population',
@@ -26,7 +33,7 @@ export const baseLayers = [
 			{v:22000,label:' 20,000+'}
 		],
 		scale: popDensity,
-		dataAvailable: (city)=>Boolean(city.data?.base?.DAs)
+		dataAvailable: hasDAs
 	},
 	{
 		name: 'Employment',
@@ -41,7 +48,7 @@ export const baseLayers = [
 			{v:22000,label:' 20,000+'}
 		],
 		scale: empDensity,
-		dataAvailable: (city)=>Boolean(city.data?.base?.DAs)
+		dataAvailable: hasDAs
 	},
 	{
 		name: 'Landuse',
@@ -55,7 +62,9 @@ export const baseLayers = [
 			{v:'other',label:'Other'}
 		],
 		scale: landuseScale,
-		dataAvailable: (city)=>Boolean(city.data?.base?.tiles?.landuse)
+		dataAvailable: (city)=>Promise.resolve(
+			Boolean(city.data?.base?.tiles?.landuse)
+		)
 	}
 ]
 
@@ -95,21 +104,32 @@ function Nav({city,layer,setLayer,transit,setTransit}){
 		<div className="items">
 			{ baseLayers.map( lyr => {
 				const classes = ['item','clickable']
-				const available = lyr.dataAvailable(city)
 				const active = lyr.name == 'Transit' ? transit : (layer == lyr)
-				classes.push( active ? 'active' : 'disabled' )
-				if(!available) classes.push('unavailable');
 				const onClick = lyr.name == 'Transit' ?
 					(e) => setTransit(currentVal=>!currentVal) :
 					(e) => layer == lyr ? setLayer({name:'None'}) : setLayer(lyr);
-				return (
-					<div key={lyr.name}
-						className={classes.join(' ')}
-						onClick={onClick}>
-						{lyr.tabName}
+				return ( 
+					<div onClick={onClick} key={lyr.name}>
+						<Layer lyr={lyr} active={active}
+							dataProm={lyr.dataAvailable(city)}/>
 					</div>
 				)
 			} ) }
+		</div>
+	)
+}
+
+function Layer({lyr,dataProm,active}){
+	const [ available, setAvailable ] = useState(false)
+	useEffect(()=>{
+		dataProm.then(setAvailable)
+	},[dataProm])
+	const classes = ['item','clickable']
+	if(!available) classes.push('unavailable')
+	classes.push( active ? 'active' : 'disabled' )
+	return (
+		<div className={classes.join(' ')}>
+			{lyr.name}
 		</div>
 	)
 }

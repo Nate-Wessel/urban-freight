@@ -14,13 +14,10 @@ const style = {
 export default function({city}){
 	const [ boundaryFeature, setBoundaryFeature ] = useState(null)
 	useEffect(()=>{
-		if(!city.data?.base?.boundary){
-			setBoundaryFeature(null)
-			return console.warn(`boundary not yet defined for ${city.name}`)
-		}
-		json(city.data.base.boundary).then( data => {
-			setBoundaryFeature( topo2geo(data,'boundary') )
-		} )
+		import(`../data/${city.name}/boundary.topojson`)
+			.then( module => json(module.default) )
+			.then( data => setBoundaryFeature( topo2geo(data,'boundary') ) )
+			.catch( err => setBoundaryFeature(null) )
 	},[city])
 	if( ! boundaryFeature ) return null;
 	let latLngs = geojson2leaflet(boundaryFeature.geometry)
