@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { json } from 'd3-fetch'
 import { feature as topo2geo } from 'topojson-client'
 import { Pane } from 'react-leaflet'
 import { ParkingTime } from './ParkingTime'
@@ -12,21 +11,17 @@ export default function({city,zoom,displayed}){
 	const [ penguin, setPenguin ] = useState([])
 	
 	useEffect(()=>{
-		import(`../data/${city.name}/avoid/pts_purolator.topojson`)
-			.then( module => json(module.default) )
-			.then( data => setPurolator( topo2geo(data,'pts_purolator').features ) )
+		import(`../data/${city.name}/avoid/pts_purolator.topo.json`)
+			.then( ({default:data}) => setPurolator( topo2geo(data,'pts_purolator').features ) )
 			.catch( err => setPurolator([]) )
-		import(`../data/${city.name}/avoid/pts_fedex.topojson`)
-			.then( module => json(module.default) )
-			.then( data => setFedex( topo2geo(data,'pts_fedex').features ) )
+		import(`../data/${city.name}/avoid/pts_fedex.topo.json`)
+			.then( ({default:data}) => setFedex( topo2geo(data,'pts_fedex').features ) )
 			.catch( err => setFedex([]) )
-		import(`../data/${city.name}/avoid/pts_penguin.topojson`)
-			.then( module => json(module.default) )
-			.then( data => setPenguin( topo2geo(data,'pts_penguin').features ) )
+		import(`../data/${city.name}/avoid/pts_penguin.topo.json`)
+			.then( ({default:data}) => setPenguin( topo2geo(data,'pts_penguin').features ) )
 			.catch( err => setPenguin([]) )
-		import(`../data/${city.name}/avoid/pts_ups.topojson`)
-			.then( module => json(module.default) )
-			.then( data => setUps( topo2geo(data,'pts_ups').features ) )
+		import(`../data/${city.name}/avoid/pts_ups.topo.json`)
+			.then( ({default:data}) => setUps( topo2geo(data,'pts_ups').features ) )
 			.catch( err => setUps([]) )
 	},[city])
 	const points = { Purol: purolator, Fedex: fedex, UPS: ups, Penguin: penguin }

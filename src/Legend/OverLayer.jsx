@@ -19,28 +19,28 @@ const paradigms = {
 				label: 'Purolator',
 				icon: PickupPoint,
 				description: 'Includes parcel pick up and shipping locations. Hover over a point for details.',
-				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_purolator.topojson`).then( module => true ).catch( err => false )
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_purolator.topo.json`).then(module=>true).catch(err=>false)
 			},
 			{
 				key: 'Fedex',
 				label: 'Fedex',
 				icon: PickupPoint,
 				description: 'Includes parcel pick up and shipping locations.',
-				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_fedex.topojson`).then( module => true ).catch( err => false )
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_fedex.topo.json`).then(module=>true).catch(err=>false)
 			},
 			{
 				key: 'UPS',
 				label: 'UPS',
 				icon: PickupPoint,
 				description: 'UPS Store locations.',
-				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_ups.topojson`).then( module => true ).catch( err => false )
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_ups.topo.json`).then(module=>true).catch(err=>false)
 			},
 			{
 				key: 'Penguin',
 				label: 'Penguin',
 				icon: PickupPoint,
 				description: 'PenguinPickUp retail locations.',
-				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_penguin.topojson`).then( module => true ).catch( err => false )
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_penguin.topo.json`).then(module=>true).catch(err=>false)
 			},
 			{
 				key: 'parking',
