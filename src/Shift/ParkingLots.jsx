@@ -20,7 +20,7 @@ let styleOptions = {
 export default function({city}){
 	const [ lots,setLots ] = useState([])
 	useEffect(()=>{
-		import(`../data/${city.name}/shift/lu_parking.topo.json`)
+		import(`../data/${city.name}/shift/lu_parking.topojson`)
 			.then( ({default:data}) => setLots( topo2geo(data,'lu_parking').features ) )
 			.catch( err => setLots([]) )
 	},[city])

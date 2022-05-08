@@ -31,6 +31,10 @@ module.exports = {
 				type: 'asset/resource'
 			},
 			{
+				test: /\.topojson$/i,
+				loader: 'json-loader'
+			},
+			{
 				test: /\.css$/i,
 				use: ['style-loader', 'css-loader']
 			},

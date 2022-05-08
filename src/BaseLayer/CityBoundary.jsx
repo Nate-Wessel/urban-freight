@@ -13,7 +13,7 @@ const style = {
 export default function({city}){
 	const [ boundaryFeature, setBoundaryFeature ] = useState(null)
 	useEffect(()=>{
-		import(`../data/${city.name}/boundary.topo.json`)
+		import(`../data/${city.name}/boundary.topojson`)
 			.then(({default:data})=>setBoundaryFeature(topo2geo(data,'boundary')))
 			.catch( err => setBoundaryFeature(null) )
 	},[city])

@@ -7,7 +7,7 @@ const landuseScale = scaleOrdinal()
 	.range(['#d5e4cf','#a9d7ea','#bfb2d8','#ffe899','#f6f0de'])
 
 function hasDAs(city){
-	return import(`../data/${city.name}/da_polygons.topo.json`)
+	return import(`../data/${city.name}/da_polygons.topojson`)
 		.then( module => true )
 		.catch( err => false );
 }

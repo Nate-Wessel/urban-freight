@@ -14,7 +14,7 @@ export const popDensity = scaleThreshold()
 export function DisseminationAreas({city,layer}){
 	const [ DAs, setDAs ] = useState(null)
 	useEffect(()=>{
-		import(`../data/${city.name}/da_polygons.topo.json`)
+		import(`../data/${city.name}/da_polygons.topojson`)
 			.then( ({default:data}) => setDAs(topo2geo(data,'da_polygons')) )
 			.catch( err => setDAs(null) )
 	},[city])

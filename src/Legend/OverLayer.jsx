@@ -7,7 +7,7 @@ import { routeIcon } from '../Shift/routeStyles'
 import { fill as parkingFill } from '../Avoid/ParkingTime'
 
 // data availability lookup functions
-const bikePaths = (city) => import(`../data/${city.name}/shift/bike.topo.json`)
+const bikePaths = (city) => import(`../data/${city.name}/shift/bike.topojson`)
 	.then( module => true ).catch( err => false )
 
 // keys should be unique across paradigms
@@ -19,28 +19,28 @@ const paradigms = {
 				label: 'Purolator',
 				icon: PickupPoint,
 				description: 'Includes parcel pick up and shipping locations. Hover over a point for details.',
-				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_purolator.topo.json`).then(module=>true).catch(err=>false)
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_purolator.topojson`).then(module=>true).catch(err=>false)
 			},
 			{
 				key: 'Fedex',
 				label: 'Fedex',
 				icon: PickupPoint,
 				description: 'Includes parcel pick up and shipping locations.',
-				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_fedex.topo.json`).then(module=>true).catch(err=>false)
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_fedex.topojson`).then(module=>true).catch(err=>false)
 			},
 			{
 				key: 'UPS',
 				label: 'UPS',
 				icon: PickupPoint,
 				description: 'UPS Store locations.',
-				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_ups.topo.json`).then(module=>true).catch(err=>false)
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_ups.topojson`).then(module=>true).catch(err=>false)
 			},
 			{
 				key: 'Penguin',
 				label: 'Penguin',
 				icon: PickupPoint,
 				description: 'PenguinPickUp retail locations.',
-				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_penguin.topo.json`).then(module=>true).catch(err=>false)
+				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_penguin.topojson`).then(module=>true).catch(err=>false)
 			},
 			{
 				key: 'parking',
@@ -96,7 +96,7 @@ const paradigms = {
 				label:'Parking Lot',
 				icon: ParkingLot,
 				description: "Surface parking lots. Darker colour indicates municipally operated",
-				dataAvailable: (city)=>import(`../data/${city.name}/shift/lu_parking.topo.json`).then(mod=>true).catch(err=>false)
+				dataAvailable: (city)=>import(`../data/${city.name}/shift/lu_parking.topojson`).then(mod=>true).catch(err=>false)
 					
 			}
 		]
@@ -107,7 +107,7 @@ const paradigms = {
 				key: 'E1',
 				label: 'Electric (E1)',
 				icon: ChargingStation,
-				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topo.json`)
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
 					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E1') )
 					.catch( err => false )
 			},
@@ -115,7 +115,7 @@ const paradigms = {
 				key: 'E2',
 				label: 'Electric (E2)',
 				icon: ChargingStation,
-				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topo.json`)
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
 					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E2') )
 					.catch( err => false )
 			},
@@ -123,7 +123,7 @@ const paradigms = {
 				key: 'E3',
 				label: 'Electric (E3/DC)',
 				icon: ChargingStation,
-				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topo.json`)
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
 					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E3') )
 					.catch( err => false )
 			},
@@ -131,7 +131,7 @@ const paradigms = {
 				key: 'CNG',
 				label: 'Compressed Natural Gas',
 				icon: ChargingStation,
-				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topo.json`)
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
 					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='CNG') )
 					.catch( err => false )
 			},
@@ -139,7 +139,7 @@ const paradigms = {
 				key: 'LPG',
 				label: 'Propane',
 				icon: ChargingStation,
-				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topo.json`)
+				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
 					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='LPG') )
 					.catch( err => false )
 			}
