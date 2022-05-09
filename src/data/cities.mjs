@@ -39,7 +39,6 @@ export const cities = [
 		},
 		bounds: [[51.2230,-114.3538],[50.84257,-113.81025]],
 		osm_rel: 3227127,
-		
 	},{
 		name: 'Halifax', data: {
 			base: { tiles: { transit, landuse } }, avoid, improve, shift

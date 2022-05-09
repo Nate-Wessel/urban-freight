@@ -14,9 +14,11 @@ function bikeLaneFile(city){ return `../${city.name}/shift/bike.topojson` }
 
 for ( const city of cities ){
 	console.log(`fetching data for ${city.name} (OSM relation/${city.osm_rel})`)
+	console.log('getting urban boundary...')
 	await getBoundary(city)
+	await new Promise(resolve => setTimeout(resolve, 1000));
+	console.log('getting bike features...')
 	await getCurrentBikeFeatures(city)
-	console.log('waiting 30s before next request')
 	await new Promise(resolve => setTimeout(resolve, 30000));
 }
 
