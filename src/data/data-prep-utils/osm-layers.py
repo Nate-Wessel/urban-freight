@@ -43,7 +43,7 @@ def osm_cycling(city):
     # sharrow = S
     # lane = L
     # track = T
-    # separtaed path = P
+    # separated path = P
     # other/NA = O
 
     edges["type"] = "O"

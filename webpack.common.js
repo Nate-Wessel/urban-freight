@@ -12,7 +12,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.(jsx|js)$/,
+				test: /\.(jsx|js|mjs)$/,
 				include: path.resolve(__dirname, 'src'),
 				exclude: /node_modules/,
 				use: [
@@ -72,6 +72,6 @@ module.exports = {
 		})
 	],
 	resolve: {
-		extensions: ['.js', '.jsx']
+		extensions: ['.js','.jsx','.mjs']
 	}
 }
