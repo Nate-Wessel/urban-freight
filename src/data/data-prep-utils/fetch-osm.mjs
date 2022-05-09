@@ -7,19 +7,7 @@ import { topology } from 'topojson-server'
 import { quantize, feature } from 'topojson-client'
 import { booleanIntersects } from '@turf/turf'
 
-// osm_id's
-const cities = [
-	{ name: 'Toronto', osm_rel: 324211 },
-	{ name: 'Calgary', osm_rel: 3227127 },
-	{ name: 'Edmonton', osm_rel: 2564500 },
-	{ name: 'Halifax', osm_rel: 9344588 }, // regional municipality
-	{ name: 'Hamilton', osm_rel: 7034910 },
-	{ name: 'Montreal', osm_rel: 8508277 }, // urban agglomeration
-	{ name: 'Ottawa', osm_rel: 4136816 },
-	{ name: 'Vancouver', osm_rel: 1852574 },
-	{ name: 'Victoria', osm_rel: 2221062 },
-	{ name: 'Winnipeg', osm_rel: 1790696 }
-]
+import { cities } from '../cities.mjs'
 
 function boundaryFile(city){ return `../${city.name}/boundary.topojson` }
 function bikeLaneFile(city){ return `../${city.name}/shift/bike.topojson` }

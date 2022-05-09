@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { CircleMarker, Tooltip } from 'react-leaflet'
-import { json } from 'd3-fetch'
 import { scalePow } from 'd3-scale'
 
 // area ~= to capacity
@@ -22,12 +21,16 @@ export const style = {
 export function BikeShare({city,zoom}){
 	const [ stations, setStations ] = useState([])
 	useEffect(()=>{
+		setStations([]) // reset
 		const bikeshare = city.data?.shift?.bikeShare
-		if(!bikeshare) return setStations([]);
 		if(typeof bikeshare == 'string'){
-			json(bikeshare).then( response => setStations(response.data.stations) )
+			fetch(bikeshare)
+				.then( resp => resp.json() )
+				.then( resp => setStations(resp.data.stations) )
 		}else{
-			setStations(bikeshare.data.stations)
+			import(`../data/${city.name}/shift/station_information.json`)
+				.then( m => setStations(m.default.data.stations) )
+				.catch( err => setStations([]) )
 		}
 	},[city])
 	return stations.map( station => {

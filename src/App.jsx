@@ -3,7 +3,7 @@ import Map from './Map'
 import './nav.less'
 import './app.css'
 
-import { cities } from './data/cities.js'
+import { cities } from './data/cities.mjs'
 
 export function App({paradigm}){
 	const [ city, setCity ] = useState(cities[0])
