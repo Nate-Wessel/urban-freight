@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { feature as topo2geo } from 'topojson-client'
 import { Polygon } from 'react-leaflet'
 import { geojson2leaflet } from '../geojson2leaflet'
-import { json } from 'd3-fetch'
 
 const style = {
 	color: '#0005', 
@@ -14,13 +13,9 @@ const style = {
 export default function({city}){
 	const [ boundaryFeature, setBoundaryFeature ] = useState(null)
 	useEffect(()=>{
-		if(!city.data?.base?.boundary){
-			setBoundaryFeature(null)
-			return console.warn(`boundary not yet defined for ${city.name}`)
-		}
-		json(city.data.base.boundary).then( data => {
-			setBoundaryFeature( topo2geo(data,'boundary') )
-		} )
+		import(`../data/${city.name}/boundary.topojson`)
+			.then(({default:data})=>setBoundaryFeature(topo2geo(data,'boundary')))
+			.catch( err => setBoundaryFeature(null) )
 	},[city])
 	if( ! boundaryFeature ) return null;
 	let latLngs = geojson2leaflet(boundaryFeature.geometry)
