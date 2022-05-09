@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { feature as topo2geo } from 'topojson-client'
 import { LayerGroup, GeoJSON } from 'react-leaflet'
-import { json } from 'd3-fetch'
 import { scalePow, scaleThreshold } from 'd3-scale'
 
 export const empDensity = scaleThreshold()
@@ -15,13 +14,9 @@ export const popDensity = scaleThreshold()
 export function DisseminationAreas({city,layer}){
 	const [ DAs, setDAs ] = useState(null)
 	useEffect(()=>{
-		if(!city.data?.base?.DAs){
-			setDAs(null)
-			return console.warn(`no DAs available for ${city.name}`)
-		}
-		json(city.data.base.DAs).then( data => {
-			setDAs( topo2geo(data,'da_polygons') )
-		} )
+		import(`../data/${city.name}/da_polygons.topojson`)
+			.then( ({default:data}) => setDAs(topo2geo(data,'da_polygons')) )
+			.catch( err => setDAs(null) )
 	},[city])
 	if ( !DAs ) return null;
 	const [ fillFunc, fillProp ] = layer.name == 'Employment' ?
