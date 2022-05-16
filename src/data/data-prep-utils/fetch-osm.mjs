@@ -10,12 +10,18 @@ import { booleanIntersects } from '@turf/turf'
 import { cities } from '../cities.mjs'
 
 function boundaryFilePath(city){ return `../${city.name}/boundary.topojson` }
-function bikeLaneFilePath(city){ return `../${city.name}/shift/bike.topojson` }
+function bikeLaneFilePath(city,year){ 
+	return year ?
+		`../${city.name}/shift/bike-${year}.topojson` : 
+		`../${city.name}/shift/bike.topojson` 
+}
 
 for ( const city of cities ){
-	console.log(`fetching data for ${city.name} (OSM relation/${city.osm_rel})`)
 	await getBoundary(city)
-	await getCurrentBikeFeatures(city)
+	await getBikeFeatures(city)
+	for( const year of [2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012] ){
+		await getBikeFeatures(city,year)
+	}
 }
 
 async function getBoundary(city){
@@ -31,13 +37,15 @@ async function getBoundary(city){
 	writeFileSync( boundaryFilePath(city), JSON.stringify(topojson) )
 }
 
-async function getCurrentBikeFeatures(city){
-	console.log(`Updating current bike features for ${city.name}`)
+async function getBikeFeatures(city,year=undefined){
+	console.log(`Updating bike features for ${city.name}${year?' in '+year:''}`)
 	var cityBoundary = JSON.parse(readFileSync(boundaryFilePath(city)))
 	const [W,S,E,N] = cityBoundary.bbox
 	cityBoundary = feature(cityBoundary,'boundary') // convert to geojson
+	const timeParam = year ? `[date:"${year}-01-01T00:00:00Z"]` : ''
+	const timeout = year ? 120 : 60
 	const query = `
-		[out:json][timeout:60][bbox:${S},${W},${N},${E}];
+		[out:json][timeout:${timeout}]${timeParam}[bbox:${S},${W},${N},${E}];
 		(
 			way[highway=cycleway];
 			way[bicycle=designated];
@@ -64,7 +72,7 @@ async function getCurrentBikeFeatures(city){
 	} )
 	const topojson = topology({bike:geojson})
 	writeFileSync( 
-		bikeLaneFilePath(city), 
+		bikeLaneFilePath(city,year), 
 		JSON.stringify(quantize(topojson,9999)) 
 	)
 }
