@@ -84,9 +84,6 @@ async function getData(osm_rel_id){
 		rel(${osm_rel_id}); map_to_area->.bnd;
 		(
 		  way[highway~"motorway|motorway_link|primary|primary_link|secondary|secondary_link|tertiary|tertiary_link|trunk|trunk_link|residential|unclassified"](area.bnd);
-		  way[highway=cycleway](area.bnd);
-		  way[bicycle=designated](area.bnd);
-		  way[~"cycleway"~"crossing|lane|share|shoulder|track|yes"](area.bnd);
 		  nwr[landuse~"industrial|retail|commercial|grass|grassland|allotments|cemetery|meadow|orchard|greenfield|vineyard|village_green|forest|landfill"](area.bnd);
 		  nwr[natural~"wood|forest|beach|scrub|fell|heath|moor|grassland|water|bay|wetland"](area.bnd);
 		  nwr[leisure~"park|nature|playground|garden|grass|pitch|common|golf_course|dog_park"](area.bnd);
