@@ -9,20 +9,17 @@ import { booleanIntersects } from '@turf/turf'
 
 import { cities } from '../cities.mjs'
 
-function boundaryFile(city){ return `../${city.name}/boundary.topojson` }
-function bikeLaneFile(city){ return `../${city.name}/shift/bike.topojson` }
+function boundaryFilePath(city){ return `../${city.name}/boundary.topojson` }
+function bikeLaneFilePath(city){ return `../${city.name}/shift/bike.topojson` }
 
 for ( const city of cities ){
 	console.log(`fetching data for ${city.name} (OSM relation/${city.osm_rel})`)
-	console.log('getting urban boundary...')
 	await getBoundary(city)
-	await new Promise(resolve => setTimeout(resolve, 1000));
-	console.log('getting bike features...')
 	await getCurrentBikeFeatures(city)
-	await new Promise(resolve => setTimeout(resolve, 30000));
 }
 
 async function getBoundary(city){
+	console.log(`Updating urban boundary for ${city.name}`)
 	const query = `
 		[out:json][timeout:10];
 		( rel(${city.osm_rel}); >; );
@@ -31,11 +28,12 @@ async function getBoundary(city){
 	const geojson = osmtogeojson(response)
 	const boundary = geojson.features.find(feat=>/relation/.test(feat.id))
 	const topojson = quantize(topology({boundary}),999)
-	writeFileSync( boundaryFile(city), JSON.stringify(topojson) )
+	writeFileSync( boundaryFilePath(city), JSON.stringify(topojson) )
 }
 
 async function getCurrentBikeFeatures(city){
-	var cityBoundary = JSON.parse(readFileSync(boundaryFile(city)))
+	console.log(`Updating current bike features for ${city.name}`)
+	var cityBoundary = JSON.parse(readFileSync(boundaryFilePath(city)))
 	const [W,S,E,N] = cityBoundary.bbox
 	cityBoundary = feature(cityBoundary,'boundary') // convert to geojson
 	const query = `
@@ -66,7 +64,7 @@ async function getCurrentBikeFeatures(city){
 	} )
 	const topojson = topology({bike:geojson})
 	writeFileSync( 
-		bikeLaneFile(city), 
+		bikeLaneFilePath(city), 
 		JSON.stringify(quantize(topojson,9999)) 
 	)
 }
