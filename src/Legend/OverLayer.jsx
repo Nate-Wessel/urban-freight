@@ -10,7 +10,7 @@ import { fill as parkingFill } from '../Avoid/ParkingTime'
 const bikePaths = (city) => import(`../data/${city.name}/shift/bike.topojson`)
 	.then( module => true ).catch( err => false )
 
-// keys should be unique across paradigms
+// keys should be unique across all paradigms
 const paradigms = {
 	avoid:{
 		layers:[
@@ -20,29 +20,25 @@ const paradigms = {
 				icon: PickupPoint,
 				description: 'Includes parcel pick up and shipping locations. Hover over a point for details.',
 				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_purolator.topojson`).then(module=>true).catch(err=>false)
-			},
-			{
+			},{
 				key: 'Fedex',
 				label: 'Fedex',
 				icon: PickupPoint,
 				description: 'Includes parcel pick up and shipping locations.',
 				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_fedex.topojson`).then(module=>true).catch(err=>false)
-			},
-			{
+			},{
 				key: 'UPS',
 				label: 'UPS',
 				icon: PickupPoint,
 				description: 'UPS Store locations.',
 				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_ups.topojson`).then(module=>true).catch(err=>false)
-			},
-			{
+			},{
 				key: 'Penguin',
 				label: 'Penguin',
 				icon: PickupPoint,
 				description: 'PenguinPickUp retail locations.',
 				dataAvailable: (city)=>import(`../data/${city.name}/avoid/pts_penguin.topojson`).then(module=>true).catch(err=>false)
-			},
-			{
+			},{
 				key: 'parking',
 				label: 'Parking Search Time',
 				description: 'Average time trucks spend looking for parking. Hover to see the estimated time in minutes.',
@@ -67,22 +63,19 @@ const paradigms = {
 				icon: routeIcon,
 				description: 'Bike paths are fully separate from cars, though generally shared with pedestrians and other modes like skateboards.',
 				dataAvailable: bikePaths
-			},
-			{
+			},{
 				key:'bike-lanes',
 				label:'Bike Lane',
 				icon: routeIcon,
 				description: 'Bike lanes are bike-only infrastructure generally running parallel to other modes between a primarily automotive lane and the sidewalk.',
 				dataAvailable: bikePaths
-			},
-			{
+			},{
 				key:'bike-routes',
 				label:'Bike Route',
 				icon: routeIcon,
 				description: 'Bike "routes" include non-segregated infrastucture that is explicitly signed/designated for use by cyclists. E.g. "sharrows".',
 				dataAvailable: bikePaths
-			},
-			{
+			},{
 				key:'bike-share',
 				label:'Bike-share Station',
 				icon: BikeShare,
@@ -90,8 +83,7 @@ const paradigms = {
 				dataAvailable: (city) => {
 					return Promise.resolve( Boolean(city.data?.shift?.bikeShare) )
 				}
-			},
-			{
+			},{
 				key:'parking-lots',
 				label:'Parking Lot',
 				icon: ParkingLot,
@@ -110,32 +102,28 @@ const paradigms = {
 				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
 					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E1') )
 					.catch( err => false )
-			},
-			{
+			},{
 				key: 'E2',
 				label: 'Electric (E2)',
 				icon: ChargingStation,
 				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
 					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E2') )
 					.catch( err => false )
-			},
-			{
+			},{
 				key: 'E3',
 				label: 'Electric (E3/DC)',
 				icon: ChargingStation,
 				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
 					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='E3') )
 					.catch( err => false )
-			},
-			{
+			},{
 				key: 'CNG',
 				label: 'Compressed Natural Gas',
 				icon: ChargingStation,
 				dataAvailable: (city)=>import(`../data/${city.name}/improve/alt_fuel_stations.topojson`)
 					.then( ({default:data}) => data.objects.alt_fuel_stations.geometries.some(g=>g.properties.type=='CNG') )
 					.catch( err => false )
-			},
-			{
+			},{
 				key: 'LPG',
 				label: 'Propane',
 				icon: ChargingStation,

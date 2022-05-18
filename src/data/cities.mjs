@@ -2,12 +2,6 @@ const [avoid,shift,improve,transit,landuse] = [{},{},{},true,true]
 
 export const cities = [
 	{
-		name: 'Victoria', data: {
-			base: { tiles: { transit, landuse } }, avoid, improve, shift
-		},
-		bounds: [[48.4028,-123.398],[48.4504,-123.3224]],
-		osm_rel: 2221062
-	},{
 		name: 'Toronto', data: {
 			base: { tiles: { transit, landuse } }, avoid, improve, 
 			shift: { bikeShare: 'https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information' }
@@ -63,5 +57,11 @@ export const cities = [
 		},
 		bounds: [[49.713,-97.349],[49.994,-96.956]],
 		osm_rel: 1790696
+	},{
+		name: 'Victoria', data: {
+			base: { tiles: { transit, landuse } }, avoid, improve, shift
+		},
+		bounds: [[48.4028,-123.398],[48.4504,-123.3224]],
+		osm_rel: 2221062
 	}
 ]
