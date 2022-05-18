@@ -5,7 +5,7 @@ import { queryOverpass } from './queryOverpass.mjs'
 import osmtogeojson from 'osmtogeojson'
 import { topology } from 'topojson-server'
 import { quantize, feature } from 'topojson-client'
-import { booleanIntersects } from '@turf/turf'
+import { booleanIntersects, area } from '@turf/turf'
 
 import { cities } from '../cities.mjs'
 
@@ -15,9 +15,11 @@ function bikeLaneFilePath(city,year){
 		`../${city.name}/shift/bike-${year}.topojson` : 
 		`../${city.name}/shift/bike.topojson` 
 }
+function parkingFilePath(city){ return `../${city.name}/shift/lu_parking.topojson` }
 
 for ( const city of cities ){
 	await getBoundary(city)
+	await getParkingLots(city)
 	await getBikeFeatures(city)
 	for( const year of [2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012] ){
 		await getBikeFeatures(city,year)
@@ -77,6 +79,34 @@ async function getBikeFeatures(city,year=undefined){
 	)
 }
 
+async function getParkingLots(city){
+	console.log(`Updating parking features for ${city.name}`)
+	var cityBoundary = JSON.parse(readFileSync(boundaryFilePath(city)))
+	const [W,S,E,N] = cityBoundary.bbox
+	cityBoundary = feature(cityBoundary,'boundary') // convert to geojson
+	const query = `
+		[out:json][timeout:30][bbox:${S},${W},${N},${E}];
+		(
+			 way[amenity=parking][parking!~"underground|multi|rooftop"];
+			 rel[amenity=parking][parking!~"underground|multi|rooftop"];
+		);
+		(._;>;);
+		out body qt;`
+	const response = await queryOverpass(query).then(r=>r.json())
+	const geojson = osmtogeojson(response)
+	geojson.features = geojson.features
+		.filter( feat => feat.properties?.amenity == 'parking' )
+		.filter( feat => /Polygon/.test(feat.geometry.type) )
+		.filter( feat => area(feat) > 420 )
+		.filter( feat => booleanIntersects(feat,cityBoundary) )
+	geojson.features.forEach( feat => delete feat.properties )
+	const topojson = topology({parking:geojson})
+	writeFileSync( 
+		parkingFilePath(city), 
+		JSON.stringify(quantize(topojson,9999)) 
+	)
+}
+
 
 async function getData(osm_rel_id){
 	const query = `
@@ -87,7 +117,6 @@ async function getData(osm_rel_id){
 		  nwr[landuse~"industrial|retail|commercial|grass|grassland|allotments|cemetery|meadow|orchard|greenfield|vineyard|village_green|forest|landfill"](area.bnd);
 		  nwr[natural~"wood|forest|beach|scrub|fell|heath|moor|grassland|water|bay|wetland"](area.bnd);
 		  nwr[leisure~"park|nature|playground|garden|grass|pitch|common|golf_course|dog_park"](area.bnd);
-		  nwr[amenity=parking][parking!~"underground|multi|rooftop"](area.bnd);
 		  nwr[water~"river|lake|pond"](area.bnd);
 		  nwr[waterway~"riverbank|river|stream"](area.bnd);
 		);
