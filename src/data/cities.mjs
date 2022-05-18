@@ -52,16 +52,16 @@ export const cities = [
 		bounds: [[43.0505,-80.2485],[43.4706,-79.6221]],
 		osm_rel: 7034910
 	},{
-		name: 'Victoria', data: {
-			base: { tiles: { transit, landuse } }, avoid, improve, shift
-		},
-		bounds: [[48.4028,-123.398],[48.4504,-123.3224]],
-		osm_rel: 2221062
-	},{
 		name: 'Winnipeg', data: {
 			base: { tiles: { transit, landuse } }, avoid, improve, shift
 		},
 		bounds: [[49.713,-97.349],[49.994,-96.956]],
 		osm_rel: 1790696
-	},
+	},{
+		name: 'Victoria', data: {
+			base: { tiles: { transit, landuse } }, avoid, improve, shift
+		},
+		bounds: [[48.4028,-123.398],[48.4504,-123.3224]],
+		osm_rel: 2221062
+	}
 ]
